@@ -5,18 +5,24 @@ Golang bindings for FFmpeg
 goav comes with ABSOLUTELY NO WARRANTY.
 
 ## Installation
+
 go get github.com/giorgisio/goav
 
 export FFMPEG_ROOT=$HOME/ffmpeg
+
 export CGO_LDFLAGS="-L$FFMPEG_ROOT/lib/ -lavcodec -lavformat -lavutil -lswscale -lswresample -lavdevice -lavfilter"
+
 export CGO_CFLAGS="-I$FFMPEG_ROOT/include"
+
 export LD_LIBRARY_PATH=$HOME/ffmpeg/lib
+
+
 
 ## Usage
 
 `````go
 
-import "github.com/giorgisio/gfg/avformat"
+import "github.com/giorgisio/goav/avformat"
 
 func main() {
 

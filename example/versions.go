@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	//"github.com/giorgisio/gfg/avcodec"
-	"github.com/giorgisio/gfg/avdevice" //Just for test
-	"github.com/giorgisio/gfg/avfilter" //Just for test
-	"github.com/giorgisio/gfg/avformat"
-	//"github.com/giorgisio/gfg/avutil"
-	"github.com/giorgisio/gfg/swresample" //Just for test
-	//"github.com/giorgisio/gfg/swscale"
+	//"github.com/giorgisio/goav/avcodec"
+	"github.com/giorgisio/goav/avdevice" //Just for test
+	"github.com/giorgisio/goav/avfilter" //Just for test
+	"github.com/giorgisio/goav/avformat"
+	//"github.com/giorgisio/goav/avutil"
+	"github.com/giorgisio/goav/swresample" //Just for test
+	//"github.com/giorgisio/goav/swscale"
 )
 
 func main() {

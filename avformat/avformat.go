@@ -23,7 +23,7 @@ package avformat
 //#include <libavdevice/avdevice.h>
 import "C"
 import (
-	"github.com/giorgisio/gfg/avcodec"
+	"github.com/giorgisio/goav/avcodec"
 	"unsafe"
 )
 
