@@ -52,9 +52,16 @@ export CGO_CFLAGS="-I$FFMPEG_ROOT/include"
 export LD_LIBRARY_PATH=$HOME/ffmpeg/lib
 ``` 
 
+## Contribute
+- Fork this repo and create your own feature branch.
+- Follow standard Go conventions
+- Test your code.
+- Create pull request
+
 ## TODO
 
 - [ ] Returning Errors
+- [ ] Garbage Collection
 - [ ] Review included/excluded functions from each library
 - [ ] Go Tests
 - [ ] Possible restructuring packages
@@ -67,3 +74,5 @@ This library is under the [MIT License](http://opensource.org/licenses/MIT)
 
 ## Notice
 goav comes with absolutely no warranty.
+
+
