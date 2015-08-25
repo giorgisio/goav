@@ -454,6 +454,12 @@ func Avcodec_encode_audio2(ctxt *AVCodecContext, p *AVPacket, f *AVFrame, gp *in
 	return int(C.avcodec_encode_audio2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
+//Encode a frame of video
+//int 	avcodec_encode_video2 (AVCodecContext *avctx, AVPacket *avpkt, const AVFrame *frame, int *got_packet_ptr)
+func Avcodec_encode_video2(ctxt *AVCodecContext, p *AVPacket, f *AVFrame, gp *int) int {
+	return int(C.avcodec_encode_video2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
+}
+
 //int 	avcodec_encode_subtitle (AVCodecContext *avctx, uint8_t *buf, int buf_size, const AVSubtitle *sub)
 func Avcodec_encode_subtitle(ctxt *AVCodecContext, b *uint8, bs int, s *AVSubtitle) int {
 	return int(C.avcodec_encode_subtitle((*C.struct_AVCodecContext)(ctxt), (*C.uint8_t)(b), C.int(bs), (*C.struct_AVSubtitle)(s)))
