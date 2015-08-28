@@ -292,10 +292,10 @@ func Av_packet_split_side_data(p *AVPacket) int {
 	return int(C.av_packet_split_side_data((*C.struct_AVPacket)(p)))
 }
 
-//const char *av_packet_side_data_name (enum AVPacketSideDataType type)
-func Av_packet_side_data_name(t AVPacketSideDataType) string {
-	return C.GoString(C.av_packet_side_data_name((C.enum_AVPacketSideDataType)(t)))
-}
+// //const char *av_packet_side_data_name (enum AVPacketSideDataType type)
+// func Av_packet_side_data_name(t AVPacketSideDataType) string {
+// 	return C.GoString(C.av_packet_side_data_name((C.enum_AVPacketSideDataType)(t)))
+// }
 
 //Pack a dictionary for use in side_data.
 //uint8_t *av_packet_pack_dictionary (AVDictionary *dict, int *size)

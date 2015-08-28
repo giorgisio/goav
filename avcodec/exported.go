@@ -4,19 +4,19 @@
 */
 package avcodec
 
-func Codec_id(c *AVCodecContext) AVCodecID {
+func (c *AVCodecContext) Codec_id() AVCodecID {
 	return (AVCodecID)(c.codec_id)
 }
 
-func Width(c *AVCodecContext) int {
+func (c *AVCodecContext) Width() int {
 	return int(c.width)
 }
 
-func Height(c *AVCodecContext) int {
+func (c *AVCodecContext) Height() int {
 	return int(c.width)
 }
 
-func Pix_fmt(c *AVCodecContext) AVPixelFormat {
+func (c *AVCodecContext) Pix_fmt() AVPixelFormat {
 	return (AVPixelFormat)(c.pix_fmt)
 }
 

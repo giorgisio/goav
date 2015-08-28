@@ -84,15 +84,15 @@ func Av_stream_get_parser(s *AVStream) *AVCodecParserContext {
 	return (*AVCodecParserContext)(C.av_stream_get_parser((*C.struct_AVStream)(s)))
 }
 
-//char * av_stream_get_recommended_encoder_configuration (const AVStream *s)
-func Av_stream_get_recommended_encoder_configuration(s *AVStream) string {
-	return C.GoString(C.av_stream_get_recommended_encoder_configuration((*C.struct_AVStream)(s)))
-}
+// //char * av_stream_get_recommended_encoder_configuration (const AVStream *s)
+// func Av_stream_get_recommended_encoder_configuration(s *AVStream) string {
+// 	return C.GoString(C.av_stream_get_recommended_encoder_configuration((*C.struct_AVStream)(s)))
+// }
 
-//void av_stream_set_recommended_encoder_configuration (AVStream *s, char *configuration)
-func Av_stream_set_recommended_encoder_configuration(s *AVStream, c string) {
-	C.av_stream_set_recommended_encoder_configuration((*C.struct_AVStream)(s), C.CString(c))
-}
+// //void av_stream_set_recommended_encoder_configuration (AVStream *s, char *configuration)
+// func Av_stream_set_recommended_encoder_configuration(s *AVStream, c string) {
+// 	C.av_stream_set_recommended_encoder_configuration((*C.struct_AVStream)(s), C.CString(c))
+// }
 
 //int64_t av_stream_get_end_pts (const AVStream *st)
 //Returns the pts of the last muxed packet + its duration.
@@ -135,15 +135,15 @@ func Av_format_set_subtitle_codec(s *AVFormatContext, c *AVCodec) {
 	C.av_format_set_subtitle_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
 }
 
-//AVCodec * av_format_get_data_codec (const AVFormatContext *s)
-func Av_format_get_data_codec(s *AVFormatContext) *AVCodec {
-	return (*AVCodec)(C.av_format_get_data_codec((*C.struct_AVFormatContext)(s)))
-}
+// //AVCodec * av_format_get_data_codec (const AVFormatContext *s)
+// func Av_format_get_data_codec(s *AVFormatContext) *AVCodec {
+// 	return (*AVCodec)(C.av_format_get_data_codec((*C.struct_AVFormatContext)(s)))
+// }
 
-//void av_format_set_data_codec (AVFormatContext *s, AVCodec *c)
-func Av_format_set_data_codec(s *AVFormatContext, c *AVCodec) {
-	C.av_format_set_data_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
-}
+// //void av_format_set_data_codec (AVFormatContext *s, AVCodec *c)
+// func Av_format_set_data_codec(s *AVFormatContext, c *AVCodec) {
+// 	C.av_format_set_data_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
+// }
 
 //int av_format_get_metadata_header_padding (const AVFormatContext *s)
 func Av_format_get_metadata_header_padding(s *AVFormatContext) int {
@@ -364,11 +364,11 @@ func Avformat_seek_file(s *AVFormatContext, si int, mit, ts, mat int64, f int) i
 	return int(C.avformat_seek_file((*C.struct_AVFormatContext)(s), C.int(si), C.int64_t(mit), C.int64_t(ts), C.int64_t(mat), C.int(f)))
 }
 
-//int avformat_flush (AVFormatContext *s)
-//Discard all internally buffered data.
-func Avformat_flush(s *AVFormatContext) int {
-	return int(C.avformat_flush((*C.struct_AVFormatContext)(s)))
-}
+// //int avformat_flush (AVFormatContext *s)
+// //Discard all internally buffered data.
+// func Avformat_flush(s *AVFormatContext) int {
+// 	return int(C.avformat_flush((*C.struct_AVFormatContext)(s)))
+// }
 
 //int av_read_play (AVFormatContext *s)
 //Start playing a network-based stream (e.g.

@@ -12,8 +12,7 @@ import (
 )
 
 func main() {
-
-	filename := "/home/giorgis/media/sample2.mp4"
+	filename := "sample.mp4"
 
 	var (
 		pFormatCtx    *avformat.AVFormatContext
@@ -36,6 +35,7 @@ func main() {
 
 	// Open video file
 	if avformat.Avformat_open_input(&pFormatCtx, filename, nil, nil) != 0 {
+		log.Println("Error: Couldn't open file.")
 		return
 	}
 
@@ -83,7 +83,7 @@ func main() {
 	log.Println("Codec Context:", pCodecCtxOrig)
 
 	//C.enum_AVCodecID
-	codec_id := avcodec.Codec_id(pCodecCtxOrig)
+	codec_id := pCodecCtxOrig.Codec_id()
 	log.Println("Codec ID:", codec_id)
 
 	// Find the decoder for the video stream
@@ -121,9 +121,9 @@ func main() {
 	//avcodec.PIX_FMT_RGB24
 	//avcodec.SWS_BILINEAR
 
-	w := avcodec.Width(pCodecCtx)
-	h := avcodec.Height(pCodecCtx)
-	pix_fmt := avcodec.Pix_fmt(pCodecCtx)
+	w := pCodecCtx.Width()
+	h := pCodecCtx.Height()
+	pix_fmt := pCodecCtx.Pix_fmt()
 
 	// Determine required buffer size and allocate buffer
 	numBytes = avcodec.Avpicture_get_size((avcodec.AVPixelFormat)(a), w, h)

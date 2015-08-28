@@ -118,13 +118,13 @@ func Avdevice_free_list_devices(d **AVDeviceInfoList) {
 	C.avdevice_free_list_devices((**C.struct_AVDeviceInfoList)(unsafe.Pointer(d)))
 }
 
-//int 	avdevice_list_input_sources (struct AVInputFormat *device, const char *device_name, AVDictionary *device_options, AVDeviceInfoList **device_list)
-//List devices.
-func Avdevice_list_input_sources(d *AVInputFormat, dv string, do *AVDictionary, dl **AVDeviceInfoList) int {
-	return int(C.avdevice_list_input_sources((*C.struct_AVInputFormat)(d), C.CString(dv), (*C.struct_AVDictionary)(do), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
-}
+// //int 	avdevice_list_input_sources (struct AVInputFormat *device, const char *device_name, AVDictionary *device_options, AVDeviceInfoList **device_list)
+// //List devices.
+// func Avdevice_list_input_sources(d *AVInputFormat, dv string, do *AVDictionary, dl **AVDeviceInfoList) int {
+// 	return int(C.avdevice_list_input_sources((*C.struct_AVInputFormat)(d), C.CString(dv), (*C.struct_AVDictionary)(do), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
+// }
 
-//int 	avdevice_list_output_sinks (struct AVOutputFormat *device, const char *device_name, AVDictionary *device_options, AVDeviceInfoList **device_list)
-func Avdevice_list_output_sinks(d *AVOutputFormat, dn string, di *AVDictionary, dl **AVDeviceInfoList) int {
-	return int(C.avdevice_list_output_sinks((*C.struct_AVOutputFormat)(d), C.CString(dn), (*C.struct_AVDictionary)(di), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
-}
+// //int 	avdevice_list_output_sinks (struct AVOutputFormat *device, const char *device_name, AVDictionary *device_options, AVDeviceInfoList **device_list)
+// func Avdevice_list_output_sinks(d *AVOutputFormat, dn string, di *AVDictionary, dl **AVDeviceInfoList) int {
+// 	return int(C.avdevice_list_output_sinks((*C.struct_AVOutputFormat)(d), C.CString(dn), (*C.struct_AVDictionary)(di), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
+// }
