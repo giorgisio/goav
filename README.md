@@ -38,7 +38,7 @@ func main() {
 
 ## Installation
 
-[FFMPEG libraries] (https://github.com/FFmpeg/FFmpeg/blob/master/INSTALL.md)
+[FFMPEG INSTALL INSTRUCTIONS] (https://github.com/FFmpeg/FFmpeg/blob/master/INSTALL.md)
 
 ``` sh
 sudo apt-get -y --force-yes install autoconf automake build-essential libass-dev libfreetype6-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texi2html zlib1g-dev
@@ -55,6 +55,9 @@ export LD_LIBRARY_PATH=$HOME/ffmpeg/lib
 go get github.com/giorgisio/goav
 
 ``` 
+
+## Note
+- Function names in Go are consistent with that of the libraries to help with easy search
 
 ## Contribute
 - Fork this repo and create your own feature branch.

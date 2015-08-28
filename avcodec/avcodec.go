@@ -22,35 +22,43 @@ import (
 )
 
 type (
-	AVCodecDescriptor        C.struct_AVCodecDescriptor
-	RcOverride               C.struct_RcOverride
-	AVPanScan                C.struct_AVPanScan
-	AVPacketSideData         C.struct_AVPacketSideData
-	AVPacket                 C.struct_AVPacket
-	AVCodecContext           C.struct_AVCodecContext
-	AVProfile                C.struct_AVProfile
-	AVCodec                  C.struct_AVCodec
-	AVHWAccel                C.struct_AVHWAccel
-	AVPicture                C.struct_AVPicture
-	AVSubtitleRect           C.struct_AVSubtitleRect
-	AVSubtitle               C.struct_AVSubtitle
-	AVCodecParserContext     C.struct_AVCodecParserContext
-	AVCodecParser            C.struct_AVCodecParser
-	AVBitStreamFilterContext C.struct_AVBitStreamFilterContext
 	AVBitStreamFilter        C.struct_AVBitStreamFilter
-	AVRational               C.struct_AVRational
-	AVDictionary             C.struct_AVDictionary
+	AVBitStreamFilterContext C.struct_AVBitStreamFilterContext
 	AVClass                  C.struct_AVClass
+	AVCodec                  C.struct_AVCodec
+	AVCodecContext           C.struct_AVCodecContext
+	AVCodecDescriptor        C.struct_AVCodecDescriptor
+	AVCodecParser            C.struct_AVCodecParser
+	AVCodecParserContext     C.struct_AVCodecParserContext
+	AVDictionary             C.struct_AVDictionary
 	AVFrame                  C.struct_AVFrame
+	AVHWAccel                C.struct_AVHWAccel
+	AVPacket                 C.struct_AVPacket
+	AVPacketSideData         C.struct_AVPacketSideData
+	AVPanScan                C.struct_AVPanScan
+	AVPicture                C.struct_AVPicture
+	AVProfile                C.struct_AVProfile
+	AVRational               C.struct_AVRational
+	AVSubtitle               C.struct_AVSubtitle
+	AVSubtitleRect           C.struct_AVSubtitleRect
+	RcOverride               C.struct_RcOverride
+	AVBufferRef              C.struct_AVBufferRef
 )
 
 type (
-	AVPixelFormat        C.enum_AVPixelFormat
-	AVChromaLocation     C.enum_AVChromaLocation
-	AVPacketSideDataType C.enum_AVPacketSideDataType
-	AVSampleFormat       C.enum_AVSampleFormat
-	AVMediaType          C.enum_AVMediaType
-	AVCodecID            C.enum_AVCodecID
+	AVAudioServiceType            C.enum_AVAudioServiceType
+	AVChromaLocation              C.enum_AVChromaLocation
+	AVCodecID                     C.enum_AVCodecID
+	AVColorPrimaries              C.enum_AVColorPrimaries
+	AVColorRange                  C.enum_AVColorRange
+	AVColorSpace                  C.enum_AVColorSpace
+	AVColorTransferCharacteristic C.enum_AVColorTransferCharacteristic
+	AVDiscard                     C.enum_AVDiscard
+	AVFieldOrder                  C.enum_AVFieldOrder
+	AVMediaType                   C.enum_AVMediaType
+	AVPacketSideDataType          C.enum_AVPacketSideDataType
+	AVPixelFormat                 C.enum_AVPixelFormat
+	AVSampleFormat                C.enum_AVSampleFormat
 )
 
 //AVRational av_codec_get_pkt_timebase (const AVCodecContext *avctx)

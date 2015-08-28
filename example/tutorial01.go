@@ -71,7 +71,8 @@ func main() {
 	}
 
 	if videoStream == -1 {
-		return // Didn't find a video stream
+		log.Println("Couldn't find a video stream")
+		return
 	}
 
 	codec := avformat.Codec(s)
@@ -153,7 +154,7 @@ func main() {
 
 	for avformat.Av_read_frame(pFormatCtx, packet) >= 0 {
 		// Is this a packet from the video stream?
-		s := avcodec.Stream_index(packet)
+		s := packet.Stream_index()
 		if s == videoStream {
 			// Decode video frame
 			avcodec.Avcodec_decode_video2(pCodecCtx, (*avcodec.AVFrame)(unsafe.Pointer(pFrame)), &frameFinished, packet)
