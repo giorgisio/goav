@@ -28,31 +28,29 @@ import (
 )
 
 type (
-	AVProbeData          C.struct_AVProbeData
-	AVOutputFormat       C.struct_AVOutputFormat
-	AVInputFormat        C.struct_AVInputFormat
-	AVIndexEntry         C.struct_AVIndexEntry
-	AVStream             C.struct_AVStream
-	AVProgram            C.struct_AVProgram
-	AVChapter            C.struct_AVChapter
-	AVFormatContext      C.struct_AVFormatContext
-	AVPacketList         C.struct_AVPacketList
-	AVPacket             C.struct_AVPacket
-	AVCodecParserContext C.struct_AVCodecParserContext
-	AVIOContext          C.struct_AVIOContext
-	AVRational           C.struct_AVRational
-	AVCodec              C.struct_AVCodec
-	AVCodecTag           C.struct_AVCodecTag
-	AVDictionary         C.struct_AVDictionary
-	AVFrame              C.struct_AVFrame
-	AVClass              C.struct_AVClass
-	AVCodecContext       C.struct_AVCodecContext
-	AVFormatInternal     C.struct_AVFormatInternal
-	AVIOInterruptCB      C.struct_AVIOInterruptCB
-	AVPacketSideData     C.struct_AVPacketSideData
-	FFFrac               C.struct_FFFrac
-)
-type (
+	AVProbeData                C.struct_AVProbeData
+	AVOutputFormat             C.struct_AVOutputFormat
+	AVInputFormat              C.struct_AVInputFormat
+	AVIndexEntry               C.struct_AVIndexEntry
+	AVStream                   C.struct_AVStream
+	AVProgram                  C.struct_AVProgram
+	AVChapter                  C.struct_AVChapter
+	AVFormatContext            C.struct_AVFormatContext
+	AVPacketList               C.struct_AVPacketList
+	AVPacket                   C.struct_AVPacket
+	AVCodecParserContext       C.struct_AVCodecParserContext
+	AVIOContext                C.struct_AVIOContext
+	AVRational                 C.struct_AVRational
+	AVCodec                    C.struct_AVCodec
+	AVCodecTag                 C.struct_AVCodecTag
+	AVDictionary               C.struct_AVDictionary
+	AVFrame                    C.struct_AVFrame
+	AVClass                    C.struct_AVClass
+	AVCodecContext             C.struct_AVCodecContext
+	AVFormatInternal           C.struct_AVFormatInternal
+	AVIOInterruptCB            C.struct_AVIOInterruptCB
+	AVPacketSideData           C.struct_AVPacketSideData
+	FFFrac                     C.struct_FFFrac
 	AVStreamParseType          C.enum_AVStreamParseType
 	AVDiscard                  C.enum_AVDiscard
 	AVMediaType                C.enum_AVMediaType

@@ -21,13 +21,10 @@ import (
 )
 
 type (
-	SwsContext C.struct_SwsContext
-	SwsFilter  C.struct_SwsFilter
-	SwsVector  C.struct_SwsVector
-	AVClass    C.struct_AVClass
-)
-
-type (
+	SwsContext    C.struct_SwsContext
+	SwsFilter     C.struct_SwsFilter
+	SwsVector     C.struct_SwsVector
+	AVClass       C.struct_AVClass
 	AVPixelFormat C.enum_AVPixelFormat
 )
 
@@ -51,8 +48,8 @@ func Swscale_license() string {
 
 //const int * sws_getCoefficients (int colorspace)
 //Return a pointer to yuv<->rgb coefficients for the given colorspace suitable for sws_setColorspaceDetails().
-func Sws_getCoefficients(c int) *C.int {
-	return C.sws_getCoefficients(C.int(c))
+func Sws_getCoefficients(c int) *int {
+	return (*int)(unsafe.Pointer(C.sws_getCoefficients(C.int(c))))
 }
 
 //int sws_isSupportedInput (enum AVPixelFormat pix_fmt)
@@ -108,14 +105,14 @@ func Sws_scale(ctxt *SwsContext, src *uint8, str int, y, h int, d *uint8, ds int
 }
 
 //int sws_setColorspaceDetails (struct SwsContext *c, const int inv_table[4], int srcRange, const int table[4], int dstRange, int brightness, int contrast, int saturation)
-func Sws_setColorspaceDetails(ctxt *C.struct_SwsContext, it *int, sr int, t *int, dr, b, c, s int) int {
+func Sws_setColorspaceDetails(ctxt *SwsContext, it *int, sr int, t *int, dr, b, c, s int) int {
 	cit := (*C.int)(unsafe.Pointer(it))
 	ct := (*C.int)(unsafe.Pointer(t))
-	return int(C.sws_setColorspaceDetails(ctxt, cit, C.int(sr), ct, C.int(dr), C.int(b), C.int(c), C.int(s)))
+	return int(C.sws_setColorspaceDetails((*C.struct_SwsContext)(ctxt), cit, C.int(sr), ct, C.int(dr), C.int(b), C.int(c), C.int(s)))
 }
 
 //int sws_getColorspaceDetails (struct SwsContext *c, int **inv_table, int *srcRange, int **table, int *dstRange, int *brightness, int *contrast, int *saturation)
-func Sws_getColorspaceDetails(ctxt *C.struct_SwsContext, it, sr, t, dr, b, c, s *int) int {
+func Sws_getColorspaceDetails(ctxt *SwsContext, it, sr, t, dr, b, c, s *int) int {
 	cit := (**C.int)(unsafe.Pointer(it))
 	csr := (*C.int)(unsafe.Pointer(sr))
 	ct := (**C.int)(unsafe.Pointer(t))
@@ -123,7 +120,7 @@ func Sws_getColorspaceDetails(ctxt *C.struct_SwsContext, it, sr, t, dr, b, c, s 
 	cb := (*C.int)(unsafe.Pointer(b))
 	cc := (*C.int)(unsafe.Pointer(c))
 	cs := (*C.int)(unsafe.Pointer(s))
-	return int(C.sws_getColorspaceDetails(ctxt, cit, csr, ct, cdr, cb, cc, cs))
+	return int(C.sws_getColorspaceDetails((*C.struct_SwsContext)(ctxt), cit, csr, ct, cdr, cb, cc, cs))
 }
 
 //SwsVector * sws_allocVec (int length)
@@ -134,102 +131,101 @@ func Sws_allocVec(l int) *C.struct_SwsVector {
 
 //SwsVector * sws_getGaussianVec (double variance, double quality)
 //Return a normalized Gaussian curve used to filter stuff quality = 3 is high quality, lower is lower quality.
-func Sws_getGaussianVec(v, q float64) *C.struct_SwsVector {
-	return C.sws_getGaussianVec(C.double(v), C.double(q))
+func Sws_getGaussianVec(v, q float64) *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_getGaussianVec(C.double(v), C.double(q))))
 }
 
 //SwsVector * sws_getConstVec (double c, int length)
 //Allocate and return a vector with length coefficients, all with the same value c.
-func Sws_getConstVec(c float64, l int) *C.struct_SwsVector {
-	return C.sws_getConstVec(C.double(c), C.int(l))
+func Sws_getConstVec(c float64, l int) *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_getConstVec(C.double(c), C.int(l))))
 }
 
 //SwsVector * sws_getIdentityVec (void)
 //Allocate and return a vector with just one coefficient, with value 1.0.
-func Sws_getIdentityVec() *C.struct_SwsVector {
-	return C.sws_getIdentityVec()
+func Sws_getIdentityVec() *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_getIdentityVec()))
 }
 
 //void sws_scaleVec (SwsVector *a, double scalar)
 //Scale all the coefficients of a by the scalar value.
 func Sws_scaleVec(a *SwsVector, s float64) {
-	ca := (*C.struct_SwsVector)(unsafe.Pointer(a))
-	C.sws_scaleVec(ca, C.double(s))
+	C.sws_scaleVec((*C.struct_SwsVector)(unsafe.Pointer(a)), C.double(s))
 }
 
 //void sws_normalizeVec (SwsVector *a, double height)
 //Scale all the coefficients of a so that their sum equals height.
-func Sws_normalizeVec(a *C.struct_SwsVector, h float64) {
-	C.sws_normalizeVec(a, C.double(h))
+func Sws_normalizeVec(a *SwsVector, h float64) {
+	C.sws_normalizeVec((*C.struct_SwsVector)(a), C.double(h))
 }
 
 //void sws_convVec (SwsVector *a, SwsVector *b)
-func Sws_convVec(a, b *C.struct_SwsVector) {
-	C.sws_convVec(a, b)
+func Sws_convVec(a, b *SwsVector) {
+	C.sws_convVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
 //void sws_addVec (SwsVector *a, SwsVector *b)
-func Sws_addVec(a, b *C.struct_SwsVector) {
-	C.sws_addVec(a, b)
+func Sws_addVec(a, b *SwsVector) {
+	C.sws_addVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
 //void sws_subVec (SwsVector *a, SwsVector *b)
-func Sws_subVec(a, b *C.struct_SwsVector) {
-	C.sws_subVec(a, b)
+func Sws_subVec(a, b *SwsVector) {
+	C.sws_subVec((*C.struct_SwsVector)(a), (*C.struct_SwsVector)(b))
 }
 
 //void sws_shiftVec (SwsVector *a, int shift)
-func Sws_shiftVec(a *C.struct_SwsVector, s int) {
-	C.sws_shiftVec(a, C.int(s))
+func Sws_shiftVec(a *SwsVector, s int) {
+	C.sws_shiftVec((*C.struct_SwsVector)(a), C.int(s))
 }
 
 //SwsVector * sws_cloneVec (SwsVector *a)
 //Allocate and return a clone of the vector a, that is a vector with the same coefficients as a.
-func Sws_cloneVec(a *C.struct_SwsVector) *C.struct_SwsVector {
-	return C.sws_cloneVec(a)
+func Sws_cloneVec(a *SwsVector) *SwsVector {
+	return (*SwsVector)(unsafe.Pointer(C.sws_cloneVec((*C.struct_SwsVector)(a))))
 }
 
 //void sws_printVec2 (SwsVector *a, AVClass *log_ctx, int log_level)
 //Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
-func Sws_printVec2(a *C.struct_SwsVector, lctx *C.struct_AVClass, l int) {
-	C.sws_printVec2(a, lctx, C.int(l))
+func Sws_printVec2(a *SwsVector, lctx *AVClass, l int) {
+	C.sws_printVec2((*C.struct_SwsVector)(a), (*C.struct_AVClass)(lctx), C.int(l))
 }
 
 //void sws_freeVec (SwsVector *a)
-func Sws_freeVec(a *C.struct_SwsVector) {
-	C.sws_freeVec(a)
+func Sws_freeVec(a *SwsVector) {
+	C.sws_freeVec((*C.struct_SwsVector)(a))
 }
 
 //SwsFilter * sws_getDefaultFilter (float lumaGBlur, float chromaGBlur, float lumaSharpen, float chromaSharpen, float chromaHShift, float chromaVShift, int verbose)
-func Sws_getDefaultFilter(lb, cb, ls, cs, chs, cvs float32, v int) *C.struct_SwsFilter {
-	return C.sws_getDefaultFilter(C.float(lb), C.float(cb), C.float(ls), C.float(cs), C.float(chs), C.float(cvs), C.int(v))
+func Sws_getDefaultFilter(lb, cb, ls, cs, chs, cvs float32, v int) *SwsFilter {
+	return (*SwsFilter)(unsafe.Pointer(C.sws_getDefaultFilter(C.float(lb), C.float(cb), C.float(ls), C.float(cs), C.float(chs), C.float(cvs), C.int(v))))
 }
 
 //void sws_freeFilter (SwsFilter *filter)
-func Sws_freeFilter(f *C.struct_SwsFilter) {
-	C.sws_freeFilter(f)
+func Sws_freeFilter(f *SwsFilter) {
+	C.sws_freeFilter((*C.struct_SwsFilter)(f))
 }
 
 //struct SwsContext * sws_getCachedContext (struct SwsContext *context, int srcW, int srcH, enum AVPixelFormat srcFormat, int dstW, int dstH, enum AVPixelFormat dstFormat, int flags, SwsFilter *srcFilter, SwsFilter *dstFilter, const double *param)
 //Check if context can be reused, otherwise reallocate a new one.
-func Sws_getCachedContext(ctxt *C.struct_SwsContext, sw, sh int, sf C.enum_AVPixelFormat, dw, dh int, df C.enum_AVPixelFormat, f int, sfl, dfl *C.struct_SwsFilter, p *C.double) *C.struct_SwsContext {
-	return C.sws_getCachedContext(ctxt, C.int(sw), C.int(sh), sf, C.int(dw), C.int(dh), df, C.int(f), sfl, dfl, p)
+func Sws_getCachedContext(ctxt *SwsContext, sw, sh int, sf AVPixelFormat, dw, dh int, df AVPixelFormat, f int, sfl, dfl *SwsFilter, p *float64) *SwsContext {
+	return (*SwsContext)(C.sws_getCachedContext((*C.struct_SwsContext)(ctxt), C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(p)))
 }
 
 //void sws_convertPalette8ToPacked32 (const uint8_t *src, uint8_t *dst, int num_pixels, const uint8_t *palette)
 //Convert an 8-bit paletted frame into a frame with a color depth of 32 bits.
-func Sws_convertPalette8ToPacked32(s, d *C.uint8_t, px int, p *C.uint8_t) {
-	C.sws_convertPalette8ToPacked32(s, d, C.int(px), p)
+func Sws_convertPalette8ToPacked32(s, d *uint8, px int, p *uint8) {
+	C.sws_convertPalette8ToPacked32((*C.uint8_t)(s), (*C.uint8_t)(d), C.int(px), (*C.uint8_t)(p))
 }
 
 //void sws_convertPalette8ToPacked24 (const uint8_t *src, uint8_t *dst, int num_pixels, const uint8_t *palette)
 //Convert an 8-bit paletted frame into a frame with a color depth of 24 bits.
-func Sws_convertPalette8ToPacked24(s, d *C.uint8_t, px int, p *C.uint8_t) {
-	C.sws_convertPalette8ToPacked24(s, d, C.int(px), p)
+func Sws_convertPalette8ToPacked24(s, d *uint8, px int, p *uint8) {
+	C.sws_convertPalette8ToPacked24((*C.uint8_t)(s), (*C.uint8_t)(d), C.int(px), (*C.uint8_t)(p))
 }
 
 //const AVClass * sws_get_class (void)
 //Get the AVClass for swsContext.
-func Sws_get_class() *C.struct_AVClass {
-	return C.sws_get_class()
+func Sws_get_class() *AVClass {
+	return (*AVClass)(C.sws_get_class())
 }

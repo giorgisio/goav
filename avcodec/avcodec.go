@@ -22,30 +22,27 @@ import (
 )
 
 type (
-	AVBitStreamFilter        C.struct_AVBitStreamFilter
-	AVBitStreamFilterContext C.struct_AVBitStreamFilterContext
-	AVClass                  C.struct_AVClass
-	AVCodec                  C.struct_AVCodec
-	AVCodecContext           C.struct_AVCodecContext
-	AVCodecDescriptor        C.struct_AVCodecDescriptor
-	AVCodecParser            C.struct_AVCodecParser
-	AVCodecParserContext     C.struct_AVCodecParserContext
-	AVDictionary             C.struct_AVDictionary
-	AVFrame                  C.struct_AVFrame
-	AVHWAccel                C.struct_AVHWAccel
-	AVPacket                 C.struct_AVPacket
-	AVPacketSideData         C.struct_AVPacketSideData
-	AVPanScan                C.struct_AVPanScan
-	AVPicture                C.struct_AVPicture
-	AVProfile                C.struct_AVProfile
-	AVRational               C.struct_AVRational
-	AVSubtitle               C.struct_AVSubtitle
-	AVSubtitleRect           C.struct_AVSubtitleRect
-	RcOverride               C.struct_RcOverride
-	AVBufferRef              C.struct_AVBufferRef
-)
-
-type (
+	AVBitStreamFilter             C.struct_AVBitStreamFilter
+	AVBitStreamFilterContext      C.struct_AVBitStreamFilterContext
+	AVClass                       C.struct_AVClass
+	AVCodec                       C.struct_AVCodec
+	AVCodecContext                C.struct_AVCodecContext
+	AVCodecDescriptor             C.struct_AVCodecDescriptor
+	AVCodecParser                 C.struct_AVCodecParser
+	AVCodecParserContext          C.struct_AVCodecParserContext
+	AVDictionary                  C.struct_AVDictionary
+	AVFrame                       C.struct_AVFrame
+	AVHWAccel                     C.struct_AVHWAccel
+	AVPacket                      C.struct_AVPacket
+	AVPacketSideData              C.struct_AVPacketSideData
+	AVPanScan                     C.struct_AVPanScan
+	AVPicture                     C.struct_AVPicture
+	AVProfile                     C.struct_AVProfile
+	AVRational                    C.struct_AVRational
+	AVSubtitle                    C.struct_AVSubtitle
+	AVSubtitleRect                C.struct_AVSubtitleRect
+	RcOverride                    C.struct_RcOverride
+	AVBufferRef                   C.struct_AVBufferRef
 	AVAudioServiceType            C.enum_AVAudioServiceType
 	AVChromaLocation              C.enum_AVChromaLocation
 	AVCodecID                     C.enum_AVCodecID

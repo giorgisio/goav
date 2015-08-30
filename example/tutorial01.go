@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+
 	filename := "sample.mp4"
 
 	var (
