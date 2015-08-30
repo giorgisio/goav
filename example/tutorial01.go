@@ -52,15 +52,15 @@ func main() {
 	videoStream = -1
 
 	//pFormatCtx->nb_streams
-	n := avformat.Nb_streams(pFormatCtx)
+	n := pFormatCtx.Nb_streams()
 
 	//pFormatCtx->streams[]
-	s := avformat.Streams(pFormatCtx)
+	s := pFormatCtx.Streams()
 	//s2 := avformat.StreamsOne(pFormatCtx, 1)
 
 	log.Println("Number of Streams:", n)
 
-	for i := 0; i < n; i++ {
+	for i := 0; i < int(n); i++ {
 		// pFormatCtx->streams[i]->codec->codec_type
 		log.Println("Stream Number:", i)
 
@@ -75,7 +75,7 @@ func main() {
 		return
 	}
 
-	codec := avformat.Codec(s)
+	codec := s.Codec()
 	log.Println("Codec:", codec)
 
 	// Get a pointer to the codec context for the video stream

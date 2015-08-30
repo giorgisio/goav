@@ -47,8 +47,14 @@ type (
 	AVFrame              C.struct_AVFrame
 	AVClass              C.struct_AVClass
 	AVCodecContext       C.struct_AVCodecContext
+	AVFormatInternal     C.struct_AVFormatInternal
+	AVIOInterruptCB      C.struct_AVIOInterruptCB
+	AVPacketSideData     C.struct_AVPacketSideData
+	FFFrac               C.struct_FFFrac
 )
 type (
+	AVStreamParseType          C.enum_AVStreamParseType
+	AVDiscard                  C.enum_AVDiscard
 	AVMediaType                C.enum_AVMediaType
 	AVDurationEstimationMethod C.enum_AVDurationEstimationMethod
 	AVPacketSideDataType       C.enum_AVPacketSideDataType
