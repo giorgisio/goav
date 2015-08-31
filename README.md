@@ -58,6 +58,7 @@ go get github.com/giorgisio/goav
 
 ## Note
 - Function names in Go are consistent with that of the libraries to help with easy search
+- [cgo: Extending Go with C](http://blog.giorgis.io/cgo-examples)
 
 ## Contribute
 - Fork this repo and create your own feature branch.

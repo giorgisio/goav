@@ -18,19 +18,13 @@ import (
 )
 
 type (
-	AVOptions    C.struct_AVOptions
-	AVDictionary C.struct_AVDictionary
-	AVTree       C.struct_AVTree
-	AVRational   C.struct_AVRational
-)
-
-type (
+	AVOptions     C.struct_AVOptions
+	AVDictionary  C.struct_AVDictionary
+	AVTree        C.struct_AVTree
+	AVRational    C.struct_AVRational
 	AVMediaType   C.enum_AVMediaType
 	AVPictureType C.enum_AVPictureType
-)
-
-type (
-	File C.FILE
+	File          C.FILE
 )
 
 //unsigned 	avutil_version (void)

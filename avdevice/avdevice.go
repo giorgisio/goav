@@ -27,11 +27,8 @@ type (
 	AVOutputFormat            C.struct_AVOutputFormat
 	AVFormatContext           C.struct_AVFormatContext
 	AVDictionary              C.struct_AVDictionary
-)
-
-type (
-	AVAppToDevMessageType C.enum_AVAppToDevMessageType
-	AVDevToAppMessageType C.enum_AVDevToAppMessageType
+	AVAppToDevMessageType     C.enum_AVAppToDevMessageType
+	AVDevToAppMessageType     C.enum_AVDevToAppMessageType
 )
 
 //unsigned 	avdevice_version (void)
