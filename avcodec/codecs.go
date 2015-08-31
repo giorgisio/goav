@@ -7,15 +7,8 @@
 */
 package avcodec
 
-//#cgo pkg-config: libavformat libavcodec libavutil libswresample
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <inttypes.h>
-//#include <stdint.h>
-//#include <string.h>
+//#cgo pkg-config: libavformat
 //#include <libavformat/avformat.h>
-//#include <libavcodec/avcodec.h>
-//#include <libavutil/avutil.h>
 import "C"
 
 const (
