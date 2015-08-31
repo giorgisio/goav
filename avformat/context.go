@@ -8,7 +8,6 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
-	"fmt"
 	"unsafe"
 )
 
@@ -293,14 +292,4 @@ func (ctxt *AVFormatContext) Packet_size() uint {
 
 func (ctxt *AVFormatContext) Probesize() uint {
 	return uint(ctxt.probesize)
-}
-
-func Codec_type(s *AVStream, n int) *AVMediaType {
-	c := s.Codec()
-	fmt.Println("Codec Type: Fix Method")
-	if c != nil {
-		return (*AVMediaType)(unsafe.Pointer(&c.codec_type))
-	} else {
-		return nil
-	}
 }

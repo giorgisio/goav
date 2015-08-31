@@ -23,7 +23,7 @@ func main() {
 		pFrame        *avutil.AVFrame
 		pFrameRGB     *avutil.AVFrame
 		packet        *avcodec.AVPacket
-		media_type    *avutil.AVMediaType
+		//media_type    *avutil.AVMediaType
 		sws_ctx       *swscale.SwsContext
 		videoStream   int
 		frameFinished int
@@ -59,13 +59,14 @@ func main() {
 	s := pFormatCtx.Streams()
 	//s2 := avformat.StreamsOne(pFormatCtx, 1)
 
-	log.Println("Number of Streams:", n)
+	log.Print("Number of Streams:", n)
 
 	for i := 0; i < int(n); i++ {
 		// pFormatCtx->streams[i]->codec->codec_type
 		log.Println("Stream Number:", i)
 
-		if (*avutil.AVMediaType)(avformat.Codec_type(s, i)) != media_type {
+		//FIX: AVMEDIA_TYPE_VIDEO
+		if (*avformat.AVCodecContext)(s.Codec()) != nil {
 			videoStream = i
 			break
 		}
@@ -77,16 +78,22 @@ func main() {
 	}
 
 	codec := s.Codec()
-	log.Println("Codec:", codec)
 
 	// Get a pointer to the codec context for the video stream
 	//pCodecCtxOrig = pFormatCtx.streams[videoStream].codec
-	pCodecCtxOrig = (*avcodec.AVCodecContext)(unsafe.Pointer(codec))
-	log.Println("Codec Context:", pCodecCtxOrig)
+	pCodecCtxOrig = (*avcodec.AVCodecContext)(unsafe.Pointer(&codec))
+	log.Println("Bit Rate:", pCodecCtxOrig.Bit_rate())
+	log.Println("Channels:", pCodecCtxOrig.Channels())
+	log.Println("Coded_height:", pCodecCtxOrig.Coded_height())
+	log.Println("Coded_width:", pCodecCtxOrig.Coded_width())
+	log.Println("Coder_type:", pCodecCtxOrig.Coder_type())
+	log.Println("Height:", pCodecCtxOrig.Height())
+	log.Println("Profile:", pCodecCtxOrig.Profile())
+	log.Println("Width:", pCodecCtxOrig.Width())
+	log.Println("Codec ID:", pCodecCtxOrig.Codec_id())
 
 	//C.enum_AVCodecID
 	codec_id := pCodecCtxOrig.Codec_id()
-	log.Println("Codec ID:", codec_id)
 
 	// Find the decoder for the video stream
 	pCodec = avcodec.Avcodec_find_decoder(codec_id)
