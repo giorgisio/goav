@@ -81,14 +81,3 @@ func Av_fopen_utf8(p, m string) *File {
 func Av_get_time_base_q() AVRational {
 	return (AVRational)(C.av_get_time_base_q())
 }
-
-/////////////////////////////////////////////////////////////////////////
-//Exported
-/////////////////////////////////////////////////////////////////////////
-
-func Data(f *AVFrame) *uint8 {
-	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
-}
-func Linesize(f *AVFrame) int {
-	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
-}

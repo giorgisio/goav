@@ -23,11 +23,6 @@ type (
 	AVFrameSideDataType C.enum_AVFrameSideDataType
 )
 
-//WHERE ??
-//'get_frame_defaults' undeclared (first use in this function)
-//'get_audio_buffer' undeclared (first use in this function)
-//'get_video_buffer' undeclared (first use in this function)
-
 //AVDictionary ** avpriv_frame_get_metadatap (AVFrame *frame)
 func Avpriv_frame_get_metadatap(f *AVFrame) **AVDictionary {
 	return (**AVDictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
@@ -134,4 +129,11 @@ func Av_frame_new_side_data(f *AVFrame, d AVFrameSideDataType, s int) *AVFrameSi
 //AVFrameSideData * av_frame_get_side_data (AVFrame *frame, enum AVFrameSideDataType type)
 func Av_frame_get_side_data(f *AVFrame, t AVFrameSideDataType) *AVFrameSideData {
 	return (*AVFrameSideData)(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t)))
+}
+
+func Data(f *AVFrame) *uint8 {
+	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
+}
+func Linesize(f *AVFrame) int {
+	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
 }
