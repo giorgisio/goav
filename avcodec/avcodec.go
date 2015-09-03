@@ -26,7 +26,7 @@ type (
 	AvBitStreamFilterContext      C.struct_AVBitStreamFilterContext
 	AvClass                       C.struct_AVClass
 	AvCodec                       C.struct_AVCodec
-	AvCodecContext                C.struct_AVCodecContext
+	Context                       C.struct_AVCodecContext
 	AvCodecDescriptor             C.struct_AVCodecDescriptor
 	AvCodecParser                 C.struct_AVCodecParser
 	AvCodecParserContext          C.struct_AVCodecParserContext
@@ -93,12 +93,12 @@ func AvcodecRegisterAll() {
 	C.avcodec_register_all()
 }
 
-//Allocate an AvCodecContext and set its fields to default values.
-func (c *AvCodec) AvcodecAllocContext3() *AvCodecContext {
-	return (*AvCodecContext)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
+//Allocate an Context and set its fields to default values.
+func (c *AvCodec) AvcodecAllocContext3() *Context {
+	return (*Context)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
 }
 
-//Get the AvClass for AvCodecContext.
+//Get the AvClass for Context.
 func AvcodecGetClass() *AvClass {
 	return (*AvClass)(C.avcodec_get_class())
 }
@@ -163,7 +163,7 @@ func AvGetCodecTagString(b string, bf uintptr, c uint) uintptr {
 	return uintptr(C.av_get_codec_tag_string(C.CString(b), C.size_t(bf), C.uint(c)))
 }
 
-func AvcodecString(b string, bs int, ctxt *AvCodecContext, e int) {
+func AvcodecString(b string, bs int, ctxt *Context, e int) {
 	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(ctxt), C.int(e))
 }
 
@@ -203,7 +203,7 @@ func AvBitstreamFilterInit(n string) *AvBitStreamFilterContext {
 }
 
 //Filter bitstream.
-func (bfx *AvBitStreamFilterContext) AvBitstreamFilterFilter(ctxt *AvCodecContext, a string, p **uint8, ps *int, b *uint8, bs, k int) int {
+func (bfx *AvBitStreamFilterContext) AvBitstreamFilterFilter(ctxt *Context, a string, p **uint8, ps *int, b *uint8, bs, k int) int {
 	return int(C.av_bitstream_filter_filter((*C.struct_AVBitStreamFilterContext)(bfx), (*C.struct_AVCodecContext)(ctxt), C.CString(a), (**C.uint8_t)(unsafe.Pointer(p)), (*C.int)(unsafe.Pointer(ps)), (*C.uint8_t)(b), C.int(bs), C.int(k)))
 }
 

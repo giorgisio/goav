@@ -14,7 +14,8 @@ import (
 func main() {
 
 	// Register all formats and codecs
-	avformat.Av_register_all()
+	avformat.AvRegisterAll()
+	avcodec.AvcodecRegisterAll()
 
 	log.Printf("AvFilter Version:\t%v", avfilter.Avfilter_version())
 	log.Printf("AvDevice Version:\t%v", avdevice.Avdevice_version())

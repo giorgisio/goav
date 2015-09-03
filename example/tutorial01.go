@@ -16,9 +16,9 @@ func main() {
 	filename := "sample.mp4"
 
 	var (
-		ctxtFormat    *avformat.AvFormatContext
-		ctxtSource    *avcodec.AvCodecContext
-		ctxtDest      *avcodec.AvCodecContext
+		ctxtFormat    *avformat.Context
+		ctxtSource    *avcodec.Context
+		ctxtDest      *avcodec.Context
 		videoCodec    *avcodec.AvCodec
 		videoFrame    *avutil.AvFrame
 		videoFrameRGB *avutil.AvFrame
@@ -32,28 +32,28 @@ func main() {
 	//media_type    *avutil.AvMediaType
 
 	// Register all formats and codecs
-	avformat.Av_register_all()
+	avformat.AvRegisterAll()
 
 	// Open video file
-	if avformat.Avformat_open_input(&ctxtFormat, filename, nil, nil) != 0 {
+	if avformat.AvformatOpenInput(&ctxtFormat, filename, nil, nil) != 0 {
 		log.Println("Error: Couldn't open file.")
 		return
 	}
 
 	// Retrieve stream information
-	if avformat.Avformat_find_stream_info(ctxtFormat, nil) < 0 {
+	if ctxtFormat.AvformatFindStreamInfo(nil) < 0 {
 		log.Println("Error: Couldn't find stream information.")
 		return
 	}
 
 	// Dump information about file onto standard error
-	avformat.Av_dump_format(ctxtFormat, 0, url, 0)
+	ctxtFormat.AvDumpFormat(0, url, 0)
 
 	// Find the first video stream
 	videoStream = -1
 
 	//ctxtFormat->nb_streams
-	n := ctxtFormat.Nb_streams()
+	n := ctxtFormat.NbStreams()
 
 	//ctxtFormat->streams[]
 	s := ctxtFormat.Streams()
@@ -81,7 +81,7 @@ func main() {
 
 	// Get a pointer to the codec context for the video stream
 	//ctxtSource = ctxtFormat.streams[videoStream].codec
-	ctxtSource = (*avcodec.AvCodecContext)(unsafe.Pointer(&codec))
+	ctxtSource = (*avcodec.Context)(unsafe.Pointer(&codec))
 	log.Println("Bit Rate:", ctxtSource.BitRate())
 	log.Println("Channels:", ctxtSource.Channels())
 	log.Println("Coded_height:", ctxtSource.CodedHeight())
@@ -161,7 +161,7 @@ func main() {
 	// Read frames and save first five frames to disk
 	i := 0
 
-	for avformat.Av_read_frame(ctxtFormat, packet) >= 0 {
+	for ctxtFormat.AvReadFrame(packet) >= 0 {
 		// Is this a packet from the video stream?
 		s := packet.StreamIndex()
 		if s == videoStream {
@@ -208,7 +208,7 @@ func main() {
 	ctxtSource.AvcodecClose()
 
 	// Close the video file
-	avformat.Avformat_close_input(ctxtFormat)
+	ctxtFormat.AvformatCloseInput()
 
 }
 
