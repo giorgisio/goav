@@ -1,557 +1,163 @@
 /*
-	Use of this source code is governed by a MIT license that can be found in the LICENSE file.
-	by Giorgis (habtom@giorgis.io)
+	AvCodecContext
 */
 package avcodec
 
-func (ctxt *AVCodecContext) Active_thread_type() int {
-	return int(ctxt.active_thread_type)
-}
-
-func (ctxt *AVCodecContext) B_frame_strategy() int {
-	return int(ctxt.b_frame_strategy)
-}
-
-func (ctxt *AVCodecContext) B_quant_factor() float64 {
-	return float64(ctxt.b_quant_factor)
-}
-
-func (ctxt *AVCodecContext) B_quant_offset() float64 {
-	return float64(ctxt.b_quant_offset)
-}
-
-func (ctxt *AVCodecContext) B_sensitivity() int {
-	return int(ctxt.b_sensitivity)
-}
-
-func (ctxt *AVCodecContext) Bidir_refine() int {
-	return int(ctxt.bidir_refine)
-}
-
-func (ctxt *AVCodecContext) Bit_rate() int {
-	return int(ctxt.bit_rate)
-}
-
-func (ctxt *AVCodecContext) Bit_rate_tolerance() int {
-	return int(ctxt.bit_rate_tolerance)
-}
-
-func (ctxt *AVCodecContext) Bits_per_coded_sample() int {
-	return int(ctxt.bits_per_coded_sample)
-}
-
-func (ctxt *AVCodecContext) Bits_per_raw_sample() int {
-	return int(ctxt.bits_per_raw_sample)
-}
-
-func (ctxt *AVCodecContext) Block_align() int {
-	return int(ctxt.block_align)
-}
-
-func (ctxt *AVCodecContext) Brd_scale() int {
-	return int(ctxt.brd_scale)
-}
-
-func (ctxt *AVCodecContext) Channels() int {
-	return int(ctxt.channels)
-}
-
-func (ctxt *AVCodecContext) Chromaoffset() int {
-	return int(ctxt.chromaoffset)
-}
-
-func (ctxt *AVCodecContext) Coded_height() int {
-	return int(ctxt.coded_height)
-}
-
-func (ctxt *AVCodecContext) Coded_width() int {
-	return int(ctxt.coded_width)
-}
-
-func (ctxt *AVCodecContext) Coder_type() int {
-	return int(ctxt.coder_type)
-}
-
-func (ctxt *AVCodecContext) Compression_level() int {
-	return int(ctxt.compression_level)
-}
-
-func (ctxt *AVCodecContext) Context_model() int {
-	return int(ctxt.context_model)
-}
-
-func (ctxt *AVCodecContext) Cutoff() int {
-	return int(ctxt.cutoff)
-}
-
-func (ctxt *AVCodecContext) Dark_masking() float64 {
-	return float64(ctxt.dark_masking)
-}
-
-func (ctxt *AVCodecContext) Dct_algo() int {
-	return int(ctxt.dct_algo)
-}
-
-func (ctxt *AVCodecContext) Debug() int {
-	return int(ctxt.debug)
-}
-
-func (ctxt *AVCodecContext) Debug_mv() int {
-	return int(ctxt.debug_mv)
-}
-
-func (ctxt *AVCodecContext) Delay() int {
-	return int(ctxt.delay)
-}
-
-func (ctxt *AVCodecContext) Dia_size() int {
-	return int(ctxt.dia_size)
-}
-
-func (ctxt *AVCodecContext) Err_recognition() int {
-	return int(ctxt.err_recognition)
-}
-
-func (ctxt *AVCodecContext) Error_concealment() int {
-	return int(ctxt.error_concealment)
-}
-
-func (ctxt *AVCodecContext) Extradata_size() int {
-	return int(ctxt.extradata_size)
-}
-
-func (ctxt *AVCodecContext) Flags() int {
-	return int(ctxt.flags)
-}
-
-func (ctxt *AVCodecContext) Flags2() int {
-	return int(ctxt.flags2)
-}
-
-func (ctxt *AVCodecContext) Frame_bits() int {
-	return int(ctxt.frame_bits)
-}
-
-func (ctxt *AVCodecContext) Frame_number() int {
-	return int(ctxt.frame_number)
-}
-
-func (ctxt *AVCodecContext) Frame_size() int {
-	return int(ctxt.frame_size)
-}
-
-func (ctxt *AVCodecContext) Frame_skip_cmp() int {
-	return int(ctxt.frame_skip_cmp)
-}
-
-func (ctxt *AVCodecContext) Frame_skip_exp() int {
-	return int(ctxt.frame_skip_exp)
-}
-
-func (ctxt *AVCodecContext) Frame_skip_factor() int {
-	return int(ctxt.frame_skip_factor)
-}
-
-func (ctxt *AVCodecContext) Frame_skip_threshold() int {
-	return int(ctxt.frame_skip_threshold)
-}
-
-func (ctxt *AVCodecContext) Global_quality() int {
-	return int(ctxt.global_quality)
-}
-
-func (ctxt *AVCodecContext) Gop_size() int {
-	return int(ctxt.gop_size)
-}
-
-func (ctxt *AVCodecContext) Has_b_frames() int {
-	return int(ctxt.has_b_frames)
-}
-
-func (ctxt *AVCodecContext) Header_bits() int {
-	return int(ctxt.header_bits)
-}
-
-func (ctxt *AVCodecContext) Height() int {
-	return int(ctxt.height)
-}
-
-func (ctxt *AVCodecContext) I_count() int {
-	return int(ctxt.i_count)
-}
-
-func (ctxt *AVCodecContext) I_quant_factor() float64 {
-	return float64(ctxt.i_quant_factor)
-}
-
-func (ctxt *AVCodecContext) I_quant_offset() float64 {
-	return float64(ctxt.i_quant_offset)
-}
-
-func (ctxt *AVCodecContext) I_tex_bits() int {
-	return int(ctxt.i_tex_bits)
-}
-
-func (ctxt *AVCodecContext) Idct_algo() int {
-	return int(ctxt.idct_algo)
-}
-
-func (ctxt *AVCodecContext) Ildct_cmp() int {
-	return int(ctxt.ildct_cmp)
-}
-
-// func (ctxt *AVCodecContext) Initial_padding() int {
-// 	return int(ctxt.initial_padding)
-// }
-
-func (ctxt *AVCodecContext) Intra_dc_precision() int {
-	return int(ctxt.intra_dc_precision)
-}
-
-func (ctxt *AVCodecContext) Keyint_min() int {
-	return int(ctxt.keyint_min)
-}
+//#cgo pkg-config: libavcodec
+//#include <libavcodec/avcodec.h>
+import "C"
+import (
+	"unsafe"
+)
 
-func (ctxt *AVCodecContext) Last_predictor_count() int {
-	return int(ctxt.last_predictor_count)
+func (ctxt *AvCodecContext) AvCodecGetPktTimebase() AvRational {
+	return (AvRational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Level() int {
-	return int(ctxt.level)
+func (ctxt *AvCodecContext) AvCodecSetPktTimebase(r AvRational) {
+	C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(ctxt), (C.struct_AVRational)(r))
 }
 
-func (ctxt *AVCodecContext) Log_level_offset() int {
-	return int(ctxt.log_level_offset)
+func (ctxt *AvCodecContext) AvCodecGetCodecDescriptor() *AvCodecDescriptor {
+	return (*AvCodecDescriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Lowres() int {
-	return int(ctxt.lowres)
+func (ctxt *AvCodecContext) AvCodecSetCodecDescriptor(d *AvCodecDescriptor) {
+	C.av_codec_set_codec_descriptor((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecDescriptor)(d))
 }
 
-func (ctxt *AVCodecContext) Lumi_masking() float64 {
-	return float64(ctxt.lumi_masking)
+func (ctxt *AvCodecContext) AvCodecGetLowres() int {
+	return int(C.av_codec_get_lowres((*C.struct_AVCodecContext)(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Max_b_frames() int {
-	return int(ctxt.max_b_frames)
+func (ctxt *AvCodecContext) AvCodecSetLowres(i int) {
+	C.av_codec_set_lowres((*C.struct_AVCodecContext)(ctxt), C.int(i))
 }
 
-func (ctxt *AVCodecContext) Max_prediction_order() int {
-	return int(ctxt.max_prediction_order)
+func (ctxt *AvCodecContext) AvCodecGetSeekPreroll() int {
+	return int(C.av_codec_get_seek_preroll((*C.struct_AVCodecContext)(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Max_qdiff() int {
-	return int(ctxt.max_qdiff)
+func (ctxt *AvCodecContext) AvCodecSetSeekPreroll(i int) {
+	C.av_codec_set_seek_preroll((*C.struct_AVCodecContext)(ctxt), C.int(i))
 }
 
-func (ctxt *AVCodecContext) Mb_cmp() int {
-	return int(ctxt.mb_cmp)
+func (ctxt *AvCodecContext) AvCodecGetChromaIntraMatrix() *uint16 {
+	return (*uint16)(C.av_codec_get_chroma_intra_matrix((*C.struct_AVCodecContext)(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Mb_decision() int {
-	return int(ctxt.mb_decision)
+func (ctxt *AvCodecContext) AvCodecSetChromaIntraMatrix(t *uint16) {
+	C.av_codec_set_chroma_intra_matrix((*C.struct_AVCodecContext)(ctxt), (*C.uint16_t)(t))
 }
 
-func (ctxt *AVCodecContext) Mb_lmax() int {
-	return int(ctxt.mb_lmax)
+//Free the codec context and everything associated with it and write NULL to the provided pointer.
+func (ctxt *AvCodecContext) AvcodecFreeContext() {
+	C.avcodec_free_context((**C.struct_AVCodecContext)(unsafe.Pointer(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Mb_lmin() int {
-	return int(ctxt.mb_lmin)
+//Set the fields of the given AvCodecContext to default values corresponding to the given codec (defaults may be codec-dependent).
+func (ctxt *AvCodecContext) AvcodecGetContextDefaults3(c *AvCodec) int {
+	return int(C.avcodec_get_context_defaults3((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodec)(c)))
 }
 
-func (ctxt *AVCodecContext) Me_cmp() int {
-	return int(ctxt.me_cmp)
+//Copy the settings of the source AvCodecContext into the destination AvCodecContext.
+func (ctxt *AvCodecContext) AvcodecCopyContext(ctxt2 *AvCodecContext) int {
+	return int(C.avcodec_copy_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecContext)(ctxt2)))
 }
 
-func (ctxt *AVCodecContext) Me_penalty_compensation() int {
-	return int(ctxt.me_penalty_compensation)
+//Initialize the AvCodecContext to use the given AvCodec
+func (ctxt *AvCodecContext) AvcodecOpen2(c *AvCodec, d **AvDictionary) int {
+	return int(C.avcodec_open2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodec)(c), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
-func (ctxt *AVCodecContext) Me_pre_cmp() int {
-	return int(ctxt.me_pre_cmp)
+//Close a given AvCodecContext and free all the data associated with it (but not the AvCodecContext itself).
+func (ctxt *AvCodecContext) AvcodecClose() int {
+	return int(C.avcodec_close((*C.struct_AVCodecContext)(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Me_range() int {
-	return int(ctxt.me_range)
+//The default callback for AvCodecContext.get_buffer2().
+func (s *AvCodecContext) AvcodecDefaultGetBuffer2(f *AvFrame, l int) int {
+	return int(C.avcodec_default_get_buffer2((*C.struct_AVCodecContext)(s), (*C.struct_AVFrame)(f), C.int(l)))
 }
 
-func (ctxt *AVCodecContext) Me_sub_cmp() int {
-	return int(ctxt.me_sub_cmp)
+//Modify width and height values so that they will result in a memory buffer that is acceptable for the codec if you do not use any horizontal padding.
+func (ctxt *AvCodecContext) AvcodecAlignDimensions(w, h *int) {
+	C.avcodec_align_dimensions((*C.struct_AVCodecContext)(ctxt), (*C.int)(unsafe.Pointer(w)), (*C.int)(unsafe.Pointer(h)))
 }
 
-func (ctxt *AVCodecContext) Me_subpel_quality() int {
-	return int(ctxt.me_subpel_quality)
+//Modify width and height values so that they will result in a memory buffer that is acceptable for the codec if you also ensure that all line sizes are a multiple of the respective linesize_align[i].
+func (ctxt *AvCodecContext) AvcodecAlignDimensions2(w, h *int, l int) {
+	C.avcodec_align_dimensions2((*C.struct_AVCodecContext)(ctxt), (*C.int)(unsafe.Pointer(w)), (*C.int)(unsafe.Pointer(h)), (*C.int)(unsafe.Pointer(&l)))
 }
 
-func (ctxt *AVCodecContext) Min_prediction_order() int {
-	return int(ctxt.min_prediction_order)
+//Decode the audio frame of size avpkt->size from avpkt->data into frame.
+func (ctxt *AvCodecContext) AvcodecDecodeAudio4(f *AvFrame, g *int, a *AvPacket) int {
+	return int(C.avcodec_decode_audio4((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
-func (ctxt *AVCodecContext) Misc_bits() int {
-	return int(ctxt.misc_bits)
+//Decode the video frame of size avpkt->size from avpkt->data into picture.
+func (ctxt *AvCodecContext) AvcodecDecodeVideo2(p *AvFrame, g *int, a *AvPacket) int {
+	return int(C.avcodec_decode_video2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(p), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
-func (ctxt *AVCodecContext) Mpeg_quant() int {
-	return int(ctxt.mpeg_quant)
+//Decode a subtitle message.
+func (ctxt *AvCodecContext) AvcodecDecodeSubtitle2(s *AvSubtitle, g *int, a *AvPacket) int {
+	return int(C.avcodec_decode_subtitle2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVSubtitle)(s), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
 
-func (ctxt *AVCodecContext) Mv0_threshold() int {
-	return int(ctxt.mv0_threshold)
+//Encode a frame of audio.
+func (ctxt *AvCodecContext) AvcodecEncodeAudio2(p *AvPacket, f *AvFrame, gp *int) int {
+	return int(C.avcodec_encode_audio2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
-func (ctxt *AVCodecContext) Mv_bits() int {
-	return int(ctxt.mv_bits)
+//Encode a frame of video
+func (ctxt *AvCodecContext) AvcodecEncodeVideo2(p *AvPacket, f *AvFrame, gp *int) int {
+	return int(C.avcodec_encode_video2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
 }
 
-func (ctxt *AVCodecContext) Noise_reduction() int {
-	return int(ctxt.noise_reduction)
+func (ctxt *AvCodecContext) AvcodecEncodeSubtitle(b *uint8, bs int, s *AvSubtitle) int {
+	return int(C.avcodec_encode_subtitle((*C.struct_AVCodecContext)(ctxt), (*C.uint8_t)(b), C.int(bs), (*C.struct_AVSubtitle)(s)))
 }
 
-func (ctxt *AVCodecContext) Nsse_weight() int {
-	return int(ctxt.nsse_weight)
+func (ctxt *AvCodecContext) AvcodecDefaultGetFormat(f *AvPixelFormat) AvPixelFormat {
+	return (AvPixelFormat)(C.avcodec_default_get_format((*C.struct_AVCodecContext)(ctxt), (*C.enum_AVPixelFormat)(f)))
 }
 
-func (ctxt *AVCodecContext) P_count() int {
-	return int(ctxt.p_count)
+//Reset the internal decoder state / flush internal buffers.
+func (ctxt *AvCodecContext) AvcodecFlushBuffers() {
+	C.avcodec_flush_buffers((*C.struct_AVCodecContext)(ctxt))
 }
 
-func (ctxt *AVCodecContext) P_masking() float64 {
-	return float64(ctxt.p_masking)
+//Return audio frame duration.
+func (ctxt *AvCodecContext) AvGetAudioFrameDuration(f int) int {
+	return int(C.av_get_audio_frame_duration((*C.struct_AVCodecContext)(ctxt), C.int(f)))
 }
 
-func (ctxt *AVCodecContext) P_tex_bits() int {
-	return int(ctxt.p_tex_bits)
+func (ctxt *AvCodecContext) AvcodecIsOpen() int {
+	return int(C.avcodec_is_open((*C.struct_AVCodecContext)(ctxt)))
 }
 
-func (ctxt *AVCodecContext) Pre_dia_size() int {
-	return int(ctxt.pre_dia_size)
+//Parse a packet.
+func (ctxt *AvCodecContext) AvParserParse2(ctxtp *AvCodecParserContext, p **uint8, ps *int, b *uint8, bs int, pt, dt, po int64) int {
+	return int(C.av_parser_parse2((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctxt), (**C.uint8_t)(unsafe.Pointer(p)), (*C.int)(unsafe.Pointer(ps)), (*C.uint8_t)(b), C.int(bs), (C.int64_t)(pt), (C.int64_t)(dt), (C.int64_t)(po)))
 }
 
-func (ctxt *AVCodecContext) Pre_me() int {
-	return int(ctxt.pre_me)
+func (ctxt *AvCodecContext) AvParserChange(ctxtp *AvCodecParserContext, pb **uint8, pbs *int, b *uint8, bs, k int) int {
+	return int(C.av_parser_change((*C.struct_AVCodecParserContext)(ctxtp), (*C.struct_AVCodecContext)(ctxt), (**C.uint8_t)(unsafe.Pointer(pb)), (*C.int)(unsafe.Pointer(pbs)), (*C.uint8_t)(b), C.int(bs), C.int(k)))
 }
 
-func (ctxt *AVCodecContext) Prediction_method() int {
-	return int(ctxt.prediction_method)
+func AvParserInit(c int) *AvCodecParserContext {
+	return (*AvCodecParserContext)(C.av_parser_init(C.int(c)))
 }
 
-func (ctxt *AVCodecContext) Profile() int {
-	return int(ctxt.profile)
+func AvParserClose(ctxtp *AvCodecParserContext) {
+	C.av_parser_close((*C.struct_AVCodecParserContext)(ctxtp))
 }
 
-func (ctxt *AVCodecContext) Qblur() float64 {
-	return float64(ctxt.qblur)
+func (p *AvCodecParser) AvParserNext() *AvCodecParser {
+	return (*AvCodecParser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
 }
 
-func (ctxt *AVCodecContext) Qcompress() float64 {
-	return float64(ctxt.qcompress)
+func (p *AvCodecParser) AvRegisterCodecParser() {
+	C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
 }
-
-func (ctxt *AVCodecContext) Qmax() int {
-	return int(ctxt.qmax)
-}
-
-func (ctxt *AVCodecContext) Qmin() int {
-	return int(ctxt.qmin)
-}
-
-func (ctxt *AVCodecContext) Rc_buffer_size() int {
-	return int(ctxt.rc_buffer_size)
-}
-
-func (ctxt *AVCodecContext) Rc_initial_buffer_occupancy() int {
-	return int(ctxt.rc_initial_buffer_occupancy)
-}
-
-func (ctxt *AVCodecContext) Rc_max_available_vbv_use() float64 {
-	return float64(ctxt.rc_max_available_vbv_use)
-}
-
-func (ctxt *AVCodecContext) Rc_max_rate() int {
-	return int(ctxt.rc_max_rate)
-}
-
-func (ctxt *AVCodecContext) Rc_min_rate() int {
-	return int(ctxt.rc_min_rate)
-}
-
-func (ctxt *AVCodecContext) Rc_min_vbv_overflow_use() float64 {
-	return float64(ctxt.rc_min_vbv_overflow_use)
-}
-
-func (ctxt *AVCodecContext) Rc_override_count() int {
-	return int(ctxt.rc_override_count)
-}
-
-func (ctxt *AVCodecContext) Refcounted_frames() int {
-	return int(ctxt.refcounted_frames)
-}
-
-func (ctxt *AVCodecContext) Refs() int {
-	return int(ctxt.refs)
-}
-
-func (ctxt *AVCodecContext) Rtp_payload_size() int {
-	return int(ctxt.rtp_payload_size)
-}
-
-func (ctxt *AVCodecContext) Sample_rate() int {
-	return int(ctxt.sample_rate)
-}
-
-func (ctxt *AVCodecContext) Scenechange_threshold() int {
-	return int(ctxt.scenechange_threshold)
-}
-
-func (ctxt *AVCodecContext) Seek_preroll() int {
-	return int(ctxt.seek_preroll)
-}
-
-func (ctxt *AVCodecContext) Side_data_only_packets() int {
-	return int(ctxt.side_data_only_packets)
-}
-
-func (ctxt *AVCodecContext) Skip_alpha() int {
-	return int(ctxt.skip_alpha)
-}
-
-func (ctxt *AVCodecContext) Skip_bottom() int {
-	return int(ctxt.skip_bottom)
-}
-
-func (ctxt *AVCodecContext) Skip_count() int {
-	return int(ctxt.skip_count)
-}
-
-func (ctxt *AVCodecContext) Skip_top() int {
-	return int(ctxt.skip_top)
-}
-
-func (ctxt *AVCodecContext) Slice_count() int {
-	return int(ctxt.slice_count)
-}
-
-func (ctxt *AVCodecContext) Slice_flags() int {
-	return int(ctxt.slice_flags)
-}
-
-func (ctxt *AVCodecContext) Slices() int {
-	return int(ctxt.slices)
-}
-
-func (ctxt *AVCodecContext) Spatial_cplx_masking() float64 {
-	return float64(ctxt.spatial_cplx_masking)
-}
-
-func (ctxt *AVCodecContext) Strict_std_compliance() int {
-	return int(ctxt.strict_std_compliance)
-}
-
-func (ctxt *AVCodecContext) Sub_charenc_mode() int {
-	return int(ctxt.sub_charenc_mode)
-}
-
-func (ctxt *AVCodecContext) Subtitle_header_size() int {
-	return int(ctxt.subtitle_header_size)
-}
-
-func (ctxt *AVCodecContext) Temporal_cplx_masking() float64 {
-	return float64(ctxt.temporal_cplx_masking)
-}
-
-func (ctxt *AVCodecContext) Thread_count() int {
-	return int(ctxt.thread_count)
-}
-
-func (ctxt *AVCodecContext) Thread_safe_callbacks() int {
-	return int(ctxt.thread_safe_callbacks)
-}
-
-func (ctxt *AVCodecContext) Thread_type() int {
-	return int(ctxt.thread_type)
-}
-
-func (ctxt *AVCodecContext) Ticks_per_frame() int {
-	return int(ctxt.ticks_per_frame)
-}
-
-func (ctxt *AVCodecContext) Trellis() int {
-	return int(ctxt.trellis)
-}
-
-func (ctxt *AVCodecContext) Width() int {
-	return int(ctxt.width)
-}
-
-func (ctxt *AVCodecContext) Workaround_bugs() int {
-	return int(ctxt.workaround_bugs)
-}
-
-func (ctxt *AVCodecContext) Audio_service_type() AVAudioServiceType { //enum
-	return (AVAudioServiceType)(ctxt.audio_service_type)
-}
-
-func (ctxt *AVCodecContext) Chroma_sample_location() AVChromaLocation { //enum
-	return (AVChromaLocation)(ctxt.chroma_sample_location)
-}
-
-func (ctxt *AVCodecContext) Codec_descriptor() *AVCodecDescriptor { //const
-	return (*AVCodecDescriptor)(ctxt.codec_descriptor)
-}
-
-func (ctxt *AVCodecContext) Codec_id() AVCodecID { //enum
-	return (AVCodecID)(ctxt.codec_id)
-}
-
-func (ctxt *AVCodecContext) Codec_type() AVMediaType { //enum
-	return (AVMediaType)(ctxt.codec_type)
-}
-
-func (ctxt *AVCodecContext) Color_primaries() AVColorPrimaries { //enum
-	return (AVColorPrimaries)(ctxt.color_primaries)
-}
-
-func (ctxt *AVCodecContext) Color_range() AVColorRange { //enum
-	return (AVColorRange)(ctxt.color_range)
-}
-
-func (ctxt *AVCodecContext) Color_trc() AVColorTransferCharacteristic { //enum
-	return (AVColorTransferCharacteristic)(ctxt.color_trc)
-}
-
-func (ctxt *AVCodecContext) Colorspace() AVColorSpace { //enum
-	return (AVColorSpace)(ctxt.colorspace)
-}
-
-func (ctxt *AVCodecContext) Field_order() AVFieldOrder { //enum
-	return (AVFieldOrder)(ctxt.field_order)
-}
-
-func (ctxt *AVCodecContext) Pix_fmt() AVPixelFormat { //enum
-	return (AVPixelFormat)(ctxt.pix_fmt)
-}
-
-func (ctxt *AVCodecContext) Request_sample_fmt() AVSampleFormat { //enum
-	return (AVSampleFormat)(ctxt.request_sample_fmt)
-}
-
-func (ctxt *AVCodecContext) Sample_fmt() AVSampleFormat { //enum
-	return (AVSampleFormat)(ctxt.sample_fmt)
-}
-
-func (ctxt *AVCodecContext) Skip_frame() AVDiscard { //enum
-	return (AVDiscard)(ctxt.skip_frame)
-}
-
-func (ctxt *AVCodecContext) Skip_idct() AVDiscard { //enum
-	return (AVDiscard)(ctxt.skip_idct)
-}
-
-func (ctxt *AVCodecContext) Skip_loop_filter() AVDiscard { //enum
-	return (AVDiscard)(ctxt.skip_loop_filter)
-}
-
-// func (ctxt *AVCodecContext) Sw_pix_fmt() AVPixelFormat { //enum
-// 	return (AVPixelFormat)(ctxt.sw_pix_fmt)
-// }

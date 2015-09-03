@@ -24,8 +24,8 @@ type (
 	SwsContext    C.struct_SwsContext
 	SwsFilter     C.struct_SwsFilter
 	SwsVector     C.struct_SwsVector
-	AVClass       C.struct_AVClass
-	AVPixelFormat C.enum_AVPixelFormat
+	AvClass       C.struct_AVClass
+	AvPixelFormat C.enum_AVPixelFormat
 )
 
 //unsigned swscale_version (void)
@@ -52,20 +52,20 @@ func Sws_getCoefficients(c int) *int {
 	return (*int)(unsafe.Pointer(C.sws_getCoefficients(C.int(c))))
 }
 
-//int sws_isSupportedInput (enum AVPixelFormat pix_fmt)
+//int sws_isSupportedInput (enum AvPixelFormat pix_fmt)
 //Return a positive value if pix_fmt is a supported input format, 0 otherwise.
-func Sws_isSupportedInput(p AVPixelFormat) int {
+func Sws_isSupportedInput(p AvPixelFormat) int {
 	return int(C.sws_isSupportedInput((C.enum_AVPixelFormat)(p)))
 }
 
-//int sws_isSupportedOutput (enum AVPixelFormat pix_fmt)
+//int sws_isSupportedOutput (enum AvPixelFormat pix_fmt)
 //Return a positive value if pix_fmt is a supported output format, 0 otherwise.
-func Sws_isSupportedOutput(p AVPixelFormat) int {
+func Sws_isSupportedOutput(p AvPixelFormat) int {
 	return int(C.sws_isSupportedOutput((C.enum_AVPixelFormat)(p)))
 }
 
-//int sws_isSupportedEndiannessConversion (enum AVPixelFormat pix_fmt)
-func Sws_isSupportedEndiannessConversion(p AVPixelFormat) int {
+//int sws_isSupportedEndiannessConversion (enum AvPixelFormat pix_fmt)
+func Sws_isSupportedEndiannessConversion(p AvPixelFormat) int {
 	return int(C.sws_isSupportedEndiannessConversion((C.enum_AVPixelFormat)(p)))
 }
 
@@ -87,9 +87,9 @@ func Sws_freeContext(ctxt *SwsContext) {
 	C.sws_freeContext((*C.struct_SwsContext)(ctxt))
 }
 
-//struct SwsContext * sws_getContext (int srcW, int srcH, enum AVPixelFormat srcFormat, int dstW, int dstH, enum AVPixelFormat dstFormat, int flags, SwsFilter *srcFilter, SwsFilter *dstFilter, const double *param)
+//struct SwsContext * sws_getContext (int srcW, int srcH, enum AvPixelFormat srcFormat, int dstW, int dstH, enum AvPixelFormat dstFormat, int flags, SwsFilter *srcFilter, SwsFilter *dstFilter, const double *param)
 //Allocate and return an SwsContext.
-func Sws_getContext(sw, sh int, sf AVPixelFormat, dw, dh int, df AVPixelFormat, f int, sfl, dfl *SwsFilter, p *int) *SwsContext {
+func Sws_getContext(sw, sh int, sf AvPixelFormat, dw, dh int, df AvPixelFormat, f int, sfl, dfl *SwsFilter, p *int) *SwsContext {
 	return (*SwsContext)(C.sws_getContext(C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(unsafe.Pointer(p))))
 }
 
@@ -185,9 +185,9 @@ func Sws_cloneVec(a *SwsVector) *SwsVector {
 	return (*SwsVector)(unsafe.Pointer(C.sws_cloneVec((*C.struct_SwsVector)(a))))
 }
 
-//void sws_printVec2 (SwsVector *a, AVClass *log_ctx, int log_level)
+//void sws_printVec2 (SwsVector *a, AvClass *log_ctx, int log_level)
 //Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
-func Sws_printVec2(a *SwsVector, lctx *AVClass, l int) {
+func Sws_printVec2(a *SwsVector, lctx *AvClass, l int) {
 	C.sws_printVec2((*C.struct_SwsVector)(a), (*C.struct_AVClass)(lctx), C.int(l))
 }
 
@@ -206,9 +206,9 @@ func Sws_freeFilter(f *SwsFilter) {
 	C.sws_freeFilter((*C.struct_SwsFilter)(f))
 }
 
-//struct SwsContext * sws_getCachedContext (struct SwsContext *context, int srcW, int srcH, enum AVPixelFormat srcFormat, int dstW, int dstH, enum AVPixelFormat dstFormat, int flags, SwsFilter *srcFilter, SwsFilter *dstFilter, const double *param)
+//struct SwsContext * sws_getCachedContext (struct SwsContext *context, int srcW, int srcH, enum AvPixelFormat srcFormat, int dstW, int dstH, enum AvPixelFormat dstFormat, int flags, SwsFilter *srcFilter, SwsFilter *dstFilter, const double *param)
 //Check if context can be reused, otherwise reallocate a new one.
-func Sws_getCachedContext(ctxt *SwsContext, sw, sh int, sf AVPixelFormat, dw, dh int, df AVPixelFormat, f int, sfl, dfl *SwsFilter, p *float64) *SwsContext {
+func Sws_getCachedContext(ctxt *SwsContext, sw, sh int, sf AvPixelFormat, dw, dh int, df AvPixelFormat, f int, sfl, dfl *SwsFilter, p *float64) *SwsContext {
 	return (*SwsContext)(C.sws_getCachedContext((*C.struct_SwsContext)(ctxt), C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(p)))
 }
 
@@ -224,8 +224,8 @@ func Sws_convertPalette8ToPacked24(s, d *uint8, px int, p *uint8) {
 	C.sws_convertPalette8ToPacked24((*C.uint8_t)(s), (*C.uint8_t)(d), C.int(px), (*C.uint8_t)(p))
 }
 
-//const AVClass * sws_get_class (void)
-//Get the AVClass for swsContext.
-func Sws_get_class() *AVClass {
-	return (*AVClass)(C.sws_get_class())
+//const AvClass * sws_get_class (void)
+//Get the AvClass for swsContext.
+func Sws_get_class() *AvClass {
+	return (*AvClass)(C.sws_get_class())
 }

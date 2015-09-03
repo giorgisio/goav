@@ -18,17 +18,17 @@ import (
 )
 
 type (
-	AVOptions     C.struct_AVOptions
-	AVDictionary  C.struct_AVDictionary
-	AVTree        C.struct_AVTree
-	AVRational    C.struct_AVRational
-	AVMediaType   C.enum_AVMediaType
-	AVPictureType C.enum_AVPictureType
+	AvOptions     C.struct_AVOptions
+	AvDictionary  C.struct_AVDictionary
+	AvTree        C.struct_AVTree
+	AvRational    C.struct_AVRational
+	AvMediaType   C.enum_AVMediaType
+	AvPictureType C.enum_AVPictureType
 	File          C.FILE
 )
 
 //unsigned 	avutil_version (void)
-//Return the LIBAVUTIL_VERSION_INT constant.
+//Return the LIBAvUTIL_VERSION_INT constant.
 func AvutilVersion() uint {
 	return uint(C.avutil_version())
 }
@@ -45,15 +45,15 @@ func Avutil_license() string {
 	return C.GoString(C.avutil_license())
 }
 
-//const char * 	av_get_media_type_string (enum AVMediaType media_type)
+//const char * 	av_get_media_type_string (enum AvMediaType media_type)
 //Return a string describing the media_type enum, NULL if media_type is unknown.
-func Av_get_media_type_string(mt AVMediaType) string {
+func Av_get_media_type_string(mt AvMediaType) string {
 	return C.GoString(C.av_get_media_type_string((C.enum_AVMediaType)(mt)))
 }
 
-//char av_get_picture_type_char (enum AVPictureType pict_type)
+//char av_get_picture_type_char (enum AvPictureType pict_type)
 //Return a single letter to describe the given picture type pict_type.
-func Av_get_picture_type_char(pt AVPictureType) string {
+func Av_get_picture_type_char(pt AvPictureType) string {
 	return string(C.av_get_picture_type_char((C.enum_AVPictureType)(pt)))
 }
 
@@ -76,8 +76,8 @@ func Av_fopen_utf8(p, m string) *File {
 	return (*File)(f)
 }
 
-//AVRational 	av_get_time_base_q (void)
+//AvRational 	av_get_time_base_q (void)
 //Return the fractional representation of the internal time base.
-func Av_get_time_base_q() AVRational {
-	return (AVRational)(C.av_get_time_base_q())
+func Av_get_time_base_q() AvRational {
+	return (AvRational)(C.av_get_time_base_q())
 }

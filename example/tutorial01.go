@@ -16,57 +16,57 @@ func main() {
 	filename := "sample.mp4"
 
 	var (
-		pFormatCtx    *avformat.AVFormatContext
-		pCodecCtxOrig *avcodec.AVCodecContext
-		pCodecCtx     *avcodec.AVCodecContext
-		pCodec        *avcodec.AVCodec
-		pFrame        *avutil.AVFrame
-		pFrameRGB     *avutil.AVFrame
-		packet        *avcodec.AVPacket
-		sws_ctx       *swscale.SwsContext
+		ctxtFormat    *avformat.AvFormatContext
+		ctxtSource    *avcodec.AvCodecContext
+		ctxtDest      *avcodec.AvCodecContext
+		videoCodec    *avcodec.AvCodec
+		videoFrame    *avutil.AvFrame
+		videoFrameRGB *avutil.AvFrame
+		packet        *avcodec.AvPacket
+		ctxtSws       *swscale.SwsContext
 		videoStream   int
 		frameFinished int
 		numBytes      int
 		url           string
 	)
-	//media_type    *avutil.AVMediaType
+	//media_type    *avutil.AvMediaType
 
 	// Register all formats and codecs
 	avformat.Av_register_all()
 
 	// Open video file
-	if avformat.Avformat_open_input(&pFormatCtx, filename, nil, nil) != 0 {
+	if avformat.Avformat_open_input(&ctxtFormat, filename, nil, nil) != 0 {
 		log.Println("Error: Couldn't open file.")
 		return
 	}
 
 	// Retrieve stream information
-	if avformat.Avformat_find_stream_info(pFormatCtx, nil) < 0 {
+	if avformat.Avformat_find_stream_info(ctxtFormat, nil) < 0 {
 		log.Println("Error: Couldn't find stream information.")
 		return
 	}
 
 	// Dump information about file onto standard error
-	avformat.Av_dump_format(pFormatCtx, 0, url, 0)
+	avformat.Av_dump_format(ctxtFormat, 0, url, 0)
 
 	// Find the first video stream
 	videoStream = -1
 
-	//pFormatCtx->nb_streams
-	n := pFormatCtx.Nb_streams()
+	//ctxtFormat->nb_streams
+	n := ctxtFormat.Nb_streams()
 
-	//pFormatCtx->streams[]
-	s := pFormatCtx.Streams()
-	//s2 := avformat.StreamsOne(pFormatCtx, 1)
+	//ctxtFormat->streams[]
+	s := ctxtFormat.Streams()
+	//s2 := avformat.StreamsOne(ctxtFormat, 1)
 
 	log.Print("Number of Streams:", n)
 
 	for i := 0; i < int(n); i++ {
-		// pFormatCtx->streams[i]->codec->codec_type
+		// ctxtFormat->streams[i]->codec->codec_type
 		log.Println("Stream Number:", i)
 
-		//FIX: AVMEDIA_TYPE_VIDEO
-		if (*avformat.AVCodecContext)(s.Codec()) != nil {
+		//FIX: AvMEDIA_TYPE_VIDEO
+		if (*avformat.AvCodecContext)(s.Codec()) != nil {
 			videoStream = i
 			break
 		}
@@ -80,74 +80,75 @@ func main() {
 	codec := s.Codec()
 
 	// Get a pointer to the codec context for the video stream
-	//pCodecCtxOrig = pFormatCtx.streams[videoStream].codec
-	pCodecCtxOrig = (*avcodec.AVCodecContext)(unsafe.Pointer(&codec))
-	log.Println("Bit Rate:", pCodecCtxOrig.Bit_rate())
-	log.Println("Channels:", pCodecCtxOrig.Channels())
-	log.Println("Coded_height:", pCodecCtxOrig.Coded_height())
-	log.Println("Coded_width:", pCodecCtxOrig.Coded_width())
-	log.Println("Coder_type:", pCodecCtxOrig.Coder_type())
-	log.Println("Height:", pCodecCtxOrig.Height())
-	log.Println("Profile:", pCodecCtxOrig.Profile())
-	log.Println("Width:", pCodecCtxOrig.Width())
-	log.Println("Codec ID:", pCodecCtxOrig.Codec_id())
+	//ctxtSource = ctxtFormat.streams[videoStream].codec
+	ctxtSource = (*avcodec.AvCodecContext)(unsafe.Pointer(&codec))
+	log.Println("Bit Rate:", ctxtSource.BitRate())
+	log.Println("Channels:", ctxtSource.Channels())
+	log.Println("Coded_height:", ctxtSource.CodedHeight())
+	log.Println("Coded_width:", ctxtSource.CodedWidth())
+	log.Println("Coder_type:", ctxtSource.CoderType())
+	log.Println("Height:", ctxtSource.Height())
+	log.Println("Profile:", ctxtSource.Profile())
+	log.Println("Width:", ctxtSource.Width())
+	log.Println("Codec ID:", ctxtSource.CodecId())
 
 	//C.enum_AVCodecID
-	codec_id := pCodecCtxOrig.Codec_id()
+	codec_id := ctxtSource.CodecId()
 
 	// Find the decoder for the video stream
-	pCodec = avcodec.Avcodec_find_decoder(codec_id)
-	if pCodec == nil {
+	videoCodec = avcodec.AvcodecFindDecoder(codec_id)
+	if videoCodec == nil {
 		log.Println("Error: Unsupported codec!")
 		return // Codec not found
 	}
 
 	// Copy context
-	pCodecCtx = avcodec.Avcodec_alloc_context3(pCodec)
+	ctxtDest = videoCodec.AvcodecAllocContext3()
 
-	if avcodec.Avcodec_copy_context(pCodecCtx, pCodecCtxOrig) != 0 {
+	if ctxtDest.AvcodecCopyContext(ctxtSource) != 0 {
 		log.Println("Error: Couldn't copy codec context")
 		return // Error copying codec context
 	}
 
 	// Open codec
-	if avcodec.Avcodec_open2(pCodecCtx, pCodec, nil) < 0 {
+	if ctxtDest.AvcodecOpen2(videoCodec, nil) < 0 {
 		return // Could not open codec
 	}
 
 	// Allocate video frame
-	pFrame = avutil.Av_frame_alloc()
+	videoFrame = avutil.Av_frame_alloc()
 
-	// Allocate an AVFrame structure
-	if pFrameRGB = avutil.Av_frame_alloc(); pFrameRGB == nil {
+	// Allocate an AvFrame structure
+	if videoFrameRGB = avutil.Av_frame_alloc(); videoFrameRGB == nil {
 		return
 	}
 
 	//##TODO
-	var a swscale.AVPixelFormat
+	var a swscale.AvPixelFormat
 	var b int
-	//avcodec.AVPixelFormat
+	//avcodec.AvPixelFormat
 	//avcodec.PIX_FMT_RGB24
 	//avcodec.SWS_BILINEAR
 
-	w := pCodecCtx.Width()
-	h := pCodecCtx.Height()
-	pix_fmt := pCodecCtx.Pix_fmt()
+	w := ctxtDest.Width()
+	h := ctxtDest.Height()
+	pix_fmt := ctxtDest.PixFmt()
 
 	// Determine required buffer size and allocate buffer
-	numBytes = avcodec.Avpicture_get_size((avcodec.AVPixelFormat)(a), w, h)
+	numBytes = avcodec.AvpictureGetSize((avcodec.AvPixelFormat)(a), w, h)
 
 	buffer := avutil.Av_malloc(uintptr(numBytes))
 
-	// Assign appropriate parts of buffer to image planes in pFrameRGB
-	// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
-	// of AVPicture
-	avcodec.Avpicture_fill((*avcodec.AVPicture)(unsafe.Pointer(pFrameRGB)), (*uint8)(buffer), (avcodec.AVPixelFormat)(a), w, h)
+	// Assign appropriate parts of buffer to image planes in videoFrameRGB
+	// Note that videoFrameRGB is an AvFrame, but AvFrame is a superset
+	// of AvPicture
+	avp := (*avcodec.AvPicture)(unsafe.Pointer(videoFrameRGB))
+	avp.AvpictureFill((*uint8)(buffer), (avcodec.AvPixelFormat)(a), w, h)
 
 	// initialize SWS context for software scaling
-	sws_ctx = swscale.Sws_getContext(w,
+	ctxtSws = swscale.Sws_getContext(w,
 		h,
-		(swscale.AVPixelFormat)(pix_fmt),
+		(swscale.AvPixelFormat)(pix_fmt),
 		w,
 		h,
 		a,
@@ -160,21 +161,21 @@ func main() {
 	// Read frames and save first five frames to disk
 	i := 0
 
-	for avformat.Av_read_frame(pFormatCtx, packet) >= 0 {
+	for avformat.Av_read_frame(ctxtFormat, packet) >= 0 {
 		// Is this a packet from the video stream?
-		s := packet.Stream_index()
+		s := packet.StreamIndex()
 		if s == videoStream {
 			// Decode video frame
-			avcodec.Avcodec_decode_video2(pCodecCtx, (*avcodec.AVFrame)(unsafe.Pointer(pFrame)), &frameFinished, packet)
+			ctxtDest.AvcodecDecodeVideo2((*avcodec.AvFrame)(unsafe.Pointer(videoFrame)), &frameFinished, packet)
 
 			// Did we get a video frame?
 			if frameFinished > 0 {
 				// Convert the image from its native format to RGB
-				d := avutil.Data(pFrame)
-				l := avutil.Linesize(pFrame)
-				dr := avutil.Data(pFrameRGB)
-				lr := avutil.Linesize(pFrameRGB)
-				swscale.Sws_scale(sws_ctx,
+				d := avutil.Data(videoFrame)
+				l := avutil.Linesize(videoFrame)
+				dr := avutil.Data(videoFrameRGB)
+				lr := avutil.Linesize(videoFrameRGB)
+				swscale.Sws_scale(ctxtSws,
 					d,
 					l,
 					0,
@@ -185,33 +186,33 @@ func main() {
 
 				// Save the frame to disk
 				if i <= 5 {
-					saveFrame(pFrameRGB, w, h, i)
+					saveFrame(videoFrameRGB, w, h, i)
 				}
 				i++
 			}
 		}
 
 		// Free the packet that was allocated by av_read_frame
-		avcodec.Av_free_packet(packet)
+		packet.AvFreePacket()
 	}
 
 	// Free the RGB image
 	avutil.Av_free(buffer)
-	avutil.Av_frame_free(pFrameRGB)
+	avutil.Av_frame_free(videoFrameRGB)
 
 	// Free the YUV frame
-	avutil.Av_frame_free(pFrame)
+	avutil.Av_frame_free(videoFrame)
 
 	// Close the codecs
-	avcodec.Avcodec_close(pCodecCtx)
-	avcodec.Avcodec_close(pCodecCtxOrig)
+	ctxtDest.AvcodecClose()
+	ctxtSource.AvcodecClose()
 
 	// Close the video file
-	avformat.Avformat_close_input(pFormatCtx)
+	avformat.Avformat_close_input(ctxtFormat)
 
 }
 
-func saveFrame(pFrame *avutil.AVFrame, width int, height int, iFrame int) {
+func saveFrame(videoFrame *avutil.AvFrame, width int, height int, iFrame int) {
 
 	var szFilename string
 	var y int
@@ -233,8 +234,8 @@ func saveFrame(pFrame *avutil.AVFrame, width int, height int, iFrame int) {
 
 	// Write pixel data
 	for y = 0; y < height; y++ {
-		// d := avutil.Data(pFrame)
-		// l := avutil.Linesize(pFrame)
+		// d := avutil.Data(videoFrame)
+		// l := avutil.Linesize(videoFrame)
 		//##TODO
 		f := make([]byte, 100)
 		file.Write(f)

@@ -19,15 +19,15 @@ import (
 
 type (
 	SwrContext     C.struct_SwrContext
-	AVFrame        C.struct_AVFrame
-	AVClass        C.struct_AVClass
-	AVSampleFormat C.enum_AVSampleFormat
+	AvFrame        C.struct_AVFrame
+	AvClass        C.struct_AVClass
+	AvSampleFormat C.enum_AVSampleFormat
 )
 
-//const AVClass * swr_get_class (void)
-//Get the AVClass for SwrContext.
-func Swr_get_class() *AVClass {
-	return (*AVClass)(C.swr_get_class())
+//const AvClass * swr_get_class (void)
+//Get the AvClass for SwrContext.
+func Swr_get_class() *AvClass {
+	return (*AvClass)(C.swr_get_class())
 }
 
 //SwrContext constructor functions
@@ -49,9 +49,9 @@ func Swr_is_initialized(s *SwrContext) int {
 	return int(C.swr_is_initialized((*C.struct_SwrContext)(s)))
 }
 
-//struct SwrContext * swr_alloc_set_opts (struct SwrContext *s, int64_t out_ch_layout, enum AVSampleFormat out_sample_fmt, int out_sample_rate, int64_t in_ch_layout, enum AVSampleFormat in_sample_fmt, int in_sample_rate, int log_offset, void *log_ctx)
+//struct SwrContext * swr_alloc_set_opts (struct SwrContext *s, int64_t out_ch_layout, enum AvSampleFormat out_sample_fmt, int out_sample_rate, int64_t in_ch_layout, enum AvSampleFormat in_sample_fmt, int in_sample_rate, int log_offset, void *log_ctx)
 //Allocate SwrContext if needed and set/reset common parameters.
-func Swr_alloc_set_opts(s *SwrContext, ocl int64, osf AVSampleFormat, osr int, icl int64, isf AVSampleFormat, isr, lo, lc int) *SwrContext {
+func Swr_alloc_set_opts(s *SwrContext, ocl int64, osf AvSampleFormat, osr int, icl int64, isf AvSampleFormat, isr, lo, lc int) *SwrContext {
 	return (*SwrContext)(C.swr_alloc_set_opts((*C.struct_SwrContext)(s), C.int64_t(ocl), (C.enum_AVSampleFormat)(osf), C.int(osr), C.int64_t(icl), (C.enum_AVSampleFormat)(isf), C.int(isr), C.int(lo), unsafe.Pointer(&lc)))
 }
 
@@ -82,7 +82,7 @@ func Swr_next_pts(s *SwrContext, pts int64) int64 {
 }
 
 //Low-level option setting functions
-//These functons provide a means to set low-level options that is not possible with the AVOption API.
+//These functons provide a means to set low-level options that is not possible with the AvOption API.
 //int swr_set_compensation (struct SwrContext *s, int sample_delta, int compensation_distance)
 //Activate resampling compensation ("soft" compensation).
 func Swr_set_compensation(s *SwrContext, sd, cd int) int {
@@ -139,15 +139,15 @@ func Swresample_license() string {
 	return C.GoString(C.swresample_license())
 }
 
-//AVFrame based API
-//int swr_convert_frame (SwrContext *swr, AVFrame *output, const AVFrame *input)
-//Convert the samples in the input AVFrame and write them to the output AVFrame.
-func Swr_convert_frame(s *SwrContext, o, i *AVFrame) int {
+//AvFrame based API
+//int swr_convert_frame (SwrContext *swr, AvFrame *output, const AvFrame *input)
+//Convert the samples in the input AvFrame and write them to the output AvFrame.
+func Swr_convert_frame(s *SwrContext, o, i *AvFrame) int {
 	return int(C.swr_convert_frame((*C.struct_SwrContext)(s), (*C.struct_AVFrame)(o), (*C.struct_AVFrame)(i)))
 }
 
-//int swr_config_frame (SwrContext *swr, const AVFrame *out, const AVFrame *in)
-//Configure or reconfigure the SwrContext using the information provided by the AVFrames.
-func Swr_config_frame(s *SwrContext, o, i *AVFrame) int {
+//int swr_config_frame (SwrContext *swr, const AvFrame *out, const AvFrame *in)
+//Configure or reconfigure the SwrContext using the information provided by the AvFrames.
+func Swr_config_frame(s *SwrContext, o, i *AvFrame) int {
 	return int(C.swr_config_frame((*C.struct_SwrContext)(s), (*C.struct_AVFrame)(o), (*C.struct_AVFrame)(i)))
 }

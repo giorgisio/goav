@@ -420,16 +420,3 @@ const (
 	AV_CODEC_ID_ZLIB                        = int(C.AV_CODEC_ID_ZLIB)
 	AV_CODEC_ID_ZMBV                        = int(C.AV_CODEC_ID_ZMBV)
 )
-
-// const (
-// 	AV_CODEC_ID_4GV          = int(C.AV_CODEC_ID_4GV)
-// 	AV_CODEC_ID_ADPCM_THP_LE = int(C.AV_CODEC_ID_ADPCM_THP_LE)
-// 	AV_CODEC_ID_APNG         = int(C.AV_CODEC_ID_APNG)
-// 	AV_CODEC_ID_DDS          = int(C.AV_CODEC_ID_DDS)
-// 	AV_CODEC_ID_DSS_SP       = int(C.AV_CODEC_ID_DSS_SP)
-// 	AV_CODEC_ID_HAP          = int(C.AV_CODEC_ID_HAP)
-// 	AV_CODEC_ID_HQX          = int(C.AV_CODEC_ID_HQX)
-// 	AV_CODEC_ID_HQ_HQA       = int(C.AV_CODEC_ID_HQ_HQA)
-// 	AV_CODEC_ID_STL          = int(C.AV_CODEC_ID_STL)
-// 	AV_CODEC_ID_TDSC         = int(C.AV_CODEC_ID_TDSC)
-// )

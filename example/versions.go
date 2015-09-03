@@ -16,11 +16,11 @@ func main() {
 	// Register all formats and codecs
 	avformat.Av_register_all()
 
-	log.Printf("AVFilter Version:\t%v", avfilter.Avfilter_version())
-	log.Printf("AVDevice Version:\t%v", avdevice.Avdevice_version())
+	log.Printf("AvFilter Version:\t%v", avfilter.Avfilter_version())
+	log.Printf("AvDevice Version:\t%v", avdevice.Avdevice_version())
 	log.Printf("SWScale Version:\t%v", swscale.Swscale_version())
-	log.Printf("AVUtil Version:\t%v", avutil.AvutilVersion())
-	log.Printf("AVCodec Version:\t%v", avcodec.Avcodec_version())
+	log.Printf("AvUtil Version:\t%v", avutil.AvutilVersion())
+	log.Printf("AvCodec Version:\t%v", avcodec.AvcodecVersion())
 	log.Printf("Resample Version:\t%v", swresample.Swresample_license())
 
 }
