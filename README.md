@@ -29,7 +29,7 @@ func main() {
 
 * `avcodec` corresponds to the ffmpeg library: libavcodec [provides implementation of a wider range of codecs]
 * `avformat` corresponds to the ffmpeg library: libavformat [implements streaming protocols, container formats and basic I/O access]
-* `avutil`` corresponds to the ffmpeg library: libavutil [includes hashers, decompressors and miscellaneous utility functions]
+* `avutil` corresponds to the ffmpeg library: libavutil [includes hashers, decompressors and miscellaneous utility functions]
 * `avfilter` corresponds to the ffmpeg library: libavfilter [provides a mean to alter decoded Audio and Video through chain of filters]
 * `avdevice` corresponds to the ffmpeg library: libavdevice [provides an abstraction to access capture and playback devices]
 * `swresample` corresponds to the ffmpeg library: libswresample [implements audio mixing and resampling routines]
@@ -56,9 +56,14 @@ go get github.com/giorgisio/goav
 
 ``` 
 
+## More Examples
+
+Coding examples are available in the examples/ directory.
+
 ## Note
 - Function names in Go are consistent with that of the libraries to help with easy search
 - [cgo: Extending Go with C](http://blog.giorgis.io/cgo-examples)
+- goav comes with absolutely no warranty.
 
 ## Contribute
 - Fork this repo and create your own feature branch.
@@ -70,7 +75,7 @@ go get github.com/giorgisio/goav
 
 - [ ] Returning Errors
 - [ ] Garbage Collection
-- [ ] Review included/excluded functions from each library
+- [X] Review included/excluded functions from each library
 - [ ] Go Tests
 - [ ] Possible restructuring packages
 - [x] Tutorial01.c
@@ -78,9 +83,3 @@ go get github.com/giorgisio/goav
 
 ## License
 This library is under the [MIT License](http://opensource.org/licenses/MIT)
-
-
-## Notice
-goav comes with absolutely no warranty.
-
-

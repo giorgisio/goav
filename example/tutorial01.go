@@ -23,13 +23,13 @@ func main() {
 		pFrame        *avutil.AVFrame
 		pFrameRGB     *avutil.AVFrame
 		packet        *avcodec.AVPacket
-		//media_type    *avutil.AVMediaType
 		sws_ctx       *swscale.SwsContext
 		videoStream   int
 		frameFinished int
 		numBytes      int
 		url           string
 	)
+	//media_type    *avutil.AVMediaType
 
 	// Register all formats and codecs
 	avformat.Av_register_all()
