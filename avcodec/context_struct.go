@@ -491,16 +491,16 @@ func (ctxt *Context) ChromaSampleLocation() AvChromaLocation {
 	return (AvChromaLocation)(ctxt.chroma_sample_location)
 }
 
-func (ctxt *Context) CodecDescriptor() *AvCodecDescriptor {
-	return (*AvCodecDescriptor)(ctxt.codec_descriptor)
+func (ctxt *Context) CodecDescriptor() *Descriptor {
+	return (*Descriptor)(ctxt.codec_descriptor)
 }
 
-func (ctxt *Context) CodecId() AvCodecId {
-	return (AvCodecId)(ctxt.codec_id)
+func (ctxt *Context) CodecId() CodecId {
+	return (CodecId)(ctxt.codec_id)
 }
 
-func (ctxt *Context) CodecType() AvMediaType {
-	return (AvMediaType)(ctxt.codec_type)
+func (ctxt *Context) CodecType() MediaType {
+	return (MediaType)(ctxt.codec_type)
 }
 
 func (ctxt *Context) ColorPrimaries() AvColorPrimaries {
@@ -523,8 +523,8 @@ func (ctxt *Context) FieldOrder() AvFieldOrder {
 	return (AvFieldOrder)(ctxt.field_order)
 }
 
-func (ctxt *Context) PixFmt() AvPixelFormat {
-	return (AvPixelFormat)(ctxt.pix_fmt)
+func (ctxt *Context) PixFmt() PixelFormat {
+	return (PixelFormat)(ctxt.pix_fmt)
 }
 
 func (ctxt *Context) RequestSampleFmt() AvSampleFormat {

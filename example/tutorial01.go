@@ -19,17 +19,17 @@ func main() {
 		ctxtFormat    *avformat.Context
 		ctxtSource    *avcodec.Context
 		ctxtDest      *avcodec.Context
-		videoCodec    *avcodec.AvCodec
-		videoFrame    *avutil.AvFrame
-		videoFrameRGB *avutil.AvFrame
-		packet        *avcodec.AvPacket
-		ctxtSws       *swscale.SwsContext
+		videoCodec    *avcodec.Codec
+		videoFrame    *avutil.Frame
+		videoFrameRGB *avutil.Frame
+		packet        *avcodec.Packet
+		ctxtSws       *swscale.Context
 		videoStream   int
 		frameFinished int
 		numBytes      int
 		url           string
 	)
-	//media_type    *avutil.AvMediaType
+	//media_type    *avutil.MediaType
 
 	// Register all formats and codecs
 	avformat.AvRegisterAll()
@@ -66,7 +66,7 @@ func main() {
 		log.Println("Stream Number:", i)
 
 		//FIX: AvMEDIA_TYPE_VIDEO
-		if (*avformat.AvCodecContext)(s.Codec()) != nil {
+		if (*avformat.CodecContext)(s.Codec()) != nil {
 			videoStream = i
 			break
 		}
@@ -118,15 +118,15 @@ func main() {
 	// Allocate video frame
 	videoFrame = avutil.Av_frame_alloc()
 
-	// Allocate an AvFrame structure
+	// Allocate an Frame structure
 	if videoFrameRGB = avutil.Av_frame_alloc(); videoFrameRGB == nil {
 		return
 	}
 
 	//##TODO
-	var a swscale.AvPixelFormat
+	var a swscale.PixelFormat
 	var b int
-	//avcodec.AvPixelFormat
+	//avcodec.PixelFormat
 	//avcodec.PIX_FMT_RGB24
 	//avcodec.SWS_BILINEAR
 
@@ -135,20 +135,20 @@ func main() {
 	pix_fmt := ctxtDest.PixFmt()
 
 	// Determine required buffer size and allocate buffer
-	numBytes = avcodec.AvpictureGetSize((avcodec.AvPixelFormat)(a), w, h)
+	numBytes = avcodec.AvpictureGetSize((avcodec.PixelFormat)(a), w, h)
 
 	buffer := avutil.Av_malloc(uintptr(numBytes))
 
 	// Assign appropriate parts of buffer to image planes in videoFrameRGB
-	// Note that videoFrameRGB is an AvFrame, but AvFrame is a superset
+	// Note that videoFrameRGB is an Frame, but Frame is a superset
 	// of AvPicture
 	avp := (*avcodec.AvPicture)(unsafe.Pointer(videoFrameRGB))
-	avp.AvpictureFill((*uint8)(buffer), (avcodec.AvPixelFormat)(a), w, h)
+	avp.AvpictureFill((*uint8)(buffer), (avcodec.PixelFormat)(a), w, h)
 
 	// initialize SWS context for software scaling
 	ctxtSws = swscale.Sws_getContext(w,
 		h,
-		(swscale.AvPixelFormat)(pix_fmt),
+		(swscale.PixelFormat)(pix_fmt),
 		w,
 		h,
 		a,
@@ -166,7 +166,7 @@ func main() {
 		s := packet.StreamIndex()
 		if s == videoStream {
 			// Decode video frame
-			ctxtDest.AvcodecDecodeVideo2((*avcodec.AvFrame)(unsafe.Pointer(videoFrame)), &frameFinished, packet)
+			ctxtDest.AvcodecDecodeVideo2((*avcodec.Frame)(unsafe.Pointer(videoFrame)), &frameFinished, packet)
 
 			// Did we get a video frame?
 			if frameFinished > 0 {
@@ -212,7 +212,7 @@ func main() {
 
 }
 
-func saveFrame(videoFrame *avutil.AvFrame, width int, height int, iFrame int) {
+func saveFrame(videoFrame *avutil.Frame, width int, height int, iFrame int) {
 
 	var szFilename string
 	var y int

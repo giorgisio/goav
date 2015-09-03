@@ -4,36 +4,36 @@
 */
 package avcodec
 
-func (p *AvPacket) Buf() *AvBufferRef {
+func (p *Packet) Buf() *AvBufferRef {
 	return (*AvBufferRef)(p.buf)
 }
-func (p *AvPacket) Duration() int {
+func (p *Packet) Duration() int {
 	return int(p.duration)
 }
-func (p *AvPacket) Flags() int {
+func (p *Packet) Flags() int {
 	return int(p.flags)
 }
-func (p *AvPacket) SideDataElems() int {
+func (p *Packet) SideDataElems() int {
 	return int(p.side_data_elems)
 }
-func (p *AvPacket) Size() int {
+func (p *Packet) Size() int {
 	return int(p.size)
 }
-func (p *AvPacket) StreamIndex() int {
+func (p *Packet) StreamIndex() int {
 	return int(p.stream_index)
 }
-func (p *AvPacket) ConvergenceDuration() int64 {
+func (p *Packet) ConvergenceDuration() int64 {
 	return int64(p.convergence_duration)
 }
-func (p *AvPacket) Dts() int64 {
+func (p *Packet) Dts() int64 {
 	return int64(p.dts)
 }
-func (p *AvPacket) Pos() int64 {
+func (p *Packet) Pos() int64 {
 	return int64(p.pos)
 }
-func (p *AvPacket) Pts() int64 {
+func (p *Packet) Pts() int64 {
 	return int64(p.pts)
 }
-func (p *AvPacket) Data() *uint8 {
+func (p *Packet) Data() *uint8 {
 	return (*uint8)(p.data)
 }

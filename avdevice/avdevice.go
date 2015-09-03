@@ -23,10 +23,10 @@ type (
 	AvDeviceCapabilitiesQuery C.struct_AVDeviceCapabilitiesQuery
 	AvDeviceInfo              C.struct_AVDeviceInfo
 	AvDeviceInfoList          C.struct_AVDeviceInfoList
-	AvInputFormat             C.struct_AVInputFormat
-	AvOutputFormat            C.struct_AVOutputFormat
+	InputFormat               C.struct_AVInputFormat
+	OutputFormat              C.struct_AVOutputFormat
 	AvFormatContext           C.struct_AVFormatContext
-	AvDictionary              C.struct_AVDictionary
+	Dictionary                C.struct_AVDictionary
 	AvAppToDevMessageType     C.enum_AVAppToDevMessageType
 	AvDevToAppMessageType     C.enum_AVDevToAppMessageType
 )
@@ -55,28 +55,28 @@ func Avdevice_register_all() {
 	C.avdevice_register_all()
 }
 
-//AvInputFormat * 	av_input_audio_device_next (AvInputFormat *d)
+//InputFormat * 	av_input_audio_device_next (InputFormat *d)
 //Audio input devices iterator.
-func Av_input_audio_device_next(d *AvInputFormat) *AvInputFormat {
-	return (*AvInputFormat)(C.av_input_audio_device_next((*C.struct_AVInputFormat)(d)))
+func Av_input_audio_device_next(d *InputFormat) *InputFormat {
+	return (*InputFormat)(C.av_input_audio_device_next((*C.struct_AVInputFormat)(d)))
 }
 
-//AvInputFormat * 	av_input_video_device_next (AvInputFormat *d)
+//InputFormat * 	av_input_video_device_next (InputFormat *d)
 //Video input devices iterator.
-func Av_input_video_device_next(d *AvInputFormat) *AvInputFormat {
-	return (*AvInputFormat)(C.av_input_video_device_next((*C.struct_AVInputFormat)(d)))
+func Av_input_video_device_next(d *InputFormat) *InputFormat {
+	return (*InputFormat)(C.av_input_video_device_next((*C.struct_AVInputFormat)(d)))
 }
 
-//AvOutputFormat * 	av_output_audio_device_next (AvOutputFormat *d)
+//OutputFormat * 	av_output_audio_device_next (OutputFormat *d)
 //Audio output devices iterator.
-func Av_output_audio_device_next(d *AvOutputFormat) *AvOutputFormat {
-	return (*AvOutputFormat)(C.av_output_audio_device_next((*C.struct_AVOutputFormat)(d)))
+func Av_output_audio_device_next(d *OutputFormat) *OutputFormat {
+	return (*OutputFormat)(C.av_output_audio_device_next((*C.struct_AVOutputFormat)(d)))
 }
 
-//AvOutputFormat * 	av_output_video_device_next (AvOutputFormat *d)
+//OutputFormat * 	av_output_video_device_next (OutputFormat *d)
 //Video output devices iterator.
-func Av_output_video_device_next(d *AvOutputFormat) *AvOutputFormat {
-	return (*AvOutputFormat)(C.av_output_video_device_next((*C.struct_AVOutputFormat)(d)))
+func Av_output_video_device_next(d *OutputFormat) *OutputFormat {
+	return (*OutputFormat)(C.av_output_video_device_next((*C.struct_AVOutputFormat)(d)))
 }
 
 //int 	avdevice_app_to_dev_control_message (struct AvFormatContext *s, enum AvAppToDevMessageType type, void *data, size_t data_size)
@@ -91,9 +91,9 @@ func Avdevice_dev_to_app_control_message(fcxt *AvFormatContext, m AvDevToAppMess
 	return int(C.avdevice_dev_to_app_control_message((*C.struct_AVFormatContext)(fcxt), (C.enum_AVDevToAppMessageType)(m), unsafe.Pointer(&da), C.size_t(d)))
 }
 
-//int 	avdevice_capabilities_create (AvDeviceCapabilitiesQuery **caps, AvFormatContext *s, AvDictionary **device_options)
+//int 	avdevice_capabilities_create (AvDeviceCapabilitiesQuery **caps, AvFormatContext *s, Dictionary **device_options)
 //Initialize capabilities probing API based on AvOption API.
-func Avdevice_capabilities_create(c **AvDeviceCapabilitiesQuery, s *AvFormatContext, d **AvDictionary) int {
+func Avdevice_capabilities_create(c **AvDeviceCapabilitiesQuery, s *AvFormatContext, d **Dictionary) int {
 	return int(C.avdevice_capabilities_create((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(s), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
@@ -115,13 +115,13 @@ func Avdevice_free_list_devices(d **AvDeviceInfoList) {
 	C.avdevice_free_list_devices((**C.struct_AVDeviceInfoList)(unsafe.Pointer(d)))
 }
 
-// //int 	avdevice_list_input_sources (struct AvInputFormat *device, const char *device_name, AvDictionary *device_options, AvDeviceInfoList **device_list)
+// //int 	avdevice_list_input_sources (struct InputFormat *device, const char *device_name, Dictionary *device_options, AvDeviceInfoList **device_list)
 // //List devices.
-// func Avdevice_list_input_sources(d *AvInputFormat, dv string, do *AvDictionary, dl **AvDeviceInfoList) int {
+// func Avdevice_list_input_sources(d *InputFormat, dv string, do *Dictionary, dl **AvDeviceInfoList) int {
 // 	return int(C.avdevice_list_input_sources((*C.struct_AVInputFormat)(d), C.CString(dv), (*C.struct_AVDictionary)(do), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
 // }
 
-// //int 	avdevice_list_output_sinks (struct AvOutputFormat *device, const char *device_name, AvDictionary *device_options, AvDeviceInfoList **device_list)
-// func Avdevice_list_output_sinks(d *AvOutputFormat, dn string, di *AvDictionary, dl **AvDeviceInfoList) int {
+// //int 	avdevice_list_output_sinks (struct OutputFormat *device, const char *device_name, Dictionary *device_options, AvDeviceInfoList **device_list)
+// func Avdevice_list_output_sinks(d *OutputFormat, dn string, di *Dictionary, dl **AvDeviceInfoList) int {
 // 	return int(C.avdevice_list_output_sinks((*C.struct_AVOutputFormat)(d), C.CString(dn), (*C.struct_AVDictionary)(di), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
 // }

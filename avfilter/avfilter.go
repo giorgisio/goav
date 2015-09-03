@@ -24,11 +24,11 @@ type (
 	AvFilterGraph   C.struct_AVFilterGraph
 	AvFilterInOut   C.struct_AVFilterInOut
 	AvFilterPad     C.struct_AVFilterPad
-	AvDictionary    C.struct_AVDictionary
+	Dictionary      C.struct_AVDictionary
 	AvClass         C.struct_AVClass
 )
 type (
-	AvMediaType C.enum_AVMediaType
+	MediaType C.enum_AVMediaType
 )
 
 //unsigned 	avfilter_version (void)
@@ -61,10 +61,10 @@ func Avfilter_pad_get_name(p *AvFilterPad, pi int) string {
 	return C.GoString(C.avfilter_pad_get_name((*C.struct_AVFilterPad)(p), C.int(pi)))
 }
 
-//enum AvMediaType 	avfilter_pad_get_type (const AvFilterPad *pads, int pad_idx)
+//enum MediaType 	avfilter_pad_get_type (const AvFilterPad *pads, int pad_idx)
 //Get the type of an AvFilterPad.
-func Avfilter_pad_get_type(p *AvFilterPad, pi int) AvMediaType {
-	return (AvMediaType)(C.avfilter_pad_get_type((*C.struct_AVFilterPad)(p), C.int(pi)))
+func Avfilter_pad_get_type(p *AvFilterPad, pi int) MediaType {
+	return (MediaType)(C.avfilter_pad_get_type((*C.struct_AVFilterPad)(p), C.int(pi)))
 }
 
 //int 	avfilter_link (AvFilterContext *src, unsigned srcpad, AvFilterContext *dst, unsigned dstpad)
@@ -133,9 +133,9 @@ func Avfilter_init_str(ctx *AvFilterContext, args string) int {
 	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(ctx), C.CString(args)))
 }
 
-//int 	avfilter_init_dict (AvFilterContext *ctx, AvDictionary **options)
+//int 	avfilter_init_dict (AvFilterContext *ctx, Dictionary **options)
 //Initialize a filter with the supplied dictionary of options.
-func Avfilter_init_dict(f *AvFilterContext, o **AvDictionary) int {
+func Avfilter_init_dict(f *AvFilterContext, o **Dictionary) int {
 	return int(C.avfilter_init_dict((*C.struct_AVFilterContext)(f), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 

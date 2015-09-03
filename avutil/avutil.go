@@ -18,11 +18,11 @@ import (
 )
 
 type (
-	AvOptions     C.struct_AVOptions
-	AvDictionary  C.struct_AVDictionary
+	Options       C.struct_AVOptions
+	Dictionary    C.struct_AVDictionary
 	AvTree        C.struct_AVTree
-	AvRational    C.struct_AVRational
-	AvMediaType   C.enum_AVMediaType
+	Rational      C.struct_AVRational
+	MediaType     C.enum_AVMediaType
 	AvPictureType C.enum_AVPictureType
 	File          C.FILE
 )
@@ -45,9 +45,9 @@ func Avutil_license() string {
 	return C.GoString(C.avutil_license())
 }
 
-//const char * 	av_get_media_type_string (enum AvMediaType media_type)
+//const char * 	av_get_media_type_string (enum MediaType media_type)
 //Return a string describing the media_type enum, NULL if media_type is unknown.
-func Av_get_media_type_string(mt AvMediaType) string {
+func Av_get_media_type_string(mt MediaType) string {
 	return C.GoString(C.av_get_media_type_string((C.enum_AVMediaType)(mt)))
 }
 
@@ -76,8 +76,8 @@ func Av_fopen_utf8(p, m string) *File {
 	return (*File)(f)
 }
 
-//AvRational 	av_get_time_base_q (void)
+//Rational 	av_get_time_base_q (void)
 //Return the fractional representation of the internal time base.
-func Av_get_time_base_q() AvRational {
-	return (AvRational)(C.av_get_time_base_q())
+func Av_get_time_base_q() Rational {
+	return (Rational)(C.av_get_time_base_q())
 }

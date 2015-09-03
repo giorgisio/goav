@@ -27,8 +27,8 @@ func (ctxt *Context) VideoCodec() *AvCodec {
 	return (*AvCodec)(unsafe.Pointer(ctxt.video_codec))
 }
 
-func (ctxt *Context) Metadata() *AvDictionary {
-	return (*AvDictionary)(unsafe.Pointer(ctxt.metadata))
+func (ctxt *Context) Metadata() *Dictionary {
+	return (*Dictionary)(unsafe.Pointer(ctxt.metadata))
 }
 
 func (ctxt *Context) Internal() *AvFormatInternal {
@@ -47,12 +47,12 @@ func (ctxt *Context) Programs() **AvProgram {
 	return (**AvProgram)(unsafe.Pointer(ctxt.programs))
 }
 
-func (ctxt *Context) OffsetTimebase() AvRational {
-	return AvRational(ctxt.offset_timebase)
+func (ctxt *Context) OffsetTimebase() Rational {
+	return Rational(ctxt.offset_timebase)
 }
 
-func (ctxt *Context) Streams() *AvStream {
-	return (*AvStream)(unsafe.Pointer(ctxt.streams))
+func (ctxt *Context) Streams() *Stream {
+	return (*Stream)(unsafe.Pointer(ctxt.streams))
 }
 
 func (ctxt *Context) Filename() string {
@@ -67,16 +67,16 @@ func (ctxt *Context) Filename() string {
 // 	return C.GoString(ctxt.format_whitelist)
 // }
 
-func (ctxt *Context) AudioCodecId() AvCodecId {
-	return AvCodecId(ctxt.audio_codec_id)
+func (ctxt *Context) AudioCodecId() CodecId {
+	return CodecId(ctxt.audio_codec_id)
 }
 
-func (ctxt *Context) SubtitleCodecId() AvCodecId {
-	return AvCodecId(ctxt.subtitle_codec_id)
+func (ctxt *Context) SubtitleCodecId() CodecId {
+	return CodecId(ctxt.subtitle_codec_id)
 }
 
-func (ctxt *Context) VideoCodecId() AvCodecId {
-	return AvCodecId(ctxt.video_codec_id)
+func (ctxt *Context) VideoCodecId() CodecId {
+	return CodecId(ctxt.video_codec_id)
 }
 
 func (ctxt *Context) DurationEstimationMethod() AvDurationEstimationMethod {
@@ -223,12 +223,12 @@ func (ctxt *Context) StartTimeRealtime() int64 {
 	return int64(ctxt.start_time_realtime)
 }
 
-func (ctxt *Context) Iformat() *AvInputFormat {
-	return (*AvInputFormat)(unsafe.Pointer(ctxt.iformat))
+func (ctxt *Context) Iformat() *InputFormat {
+	return (*InputFormat)(unsafe.Pointer(ctxt.iformat))
 }
 
-func (ctxt *Context) Oformat() *AvOutputFormat {
-	return (*AvOutputFormat)(unsafe.Pointer(ctxt.oformat))
+func (ctxt *Context) Oformat() *OutputFormat {
+	return (*OutputFormat)(unsafe.Pointer(ctxt.oformat))
 }
 
 func (ctxt *Context) PacketBuffer() *AvPacketList {
