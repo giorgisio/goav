@@ -20,14 +20,14 @@ import (
 type (
 	Context        C.struct_SwrContext
 	Frame          C.struct_AVFrame
-	AvClass        C.struct_AVClass
+	Class          C.struct_AVClass
 	AvSampleFormat C.enum_AVSampleFormat
 )
 
-//const AvClass * swr_get_class (void)
-//Get the AvClass for Context.
-func Swr_get_class() *AvClass {
-	return (*AvClass)(C.swr_get_class())
+//const Class * swr_get_class (void)
+//Get the Class for Context.
+func Swr_get_class() *Class {
+	return (*Class)(C.swr_get_class())
 }
 
 //Context constructor functions

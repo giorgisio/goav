@@ -24,7 +24,7 @@ type (
 	Context     C.struct_SwsContext
 	Filter      C.struct_SwsFilter
 	Vector      C.struct_SwsVector
-	AvClass     C.struct_AVClass
+	Class       C.struct_AVClass
 	PixelFormat C.enum_AVPixelFormat
 )
 
@@ -161,7 +161,7 @@ func Sws_cloneVec(a *Vector) *Vector {
 }
 
 //Print with av_log() a textual representation of the vector a if log_level <= av_log_level.
-func Sws_printVec2(a *Vector, lctx *AvClass, l int) {
+func Sws_printVec2(a *Vector, lctx *Class, l int) {
 	C.sws_printVec2((*C.struct_SwsVector)(a), (*C.struct_AVClass)(lctx), C.int(l))
 }
 
@@ -192,7 +192,7 @@ func Sws_convertPalette8ToPacked24(s, d *uint8, px int, p *uint8) {
 	C.sws_convertPalette8ToPacked24((*C.uint8_t)(s), (*C.uint8_t)(d), C.int(px), (*C.uint8_t)(p))
 }
 
-//Get the AvClass for swsContext.
-func Sws_get_class() *AvClass {
-	return (*AvClass)(C.sws_get_class())
+//Get the Class for swsContext.
+func Sws_get_class() *Class {
+	return (*Class)(C.sws_get_class())
 }

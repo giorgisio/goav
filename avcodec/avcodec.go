@@ -34,7 +34,7 @@ type (
 	BitStreamFilter               C.struct_AVBitStreamFilter
 	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
 	Rational                      C.struct_AVRational
-	AvClass                       C.struct_AVClass
+	Class                         C.struct_AVClass
 	AvHWAccel                     C.struct_AVHWAccel
 	AvPacketSideData              C.struct_AVPacketSideData
 	AvPanScan                     C.struct_AVPanScan
@@ -98,19 +98,19 @@ func (c *Codec) AvcodecAllocContext3() *Context {
 	return (*Context)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
 }
 
-//Get the AvClass for Context.
-func AvcodecGetClass() *AvClass {
-	return (*AvClass)(C.avcodec_get_class())
+//Get the Class for Context.
+func AvcodecGetClass() *Class {
+	return (*Class)(C.avcodec_get_class())
 }
 
-//Get the AvClass for Frame.
-func AvcodecGetFrameClass() *AvClass {
-	return (*AvClass)(C.avcodec_get_frame_class())
+//Get the Class for Frame.
+func AvcodecGetFrameClass() *Class {
+	return (*Class)(C.avcodec_get_frame_class())
 }
 
-//Get the AvClass for AvSubtitleRect.
-func AvcodecGetSubtitleRectClass() *AvClass {
-	return (*AvClass)(C.avcodec_get_subtitle_rect_class())
+//Get the Class for AvSubtitleRect.
+func AvcodecGetSubtitleRectClass() *Class {
+	return (*Class)(C.avcodec_get_subtitle_rect_class())
 }
 
 //Free all allocated data in the given subtitle struct.

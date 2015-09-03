@@ -45,7 +45,7 @@ type (
 	Rational                   C.struct_AVRational
 	AvCodec                    C.struct_AVCodec
 	AvCodecTag                 C.struct_AVCodecTag
-	AvClass                    C.struct_AVClass
+	Class                      C.struct_AVClass
 	AvFormatInternal           C.struct_AVFormatInternal
 	AvIOInterruptCB            C.struct_AVIOInterruptCB
 	AvPacketSideData           C.struct_AVPacketSideData
@@ -123,9 +123,9 @@ func AvformatAllocContext() *Context {
 	return (*Context)(C.avformat_alloc_context())
 }
 
-//Get the AvClass for Context.
-func AvformatGetClass() *AvClass {
-	return (*AvClass)(C.avformat_get_class())
+//Get the Class for Context.
+func AvformatGetClass() *Class {
+	return (*Class)(C.avformat_get_class())
 }
 
 //Get side information from stream.
