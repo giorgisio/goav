@@ -1,8 +1,10 @@
-package goav
+//Use of this source code is governed by a MIT license that can be found in the LICENSE file.
+//Giorgis (habtom@giorgis.io)
 
 /*
-	Use of this source code is governed by a MIT license that can be found in the LICENSE file.
-	by Giorgis (habtom@giorgis.io)
+	Golang binding for FFmpeg: A comprehensive binding to the ffmpeg video/audio manipulation library.
+
+	https://www.ffmpeg.org/
 
 	Contains:
 
@@ -16,3 +18,4 @@ package goav
 	libswscale: 	color conversion and scaling library
 
 */
+package goav
