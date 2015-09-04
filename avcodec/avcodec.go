@@ -1,7 +1,4 @@
 /*
-	Use of this source code is governed by a MIT license that can be found in the LICENSE file.
-	by Giorgis (habtom@giorgis.io)
-
 	The codecs (decoders and encoders) provided by the libavcodec library
 	libavcodec provides some generic global options, which can be set on all the encoders and decoders.
 */
