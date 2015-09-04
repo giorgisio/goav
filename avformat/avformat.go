@@ -70,6 +70,24 @@ func (ctxt *AvIOContext) AvAppendPacket(pkt *Packet, s int) int {
 	return int(C.av_append_packet((*C.struct_AVIOContext)(ctxt), (*C.struct_AVPacket)(pkt), C.int(s)))
 }
 
+func (f *InputFormat) AvRegisterInputFormat() {
+	C.av_register_input_format((*C.struct_AVInputFormat)(f))
+}
+
+func (f *OutputFormat) AvRegisterOutputFormat() {
+	C.av_register_output_format((*C.struct_AVOutputFormat)(f))
+}
+
+//If f is NULL, returns the first registered input format, if f is non-NULL, returns the next registered input format after f or NULL if f is the last one.
+func (f *InputFormat) AvIformatNext() *InputFormat {
+	return (*InputFormat)(C.av_iformat_next((*C.struct_AVInputFormat)(f)))
+}
+
+//If f is NULL, returns the first registered output format, if f is non-NULL, returns the next registered output format after f or NULL if f is the last one.
+func (f *OutputFormat) AvOformatNext() *OutputFormat {
+	return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
+}
+
 //Return the LIBAvFORMAT_VERSION_INT constant.
 func AvformatVersion() uint {
 	return uint(C.avformat_version())
@@ -90,14 +108,6 @@ func AvRegisterAll() {
 	C.av_register_all()
 }
 
-func AvRegisterInputFormat(f *InputFormat) {
-	C.av_register_input_format((*C.struct_AVInputFormat)(f))
-}
-
-func (f *OutputFormat) AvRegisterOutputFormat() {
-	C.av_register_output_format((*C.struct_AVOutputFormat)(f))
-}
-
 //Do global initialization of network components.
 func AvformatNetworkInit() int {
 	return int(C.avformat_network_init())
@@ -106,16 +116,6 @@ func AvformatNetworkInit() int {
 //Undo the initialization done by avformat_network_init.
 func AvformatNetworkDeinit() int {
 	return int(C.avformat_network_deinit())
-}
-
-//If f is NULL, returns the first registered input format, if f is non-NULL, returns the next registered input format after f or NULL if f is the last one.
-func (f *InputFormat) AvIformatNext() *InputFormat {
-	return (*InputFormat)(C.av_iformat_next((*C.struct_AVInputFormat)(f)))
-}
-
-//If f is NULL, returns the first registered output format, if f is non-NULL, returns the next registered output format after f or NULL if f is the last one.
-func (f *OutputFormat) AvOformatNext() *OutputFormat {
-	return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
 }
 
 //Allocate an Context.

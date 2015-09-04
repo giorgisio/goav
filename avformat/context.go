@@ -94,8 +94,8 @@ func (s *Context) AvFormatInjectGlobalSideData() {
 
 //enum AvDurationEstimationMethod av_fmt_ctx_get_duration_estimation_method (const Context *ctx)
 //Returns the method used to set ctx->duration.
-func (ctx *Context) AvFmtCtxGetDurationEstimationMethod() AvDurationEstimationMethod {
-	return (AvDurationEstimationMethod)(C.av_fmt_ctx_get_duration_estimation_method((*C.struct_AVFormatContext)(ctx)))
+func (s *Context) AvFmtCtxGetDurationEstimationMethod() AvDurationEstimationMethod {
+	return (AvDurationEstimationMethod)(C.av_fmt_ctx_get_duration_estimation_method((*C.struct_AVFormatContext)(s)))
 }
 
 //void avformat_free_context (Context *s)
@@ -117,14 +117,14 @@ func (s *Context) AvNewProgram(id int) *AvProgram {
 
 //int avformat_find_stream_info (Context *ic, Dictionary **options)
 //Read packets of a media file to get stream information.
-func (ic *Context) AvformatFindStreamInfo(d **Dictionary) int {
-	return int(C.avformat_find_stream_info((*C.struct_AVFormatContext)(ic), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
+func (s *Context) AvformatFindStreamInfo(d **Dictionary) int {
+	return int(C.avformat_find_stream_info((*C.struct_AVFormatContext)(s), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
 //AvProgram * av_find_program_from_stream (Context *ic, AvProgram *last, int s)
 //Find the programs which belong to a given stream.
-func (ic *Context) AvFindProgramFromStream(l *AvProgram, s int) *AvProgram {
-	return (*AvProgram)(C.av_find_program_from_stream((*C.struct_AVFormatContext)(ic), (*C.struct_AVProgram)(l), C.int(s)))
+func (s *Context) AvFindProgramFromStream(l *AvProgram, su int) *AvProgram {
+	return (*AvProgram)(C.av_find_program_from_stream((*C.struct_AVFormatContext)(s), (*C.struct_AVProgram)(l), C.int(su)))
 }
 
 //int av_find_best_stream (Context *ic, enum MediaType type, int wanted_stream_nb, int related_stream, AvCodec **decoder_ret, int flags)
@@ -224,20 +224,20 @@ func (s *Context) AvFindDefaultStreamIndex() int {
 
 //void av_dump_format (Context *ic, int index, const char *url, int is_output)
 //Print detailed information about the input or output format, such as duration, bitrate, streams, container, programs, metadata, side data, codec and time base.
-func (ic *Context) AvDumpFormat(i int, url string, io int) {
-	C.av_dump_format((*C.struct_AVFormatContext)(unsafe.Pointer(ic)), C.int(i), C.CString(url), C.int(io))
+func (s *Context) AvDumpFormat(i int, url string, io int) {
+	C.av_dump_format((*C.struct_AVFormatContext)(unsafe.Pointer(s)), C.int(i), C.CString(url), C.int(io))
 }
 
 //Rational av_guess_sample_aspect_ratio (Context *format, Stream *stream, Frame *frame)
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (f *Context) AvGuessSampleAspectRatio(st *Stream, fr *Frame) Rational {
-	return (Rational)(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(f), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *Frame) Rational {
+	return (Rational)(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
 }
 
 //Rational av_guess_frame_rate (Context *ctx, Stream *stream, Frame *frame)
 //Guess the frame rate, based on both the container and codec information.
-func (ctx *Context) AvGuessFrameRate(st *Stream, fr *Frame) Rational {
-	return (Rational)(C.av_guess_frame_rate((*C.struct_AVFormatContext)(ctx), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (s *Context) AvGuessFrameRate(st *Stream, fr *Frame) Rational {
+	return (Rational)(C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
 }
 
 //int avformat_match_stream_specifier (Context *s, Stream *st, const char *spec)

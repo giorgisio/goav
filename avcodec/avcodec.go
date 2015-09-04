@@ -67,6 +67,34 @@ func (c *Codec) AvCodecNext() *Codec {
 	return (*Codec)(C.av_codec_next((*C.struct_AVCodec)(c)))
 }
 
+//Register the codec codec and initialize libavcodec.
+func (c *Codec) AvcodecRegister() {
+	C.avcodec_register((*C.struct_AVCodec)(c))
+}
+
+//Return a name for the specified profile, if available.
+func (c *Codec) AvGetProfileName(p int) string {
+	return C.GoString(C.av_get_profile_name((*C.struct_AVCodec)(c), C.int(p)))
+}
+
+//Allocate an Context and set its fields to default values.
+func (c *Codec) AvcodecAllocContext3() *Context {
+	return (*Context)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
+}
+
+func (c *Codec) AvCodecIsEncoder() int {
+	return int(C.av_codec_is_encoder((*C.struct_AVCodec)(c)))
+}
+
+func (c *Codec) AvCodecIsDecoder() int {
+	return int(C.av_codec_is_decoder((*C.struct_AVCodec)(c)))
+}
+
+//Same behaviour av_fast_malloc but the buffer has additional FF_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
+func AvFastPaddedMalloc(p unsafe.Pointer, s *uint, t uintptr) {
+	C.av_fast_padded_malloc(p, (*C.uint)(unsafe.Pointer(s)), (C.size_t)(t))
+}
+
 //Return the LIBAvCODEC_VERSION_INT constant.
 func AvcodecVersion() uint {
 	return uint(C.avcodec_version())
@@ -83,19 +111,9 @@ func AvcodecLicense() string {
 	return C.GoString(C.avcodec_license())
 }
 
-//Register the codec codec and initialize libavcodec.
-func (c *Codec) AvcodecRegister() {
-	C.avcodec_register((*C.struct_AVCodec)(c))
-}
-
 //Register all the codecs, parsers and bitstream filters which were enabled at configuration time.
 func AvcodecRegisterAll() {
 	C.avcodec_register_all()
-}
-
-//Allocate an Context and set its fields to default values.
-func (c *Codec) AvcodecAllocContext3() *Context {
-	return (*Context)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
 }
 
 //Get the Class for Context.
@@ -167,11 +185,6 @@ func AvcodecString(b string, bs int, ctxt *Context, e int) {
 	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(ctxt), C.int(e))
 }
 
-//Return a name for the specified profile, if available.
-func (c *Codec) AvGetProfileName(p int) string {
-	return C.GoString(C.av_get_profile_name((*C.struct_AVCodec)(c), C.int(p)))
-}
-
 //Fill Frame audio data and linesize pointers.
 func AvcodecFillAudioFrame(f *Frame, c int, s AvSampleFormat, b *uint8, bs, a int) int {
 	return int(C.avcodec_fill_audio_frame((*C.struct_AVFrame)(f), C.int(c), (C.enum_AVSampleFormat)(s), (*C.uint8_t)(b), C.int(bs), C.int(a)))
@@ -190,36 +203,6 @@ func AvGetPcmCodec(f AvSampleFormat, b int) CodecId {
 //Return codec bits per sample.
 func AvGetExactBitsPerSample(c CodecId) int {
 	return int(C.av_get_exact_bits_per_sample((C.enum_AVCodecID)(c)))
-}
-
-//Register a bitstream filter.
-func (b *BitStreamFilter) AvRegisterBitstreamFilter() {
-	C.av_register_bitstream_filter((*C.struct_AVBitStreamFilter)(b))
-}
-
-//Create and initialize a bitstream filter context given a bitstream filter name.
-func AvBitstreamFilterInit(n string) *BitStreamFilterContext {
-	return (*BitStreamFilterContext)(C.av_bitstream_filter_init(C.CString(n)))
-}
-
-//Filter bitstream.
-func (bfx *BitStreamFilterContext) AvBitstreamFilterFilter(ctxt *Context, a string, p **uint8, ps *int, b *uint8, bs, k int) int {
-	return int(C.av_bitstream_filter_filter((*C.struct_AVBitStreamFilterContext)(bfx), (*C.struct_AVCodecContext)(ctxt), C.CString(a), (**C.uint8_t)(unsafe.Pointer(p)), (*C.int)(unsafe.Pointer(ps)), (*C.uint8_t)(b), C.int(bs), C.int(k)))
-}
-
-//Release bitstream filter context.
-func (bfx *BitStreamFilterContext) AvBitstreamFilterClose() {
-	C.av_bitstream_filter_close((*C.struct_AVBitStreamFilterContext)(bfx))
-}
-
-//BitStreamFilter *av_bitstream_filter_next (const BitStreamFilter *f)
-func (f *BitStreamFilter) AvBitstreamFilterNext() *BitStreamFilter {
-	return (*BitStreamFilter)(C.av_bitstream_filter_next((*C.struct_AVBitStreamFilter)(f)))
-}
-
-//Same behaviour av_fast_malloc but the buffer has additional FF_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
-func AvFastPaddedMalloc(p unsafe.Pointer, s *uint, t uintptr) {
-	C.av_fast_padded_malloc(p, (*C.uint)(unsafe.Pointer(s)), (C.size_t)(t))
 }
 
 //Same behaviour av_fast_padded_malloc except that buffer will always be 0-initialized after call.
@@ -246,14 +229,6 @@ func AvcodecGetType(c CodecId) MediaType {
 //Get the name of a codec.
 func AvcodecGetName(d CodecId) string {
 	return C.GoString(C.avcodec_get_name((C.enum_AVCodecID)(d)))
-}
-
-func (c *Codec) AvCodecIsEncoder() int {
-	return int(C.av_codec_is_encoder((*C.struct_AVCodec)(c)))
-}
-
-func (c *Codec) AvCodecIsDecoder() int {
-	return int(C.av_codec_is_decoder((*C.struct_AVCodec)(c)))
 }
 
 //const Descriptor *avcodec_descriptor_get (enum CodecId id)
