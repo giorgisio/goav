@@ -16,9 +16,17 @@ func main() {
 	filename := "/home/giorgis/media/sample.mp4"
 
 	// Register all formats and codecs
-	avformat.Av_register_all()
+	avformat.AvRegisterAll()
 
-	if avformat.Avformat_open_input(&pFormatCtx, filename, nil, nil) != 0 {
+	// Open video file
+	if avformat.AvformatOpenInput(&ctxtFormat, filename, nil, nil) != 0 {
+		log.Println("Error: Couldn't open file.")
+		return
+	}
+
+	// Retrieve stream information
+	if ctxtFormat.AvformatFindStreamInfo(nil) < 0 {
+		log.Println("Error: Couldn't find stream information.")
 		return
 	}
 
