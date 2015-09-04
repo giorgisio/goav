@@ -3,6 +3,8 @@ Golang binding for FFmpeg
 
 A comprehensive binding to the ffmpeg video/audio manipulation library.
 
+[![GoDoc](https://godoc.org/github.com/giorgisio/goav?status.svg)](https://godoc.org/github.com/giorgisio/goav)
+
 ## Usage
 
 `````go

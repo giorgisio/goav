@@ -117,10 +117,10 @@ func main() {
 	}
 
 	// Allocate video frame
-	videoFrame = avutil.Av_frame_alloc()
+	videoFrame = avutil.AvFrameAlloc()
 
 	// Allocate an Frame structure
-	if videoFrameRGB = avutil.Av_frame_alloc(); videoFrameRGB == nil {
+	if videoFrameRGB = avutil.AvFrameAlloc(); videoFrameRGB == nil {
 		return
 	}
 
@@ -138,7 +138,7 @@ func main() {
 	// Determine required buffer size and allocate buffer
 	numBytes = avcodec.AvpictureGetSize((avcodec.PixelFormat)(a), w, h)
 
-	buffer := avutil.Av_malloc(uintptr(numBytes))
+	buffer := avutil.AvMalloc(uintptr(numBytes))
 
 	// Assign appropriate parts of buffer to image planes in videoFrameRGB
 	// Note that videoFrameRGB is an Frame, but Frame is a superset
@@ -147,7 +147,7 @@ func main() {
 	avp.AvpictureFill((*uint8)(buffer), (avcodec.PixelFormat)(a), w, h)
 
 	// initialize SWS context for software scaling
-	ctxtSws = swscale.Sws_getContext(w,
+	ctxtSws = swscale.SwsGetcontext(w,
 		h,
 		(swscale.PixelFormat)(pix_fmt),
 		w,
@@ -176,7 +176,7 @@ func main() {
 				l := avutil.Linesize(videoFrame)
 				dr := avutil.Data(videoFrameRGB)
 				lr := avutil.Linesize(videoFrameRGB)
-				swscale.Sws_scale(ctxtSws,
+				swscale.SwsScale(ctxtSws,
 					d,
 					l,
 					0,
@@ -198,11 +198,11 @@ func main() {
 	}
 
 	// Free the RGB image
-	avutil.Av_free(buffer)
-	avutil.Av_frame_free(videoFrameRGB)
+	avutil.AvFree(buffer)
+	avutil.AvFrameFree(videoFrameRGB)
 
 	// Free the YUV frame
-	avutil.Av_frame_free(videoFrame)
+	avutil.AvFrameFree(videoFrame)
 
 	// Close the codecs
 	ctxtDest.AvcodecClose()

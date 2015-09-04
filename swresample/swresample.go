@@ -19,24 +19,24 @@ type (
 )
 
 //Get the Class for Context.
-func Swr_get_class() *Class {
+func SwrGetClass() *Class {
 	return (*Class)(C.swr_get_class())
 }
 
 //Context constructor functions.Allocate Context.
-func Swr_alloc() *Context {
+func SwrAlloc() *Context {
 	return (*Context)(C.swr_alloc())
 }
 
 //Configuration accessors
-func Swresample_version() uint {
+func SwresampleVersion() uint {
 	return uint(C.swresample_version())
 }
 
-func Swresample_configuration() string {
+func SwresampleConfiguration() string {
 	return C.GoString(C.swresample_configuration())
 }
 
-func Swresample_license() string {
+func SwresampleLicense() string {
 	return C.GoString(C.swresample_license())
 }

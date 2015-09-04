@@ -17,11 +17,11 @@ func main() {
 	avformat.AvRegisterAll()
 	avcodec.AvcodecRegisterAll()
 
-	log.Printf("AvFilter Version:\t%v", avfilter.Avfilter_version())
-	log.Printf("AvDevice Version:\t%v", avdevice.Avdevice_version())
-	log.Printf("SWScale Version:\t%v", swscale.Swscale_version())
+	log.Printf("AvFilter Version:\t%v", avfilter.AvfilterVersion())
+	log.Printf("AvDevice Version:\t%v", avdevice.AvdeviceVersion())
+	log.Printf("SWScale Version:\t%v", swscale.SwscaleVersion())
 	log.Printf("AvUtil Version:\t%v", avutil.AvutilVersion())
 	log.Printf("AvCodec Version:\t%v", avcodec.AvcodecVersion())
-	log.Printf("Resample Version:\t%v", swresample.Swresample_license())
+	log.Printf("Resample Version:\t%v", swresample.SwresampleLicense())
 
 }
