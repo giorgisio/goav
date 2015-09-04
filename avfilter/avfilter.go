@@ -1,7 +1,8 @@
-/*
-	Filters in the same linear chain are separated by commas, and distinct linear chains of filters are separated by semicolons.
-	FFmpeg is enabled through the "C" libavfilter library
-*/
+// Use of this source code is governed by a MIT license that can be found in the LICENSE file.
+// Giorgis (habtom@giorgis.io)
+
+//Filters in the same linear chain are separated by commas, and distinct linear chains of filters are separated by semicolons.
+//FFmpeg is enabled through the "C" libavfilter library
 package avfilter
 
 /*
@@ -123,19 +124,19 @@ func Avfilter_next(f *Filter) *Filter {
 
 //int 	avfilter_init_str (Context *ctx, const char *args)
 //Initialize a filter with the supplied parameters.
-func (ctx *Context) Avfilter_init_str(args string) int {
+func (ctx *Context) AvfilterInitStr(args string) int {
 	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(ctx), C.CString(args)))
 }
 
 //int 	avfilter_init_dict (Context *ctx, Dictionary **options)
 //Initialize a filter with the supplied dictionary of options.
-func (ctx *Context) Avfilter_init_dict(o **Dictionary) int {
+func (ctx *Context) AvfilterInitDict(o **Dictionary) int {
 	return int(C.avfilter_init_dict((*C.struct_AVFilterContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 
 //void 	avfilter_free (Context *filter)
 //Free a filter context.
-func (ctx *Context) Avfilter_free() {
+func (ctx *Context) AvfilterFree() {
 	C.avfilter_free((*C.struct_AVFilterContext)(ctx))
 }
 

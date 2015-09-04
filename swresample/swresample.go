@@ -1,7 +1,8 @@
-/*
-	The process of changing the sampling rate of a discrete signal to obtain a new discrete representation of the underlying continuous signal.
-	resampler provides a high-level interface to the libswresample library audio resampling utilities
-*/
+// Use of this source code is governed by a MIT license that can be found in the LICENSE file.
+// Giorgis (habtom@giorgis.io)
+
+// The process of changing the sampling rate of a discrete signal to obtain a new discrete representation of the underlying continuous signal.
+// resampler provides a high-level interface to the libswresample library audio resampling utilities
 package swresample
 
 /*
@@ -9,9 +10,6 @@ package swresample
 	#include <libswresample/swresample.h>
 */
 import "C"
-import (
-	"unsafe"
-)
 
 type (
 	Context        C.struct_SwrContext

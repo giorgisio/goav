@@ -1,8 +1,9 @@
-/*
-	libswscale library performs highly optimized image scaling and colorspace and pixel format conversion operations.
-	Rescaling: is the process of changing the video size. Several rescaling options and algorithms are available.
-	Pixel format conversion: is the process of converting the image format and colorspace of the image.
-*/
+// Use of this source code is governed by a MIT license that can be found in the LICENSE file.
+// Giorgis (habtom@giorgis.io)
+
+//libswscale library performs highly optimized image scaling and colorspace and pixel format conversion operations.
+//Rescaling: is the process of changing the video size. Several rescaling options and algorithms are available.
+//Pixel format conversion: is the process of converting the image format and colorspace of the image.
 package swscale
 
 //#cgo pkg-config: libswscale libavutil

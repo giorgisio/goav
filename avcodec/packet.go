@@ -1,6 +1,7 @@
-/*
-	AvPackets
-*/
+// Use of this source code is governed by a MIT license that can be found in the LICENSE file.
+// Giorgis (habtom@giorgis.io)
+
+// Packet methods
 package avcodec
 
 //#cgo pkg-config: libavcodec
