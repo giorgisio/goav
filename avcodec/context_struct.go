@@ -1,7 +1,6 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-// Context struct values
 package avcodec
 
 func (ctxt *Context) ActiveThreadType() int {

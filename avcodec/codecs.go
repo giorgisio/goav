@@ -1,13 +1,13 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-// Multiple encoders have the same ID and are able to encode compatible streams.
 package avcodec
 
 //#cgo pkg-config: libavformat
 //#include <libavformat/avformat.h>
 import "C"
 
+// Multiple encoders have the same ID and are able to encode compatible streams.
 const (
 	AV_CODEC_ID_012V                        = int(C.AV_CODEC_ID_012V)
 	AV_CODEC_ID_4XM                         = int(C.AV_CODEC_ID_4XM)
