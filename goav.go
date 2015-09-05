@@ -2,11 +2,12 @@
 //Giorgis (habtom@giorgis.io)
 
 /*
-	Golang binding for FFmpeg: A comprehensive binding to the ffmpeg video/audio manipulation library.
+Package goav contains golang binding for FFmpeg.
 
-	https://www.ffmpeg.org/
+A comprehensive binding to the ffmpeg video/audio manipulation library:
+https://www.ffmpeg.org/
 
-	Contains:
+Contains:
 
 	libavcodec: encoding/decoding library
 	libavfilter: graph-based frame editing library

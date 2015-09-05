@@ -1,7 +1,7 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-// The input and output devices provided by the libavdevice library
+// Package avdevice deals with the input and output devices provided by the libavdevice library
 // The libavdevice library provides the same interface as libavformat.
 // Namely, an input device is considered like a demuxer, and an output device like a muxer,
 // and the interface and generic device options are the same provided by libavformat

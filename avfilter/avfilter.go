@@ -1,7 +1,8 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
-//Filters in the same linear chain are separated by commas, and distinct linear chains of filters are separated by semicolons.
+//Package avfilter contains methods that deal with ffmpeg filters
+//filters in the same linear chain are separated by commas, and distinct linear chains of filters are separated by semicolons.
 //FFmpeg is enabled through the "C" libavfilter library
 package avfilter
 

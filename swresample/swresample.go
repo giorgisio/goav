@@ -1,8 +1,8 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
 
+// Package swresample provides a high-level interface to the libswresample library audio resampling utilities
 // The process of changing the sampling rate of a discrete signal to obtain a new discrete representation of the underlying continuous signal.
-// resampler provides a high-level interface to the libswresample library audio resampling utilities
 package swresample
 
 /*
