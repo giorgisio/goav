@@ -36,7 +36,7 @@ type (
 	AvHWAccel                     C.struct_AVHWAccel
 	AvPacketSideData              C.struct_AVPacketSideData
 	AvPanScan                     C.struct_AVPanScan
-	AvPicture                     C.struct_AVPicture
+	Picture                       C.struct_AVPicture
 	AvProfile                     C.struct_AVProfile
 	AvSubtitle                    C.struct_AVSubtitle
 	AvSubtitleRect                C.struct_AVSubtitleRect

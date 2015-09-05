@@ -142,8 +142,8 @@ func main() {
 
 	// Assign appropriate parts of buffer to image planes in videoFrameRGB
 	// Note that videoFrameRGB is an Frame, but Frame is a superset
-	// of AvPicture
-	avp := (*avcodec.AvPicture)(unsafe.Pointer(videoFrameRGB))
+	// of Picture
+	avp := (*avcodec.Picture)(unsafe.Pointer(videoFrameRGB))
 	avp.AvpictureFill((*uint8)(buffer), (avcodec.PixelFormat)(a), w, h)
 
 	// initialize SWS context for software scaling
