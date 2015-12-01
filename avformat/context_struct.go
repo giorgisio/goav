@@ -46,10 +46,6 @@ func (ctxt *Context) Programs() **AvProgram {
 	return (**AvProgram)(unsafe.Pointer(ctxt.programs))
 }
 
-func (ctxt *Context) OffsetTimebase() Rational {
-	return Rational(ctxt.offset_timebase)
-}
-
 func (ctxt *Context) Streams() *Stream {
 	return (*Stream)(unsafe.Pointer(ctxt.streams))
 }
@@ -162,10 +158,6 @@ func (ctxt *Context) ProbeScore() int {
 	return int(ctxt.probe_score)
 }
 
-func (ctxt *Context) RawPacketBufferRemainingSize() int {
-	return int(ctxt.raw_packet_buffer_remaining_size)
-}
-
 func (ctxt *Context) Seek2any() int {
 	return int(ctxt.seek2any)
 }
@@ -182,10 +174,6 @@ func (ctxt *Context) UseWallclockAsTimestamps() int {
 	return int(ctxt.use_wallclock_as_timestamps)
 }
 
-func (ctxt *Context) DataOffset() int64 {
-	return int64(ctxt.data_offset)
-}
-
 func (ctxt *Context) Duration() int64 {
 	return int64(ctxt.duration)
 }
@@ -196,10 +184,6 @@ func (ctxt *Context) MaxAnalyzeDuration2() int64 {
 
 func (ctxt *Context) MaxInterleaveDelta() int64 {
 	return int64(ctxt.max_interleave_delta)
-}
-
-func (ctxt *Context) Offset() int64 {
-	return int64(ctxt.offset)
 }
 
 func (ctxt *Context) OutputTsOffset() int64 {
@@ -228,30 +212,6 @@ func (ctxt *Context) Iformat() *InputFormat {
 
 func (ctxt *Context) Oformat() *OutputFormat {
 	return (*OutputFormat)(unsafe.Pointer(ctxt.oformat))
-}
-
-func (ctxt *Context) PacketBuffer() *AvPacketList {
-	return (*AvPacketList)(unsafe.Pointer(ctxt.packet_buffer))
-}
-
-func (ctxt *Context) PacketBufferEnd() *AvPacketList {
-	return (*AvPacketList)(unsafe.Pointer(ctxt.packet_buffer_end))
-}
-
-func (ctxt *Context) ParseQueue() *AvPacketList {
-	return (*AvPacketList)(unsafe.Pointer(ctxt.parse_queue))
-}
-
-func (ctxt *Context) ParseQueueEnd() *AvPacketList {
-	return (*AvPacketList)(unsafe.Pointer(ctxt.parse_queue_end))
-}
-
-func (ctxt *Context) RawPacketBuffer() *AvPacketList {
-	return (*AvPacketList)(unsafe.Pointer(ctxt.raw_packet_buffer))
-}
-
-func (ctxt *Context) RawPacketBufferEnd() *AvPacketList {
-	return (*AvPacketList)(unsafe.Pointer(ctxt.raw_packet_buffer_end))
 }
 
 // func (ctxt *Context) DumpSeparator() uint8 {
