@@ -42,6 +42,10 @@ func AvfilterLicense() string {
 	return C.GoString(C.avfilter_license())
 }
 
+func AvfilterByName(name string) * Filter {
+	return (* Filter)(C.avfilter_get_by_name(C.CString(name)))
+}
+
 //Get the number of elements in a NULL-terminated array of Pads (e.g.
 func AvfilterPadCount(p *Pad) int {
 	return int(C.avfilter_pad_count((*C.struct_AVFilterPad)(p)))

@@ -8,6 +8,7 @@ package avcodec
 import "C"
 import (
 	"unsafe"
+	"github.com/giorgisio/goav/avutil"
 )
 
 //Initialize optional fields of a packet with default values.
@@ -110,6 +111,8 @@ func (p *Packet) AvPacketCopyProps(s *Packet) int {
 }
 
 //Convert valid timing fields (timestamps / durations) in a packet from one timebase to another.
-func (p *Packet) AvPacketRescaleTs(r, r2 Rational) {
-	C.av_packet_rescale_ts((*C.struct_AVPacket)(p), (C.struct_AVRational)(r), (C.struct_AVRational)(r2))
+func (p *Packet) AvPacketRescaleTs(r, r2 avutil.Rational) {
+	var c_r1 * C.struct_AVRational = (* C.struct_AVRational)(unsafe.Pointer(&r))
+	var c_r2 * C.struct_AVRational = (* C.struct_AVRational)(unsafe.Pointer(&r2))
+	C.av_packet_rescale_ts((*C.struct_AVPacket)(p), *c_r1, *c_r2)
 }

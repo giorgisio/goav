@@ -11,12 +11,14 @@ import (
 	"github.com/giorgisio/goav/avutil"
 )
 
-func (ctxt *CodecContext) AvCodecGetPktTimebase() Rational {
-	return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
+func (ctxt *CodecContext) AvCodecGetPktTimebase() avutil.Rational {
+	var r C.struct_AVRational = C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt))
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
-func (ctxt *CodecContext) AvCodecSetPktTimebase(r Rational) {
-	C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(ctxt), (C.struct_AVRational)(r))
+func (ctxt *CodecContext) AvCodecSetPktTimebase(r avutil.Rational) {
+	var c_r * C.struct_AVRational = (* C.struct_AVRational)(unsafe.Pointer(&r))
+	C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(ctxt), *c_r)
 }
 
 func (ctxt *CodecContext) AvCodecGetCodecDescriptor() *Descriptor {

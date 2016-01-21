@@ -3,8 +3,12 @@
 
 package avcodec
 
+//#cgo pkg-config: libavcodec
+//#include <libavcodec/avcodec.h>
+import "C"
 import (
 	"github.com/giorgisio/goav/avutil"
+	"unsafe"
 )
 
 func (ctxt *CodecContext) ActiveThreadType() int {
@@ -397,6 +401,11 @@ func (ctxt *CodecContext) RtpPayloadSize() int {
 
 func (ctxt *CodecContext) SampleRate() int {
 	return int(ctxt.sample_rate)
+}
+
+func (ctxt *CodecContext) SampleAspectRatio() avutil.Rational {
+	var r C.struct_AVRational = ctxt.sample_aspect_ratio
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
 func (ctxt *CodecContext) ScenechangeThreshold() int {

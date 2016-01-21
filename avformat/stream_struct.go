@@ -9,6 +9,7 @@ import "C"
 import (
 	"unsafe"
 	"github.com/giorgisio/goav/avcodec"
+	"github.com/giorgisio/goav/avutil"
 )
 
 func (avs *Stream) Codec() *avcodec.CodecContext {
@@ -35,24 +36,28 @@ func (avs *Stream) ProbeData() AvProbeData {
 	return AvProbeData(avs.probe_data)
 }
 
-func (avs *Stream) AvgFrameRate() Rational {
-	return Rational(avs.avg_frame_rate)
+func (avs *Stream) AvgFrameRate() avutil.Rational {
+	var r C.struct_AVRational = avs.avg_frame_rate
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
 // func (avs *Stream) DisplayAspectRatio() *Rational {
 // 	return (*Rational)(unsafe.Pointer(avs.display_aspect_ratio))
 // }
 
-func (avs *Stream) RFrameRate() Rational {
-	return Rational(avs.r_frame_rate)
+func (avs *Stream) RFrameRate() avutil.Rational {
+	var r C.struct_AVRational = avs.r_frame_rate
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
-func (avs *Stream) SampleAspectRatio() Rational {
-	return Rational(avs.sample_aspect_ratio)
+func (avs *Stream) SampleAspectRatio() avutil.Rational {
+	var r C.struct_AVRational = avs.sample_aspect_ratio
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
-func (avs *Stream) TimeBase() Rational {
-	return Rational(avs.time_base)
+func (avs *Stream) TimeBase() avutil.Rational {
+	var r C.struct_AVRational = avs.time_base
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
 // func (avs *Stream) RecommendedEncoderConfiguration() string {

@@ -30,7 +30,6 @@ type (
 	Packet                        C.struct_AVPacket
 	BitStreamFilter               C.struct_AVBitStreamFilter
 	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
-	Rational                      C.struct_AVRational
 	Class                         C.struct_AVClass
 	AvHWAccel                     C.struct_AVHWAccel
 	AvPacketSideData              C.struct_AVPacketSideData

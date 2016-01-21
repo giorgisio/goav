@@ -175,13 +175,15 @@ func (s *Context) AvDumpFormat(i int, url string, io int) {
 }
 
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *avutil.Frame) Rational {
-	return (Rational)(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(unsafe.Pointer(fr))))
+func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *avutil.Frame) avutil.Rational {
+	var r C.struct_AVRational = C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(unsafe.Pointer(fr)))
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
 //Guess the frame rate, based on both the container and codec information.
-func (s *Context) AvGuessFrameRate(st *Stream, fr *avutil.Frame) Rational {
-	return (Rational)(C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(unsafe.Pointer(fr))))
+func (s *Context) AvGuessFrameRate(st *Stream, fr *avutil.Frame) avutil.Rational {
+	var r  C.struct_AVRational = C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(unsafe.Pointer(fr)))
+	return *(* avutil.Rational)( unsafe.Pointer(&r) )
 }
 
 //Check if the stream st contained in s is matched by the stream specifier spec.
