@@ -127,6 +127,6 @@ func AvfilterInoutAlloc() *Input {
 }
 
 //Free the supplied list of Input and set *inout to NULL.
-func AvfilterInoutFree(i *Input) {
+func AvfilterInoutFree(i **Input) {
 	C.avfilter_inout_free((**C.struct_AVFilterInOut)(unsafe.Pointer(i)))
 }
