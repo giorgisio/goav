@@ -10,8 +10,6 @@ import (
 	"unsafe"
 )
 
-type IO C.struct_AVCodecContext
-
 func (ctxt *Context) Chapters() **AvChapter {
 	return (**AvChapter)(unsafe.Pointer(ctxt.chapters))
 }
