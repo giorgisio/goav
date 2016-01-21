@@ -91,7 +91,7 @@ func (s *Context) AvFindProgramFromStream(l *AvProgram, su int) *AvProgram {
 }
 
 //Find the "best" stream in the file.
-func AvFindBestStream(ic *Context, t avutil.MediaType, ws, rs int, c **AvCodec, f int) int {
+func AvFindBestStream(ic *Context, t avutil.MediaType, ws, rs int, c **avcodec.Codec, f int) int {
 	return int(C.av_find_best_stream((*C.struct_AVFormatContext)(ic), (C.enum_AVMediaType)(t), C.int(ws), C.int(rs), (**C.struct_AVCodec)(unsafe.Pointer(c)), C.int(f)))
 }
 
@@ -141,13 +141,13 @@ func (s *Context) AvInterleavedWriteFrame(pkt *Packet) int {
 }
 
 //Write a uncoded frame to an output media file.
-func (s *Context) AvWriteUncodedFrame(si int, f *Frame) int {
-	return int(C.av_write_uncoded_frame((*C.struct_AVFormatContext)(s), C.int(si), (*C.struct_AVFrame)(f)))
+func (s *Context) AvWriteUncodedFrame(si int, f *avutil.Frame) int {
+	return int(C.av_write_uncoded_frame((*C.struct_AVFormatContext)(s), C.int(si), (*C.struct_AVFrame)(unsafe.Pointer(f))))
 }
 
 //Write a uncoded frame to an output media file.
-func (s *Context) AvInterleavedWriteUncodedFrame(si int, f *Frame) int {
-	return int(C.av_interleaved_write_uncoded_frame((*C.struct_AVFormatContext)(s), C.int(si), (*C.struct_AVFrame)(f)))
+func (s *Context) AvInterleavedWriteUncodedFrame(si int, f *avutil.Frame) int {
+	return int(C.av_interleaved_write_uncoded_frame((*C.struct_AVFormatContext)(s), C.int(si), (*C.struct_AVFrame)(unsafe.Pointer(f))))
 }
 
 //Test whether a muxer supports uncoded frame.
@@ -175,13 +175,13 @@ func (s *Context) AvDumpFormat(i int, url string, io int) {
 }
 
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *Frame) Rational {
-	return (Rational)(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *avutil.Frame) Rational {
+	return (Rational)(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(unsafe.Pointer(fr))))
 }
 
 //Guess the frame rate, based on both the container and codec information.
-func (s *Context) AvGuessFrameRate(st *Stream, fr *Frame) Rational {
-	return (Rational)(C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (s *Context) AvGuessFrameRate(st *Stream, fr *avutil.Frame) Rational {
+	return (Rational)(C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(unsafe.Pointer(fr))))
 }
 
 //Check if the stream st contained in s is matched by the stream specifier spec.

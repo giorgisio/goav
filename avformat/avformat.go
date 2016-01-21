@@ -28,7 +28,6 @@ type (
 	InputFormat                C.struct_AVInputFormat
 	OutputFormat               C.struct_AVOutputFormat
 	Context                    C.struct_AVFormatContext
-	Frame                      C.struct_AVFrame
 	Dictionary                 C.struct_AVDictionary
 	AvIndexEntry               C.struct_AVIndexEntry
 	Stream                     C.struct_AVStream

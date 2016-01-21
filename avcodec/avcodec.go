@@ -27,7 +27,6 @@ type (
 	Parser                        C.struct_AVCodecParser
 	ParserContext                 C.struct_AVCodecParserContext
 	Dictionary                    C.struct_AVDictionary
-	Frame                         C.struct_AVFrame
 	Packet                        C.struct_AVPacket
 	BitStreamFilter               C.struct_AVBitStreamFilter
 	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
@@ -184,8 +183,8 @@ func AvcodecString(b string, bs int, ctxt *CodecContext, e int) {
 }
 
 //Fill Frame audio data and linesize pointers.
-func AvcodecFillAudioFrame(f *Frame, c int, s AvSampleFormat, b *uint8, bs, a int) int {
-	return int(C.avcodec_fill_audio_frame((*C.struct_AVFrame)(f), C.int(c), (C.enum_AVSampleFormat)(s), (*C.uint8_t)(b), C.int(bs), C.int(a)))
+func AvcodecFillAudioFrame(f * avutil.Frame, c int, s AvSampleFormat, b *uint8, bs, a int) int {
+	return int(C.avcodec_fill_audio_frame((*C.struct_AVFrame)(unsafe.Pointer(f)), C.int(c), (C.enum_AVSampleFormat)(s), (*C.uint8_t)(b), C.int(bs), C.int(a)))
 }
 
 //Return codec bits per sample.
