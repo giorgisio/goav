@@ -10,6 +10,8 @@ import (
 	"unsafe"
 )
 
+type IO C.struct_AVCodecContext
+
 func (ctxt *Context) Chapters() **AvChapter {
 	return (**AvChapter)(unsafe.Pointer(ctxt.chapters))
 }
@@ -46,8 +48,9 @@ func (ctxt *Context) Programs() **AvProgram {
 	return (**AvProgram)(unsafe.Pointer(ctxt.programs))
 }
 
-func (ctxt *Context) Streams() *Stream {
-	return (*Stream)(unsafe.Pointer(ctxt.streams))
+func (ctxt *Context) Streams(i uint) *Stream {
+	offset := (unsafe.Sizeof(unsafe.Pointer(*ctxt.streams)) * uintptr(i))
+	return *(** Stream)(unsafe.Pointer(uintptr(unsafe.Pointer(ctxt.streams)) + offset ))
 }
 
 func (ctxt *Context) Filename() string {
