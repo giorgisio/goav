@@ -59,8 +59,20 @@ func (ctxt *CodecContext) BrdScale() int {
 	return int(ctxt.brd_scale)
 }
 
+func (ctxt *CodecContext) ChannelLayout() uint64 {
+	return uint64(ctxt.channel_layout)
+}
+
+func (ctxt *CodecContext) SetChannelLayout(c uint64) {
+	ctxt.channel_layout = C.uint64_t(c)
+}
+
 func (ctxt *CodecContext) Channels() int {
 	return int(ctxt.channels)
+}
+
+func (ctxt *CodecContext) SetChannels(c int) {
+	ctxt.channels = C.int(c)
 }
 
 func (ctxt *CodecContext) Chromaoffset() int {
@@ -181,6 +193,10 @@ func (ctxt *CodecContext) HeaderBits() int {
 
 func (ctxt *CodecContext) Height() int {
 	return int(ctxt.height)
+}
+
+func (ctxt *CodecContext) SetHeight(h int) {
+	ctxt.height = C.int(h)
 }
 
 func (ctxt *CodecContext) ICount() int {
@@ -403,9 +419,18 @@ func (ctxt *CodecContext) SampleRate() int {
 	return int(ctxt.sample_rate)
 }
 
+func (ctxt *CodecContext) SetSampleRate(s int) {
+	ctxt.sample_rate = C.int(s)
+}
+
 func (ctxt *CodecContext) SampleAspectRatio() avutil.Rational {
 	var r C.struct_AVRational = ctxt.sample_aspect_ratio
 	return *(*avutil.Rational)(unsafe.Pointer(&r))
+}
+
+func (ctxt *CodecContext) SetSampleAspectRatio(r avutil.Rational) {
+	var c_r C.struct_AVRational = *(*C.struct_AVRational)(unsafe.Pointer(&r))
+	ctxt.sample_aspect_ratio = c_r
 }
 
 func (ctxt *CodecContext) ScenechangeThreshold() int {
@@ -488,8 +513,22 @@ func (ctxt *CodecContext) Trellis() int {
 	return int(ctxt.trellis)
 }
 
+func (ctxt *CodecContext) TimeBase() avutil.Rational {
+	var r C.struct_AVRational = ctxt.time_base
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
+}
+
+func (ctxt *CodecContext) SetTimeBase(tb avutil.Rational) {
+	var c_tb C.struct_AVRational = *(*C.struct_AVRational)(unsafe.Pointer(&tb))
+	ctxt.time_base = c_tb
+}
+
 func (ctxt *CodecContext) Width() int {
 	return int(ctxt.width)
+}
+
+func (ctxt *CodecContext) SetWidth(w int) {
+	ctxt.width = C.int(w)
 }
 
 func (ctxt *CodecContext) WorkaroundBugs() int {
@@ -540,12 +579,22 @@ func (ctxt *CodecContext) PixFmt() PixelFormat {
 	return (PixelFormat)(ctxt.pix_fmt)
 }
 
+func (ctxt *CodecContext) SetPixFmt(p PixelFormat) {
+	var c_p C.enum_AVPixelFormat = C.enum_AVPixelFormat(p)
+	ctxt.pix_fmt = c_p
+}
+
 func (ctxt *CodecContext) RequestSampleFmt() AvSampleFormat {
 	return (AvSampleFormat)(ctxt.request_sample_fmt)
 }
 
 func (ctxt *CodecContext) SampleFmt() AvSampleFormat {
 	return (AvSampleFormat)(ctxt.sample_fmt)
+}
+
+func (ctxt *CodecContext) SetSampleFmt(sf AvSampleFormat) {
+	var c_sf C.enum_AVSampleFormat = C.enum_AVSampleFormat(sf)
+	ctxt.sample_fmt = c_sf
 }
 
 func (ctxt *CodecContext) SkipFrame() AvDiscard {
