@@ -8,18 +8,10 @@
 package avutil
 
 //#cgo pkg-config: libavutil
-//#include <libavutil/rational.h>
-//#include <stdlib.h>
+//#include <libavutil/opt.h>
 import "C"
+import "unsafe"
 
-func NewRational(num int, den int) Rational{
-	return Rational{ C.int(num), C.int(den) }
-}
-
-func (r Rational) Num() int {
-	return int(r.num)
-}
-
-func (r Rational) Den() int {
-	return int(r.den)
+func AvOptSetBin(obj unsafe.Pointer, name string, val * uint8, size int, search_flags int) int {
+	return int(C.av_opt_set_bin(obj, C.CString(name), (*C.uint8_t)(val), C.int(size), C.int(search_flags)))
 }
