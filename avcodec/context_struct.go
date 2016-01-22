@@ -584,15 +584,15 @@ func (ctxt *CodecContext) SetPixFmt(p PixelFormat) {
 	ctxt.pix_fmt = c_p
 }
 
-func (ctxt *CodecContext) RequestSampleFmt() AvSampleFormat {
-	return (AvSampleFormat)(ctxt.request_sample_fmt)
+func (ctxt *CodecContext) RequestSampleFmt() avutil.AvSampleFormat {
+	return (avutil.AvSampleFormat)(ctxt.request_sample_fmt)
 }
 
-func (ctxt *CodecContext) SampleFmt() AvSampleFormat {
-	return (AvSampleFormat)(ctxt.sample_fmt)
+func (ctxt *CodecContext) SampleFmt() avutil.AvSampleFormat {
+	return (avutil.AvSampleFormat)(ctxt.sample_fmt)
 }
 
-func (ctxt *CodecContext) SetSampleFmt(sf AvSampleFormat) {
+func (ctxt *CodecContext) SetSampleFmt(sf avutil.AvSampleFormat) {
 	var c_sf C.enum_AVSampleFormat = C.enum_AVSampleFormat(sf)
 	ctxt.sample_fmt = c_sf
 }

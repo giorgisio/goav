@@ -51,7 +51,6 @@ type (
 	AvFieldOrder                  C.enum_AVFieldOrder
 	AvPacketSideDataType          C.enum_AVPacketSideDataType
 	PixelFormat                   C.enum_AVPixelFormat
-	AvSampleFormat                C.enum_AVSampleFormat
 )
 
 func (c *Codec) AvCodecGetMaxLowres() int {
@@ -182,7 +181,7 @@ func AvcodecString(b string, bs int, ctxt *CodecContext, e int) {
 }
 
 //Fill Frame audio data and linesize pointers.
-func AvcodecFillAudioFrame(f * avutil.Frame, c int, s AvSampleFormat, b *uint8, bs, a int) int {
+func AvcodecFillAudioFrame(f * avutil.Frame, c int, s avutil.AvSampleFormat, b *uint8, bs, a int) int {
 	return int(C.avcodec_fill_audio_frame((*C.struct_AVFrame)(unsafe.Pointer(f)), C.int(c), (C.enum_AVSampleFormat)(s), (*C.uint8_t)(b), C.int(bs), C.int(a)))
 }
 
@@ -192,7 +191,7 @@ func AvGetBitsPerSample(c CodecId) int {
 }
 
 //Return the PCM codec associated with a sample format.
-func AvGetPcmCodec(f AvSampleFormat, b int) CodecId {
+func AvGetPcmCodec(f avutil.AvSampleFormat, b int) CodecId {
 	return (CodecId)(C.av_get_pcm_codec((C.enum_AVSampleFormat)(f), C.int(b)))
 }
 

@@ -9,6 +9,7 @@ package avutil
 
 //#cgo pkg-config: libavutil
 //#include <libavutil/avutil.h>
+//#include <libavutil/samplefmt.h>
 //#include <stdlib.h>
 import "C"
 import (
@@ -22,6 +23,7 @@ type (
 	Rational      C.struct_AVRational
 	MediaType     C.enum_AVMediaType
 	AvPictureType C.enum_AVPictureType
+	AvSampleFormat C.enum_AVSampleFormat
 	File          C.FILE
 )
 
@@ -69,4 +71,8 @@ func AvFopenUtf8(p, m string) *File {
 //Return the fractional representation of the internal time base.
 func AvGetTimeBaseQ() Rational {
 	return (Rational)(C.av_get_time_base_q())
+}
+
+func AvGetSampleFmtName(sample AvSampleFormat) string {
+	return C.GoString(C.av_get_sample_fmt_name( C.enum_AVSampleFormat(sample)))
 }
