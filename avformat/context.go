@@ -122,7 +122,7 @@ func (s *Context) AvReadPause() int {
 
 //Close an opened input Context.
 func (s *Context) AvformatCloseInput() {
-	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(s)))
+	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(&s)))
 }
 
 //Allocate the stream private data and write the stream header to an output media file.
