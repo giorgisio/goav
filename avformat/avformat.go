@@ -30,6 +30,7 @@ type (
 	Context                    C.struct_AVFormatContext
 	Frame                      C.struct_AVFrame
 	Dictionary                 C.struct_AVDictionary
+	DictionaryEntry            C.struct_AVDictionaryEntry
 	AvIndexEntry               C.struct_AVIndexEntry
 	Stream                     C.struct_AVStream
 	AvProgram                  C.struct_AVProgram
