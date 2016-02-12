@@ -36,7 +36,7 @@ func (s *Stream) GetRotation() int64 {
 	}
 
 	var displaymatrix (*C.uint8_t) = C.av_stream_get_side_data((*C.struct_AVStream)(s), C.AV_PKT_DATA_DISPLAYMATRIX, nil);
-	if (displaymatrix) {
+	if (displaymatrix != nil) {
 		return -int64(C.av_display_rotation_get((*C.int32_t)(unsafe.Pointer(displaymatrix))))
 	}
 
