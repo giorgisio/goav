@@ -43,6 +43,10 @@ func (s *Stream) GetRotation() int64 {
 	return 0
 }
 
+func (s *Stream) CodecContext() *CodecContext  {
+	return (*CodecContext)(s.codec)
+}
+
 //struct CodecParserContext * av_stream_get_parser (const Stream *s)
 func (s *Stream) AvStreamGetParser() *CodecParserContext {
 	return (*CodecParserContext)(C.av_stream_get_parser((*C.struct_AVStream)(s)))

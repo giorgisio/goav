@@ -33,6 +33,8 @@ type (
 	DictionaryEntry            C.struct_AVDictionaryEntry
 	AvIndexEntry               C.struct_AVIndexEntry
 	Stream                     C.struct_AVStream
+	CodecContext               C.struct_AVCodecContext
+	Codec                      C.struct_AVCodec
 	AvProgram                  C.struct_AVProgram
 	AvChapter                  C.struct_AVChapter
 	AvPacketList               C.struct_AVPacketList
