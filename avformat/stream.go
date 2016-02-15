@@ -18,7 +18,6 @@ func (s *Stream) AvStreamSetRFrameRate(r Rational) {
 	C.av_stream_set_r_frame_rate((*C.struct_AVStream)(s), (C.struct_AVRational)(r))
 }
 
-
 /**
  * Get rotation of the Stream by
  * 1. MetaData
@@ -42,10 +41,6 @@ func (s *Stream) GetRotation() int64 {
 	}
 
 	return 0
-}
-
-func (s *Stream) CodecContext() *CodecContext  {
-	return (*CodecContext)(s.codec)
 }
 
 //struct CodecParserContext * av_stream_get_parser (const Stream *s)

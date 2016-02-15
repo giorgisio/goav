@@ -10,6 +10,19 @@ import (
 	"unsafe"
 )
 
+func (s *CodecContext) Codec() *Codec {
+	if (C.avcodec_is_open((*C.struct_AVCodecContext)(s)) == 0) {
+		codec := C.avcodec_find_decoder(s.codec_id);
+		if (codec == nil) {
+			panic("Codec not found")
+		}
+
+		C.avcodec_open2((*C.struct_AVCodecContext)(s), codec, nil)
+	}
+
+	return (*Codec)(s.codec)
+}
+
 func (ctxt *CodecContext) AvCodecGetPktTimebase() Rational {
 	return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
 }

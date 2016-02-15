@@ -88,6 +88,14 @@ func (c *Codec) AvCodecIsDecoder() int {
 	return int(C.av_codec_is_decoder((*C.struct_AVCodec)(c)))
 }
 
+func (c *Codec) Name() string {
+	return C.GoString(c.name)
+}
+
+func (c *Codec) LongName() string {
+	return C.GoString(c.long_name)
+}
+
 //Same behaviour av_fast_malloc but the buffer has additional FF_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
 func AvFastPaddedMalloc(p unsafe.Pointer, s *uint, t uintptr) {
 	C.av_fast_padded_malloc(p, (*C.uint)(unsafe.Pointer(s)), (C.size_t)(t))

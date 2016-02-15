@@ -11,6 +11,11 @@ import (
 	"github.com/giorgisio/goav/avcodec"
 )
 
+func (avs *Stream) CodecContext() *avcodec.CodecContext  {
+	return (*avcodec.CodecContext)(unsafe.Pointer(avs.codec))
+}
+
+// Deprecated: For backward compatibility, please use CodecContext method
 func (avs *Stream) Codec() *avcodec.CodecContext {
 	return (*avcodec.CodecContext)(unsafe.Pointer(avs.codec))
 }
