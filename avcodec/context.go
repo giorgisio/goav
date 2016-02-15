@@ -10,17 +10,17 @@ import (
 	"unsafe"
 )
 
-func (s *CodecContext) Codec() *Codec {
-	if (C.avcodec_is_open((*C.struct_AVCodecContext)(s)) == 0) {
-		codec := C.avcodec_find_decoder(s.codec_id);
+func (codecContext *CodecContext) Codec() *Codec {
+	if (codecContext.CodecIsOpen() == false) {
+		codec := C.avcodec_find_decoder(codecContext.codec_id);
 		if (codec == nil) {
 			panic("Codec not found")
 		}
 
-		C.avcodec_open2((*C.struct_AVCodecContext)(s), codec, nil)
+		C.avcodec_open2((*C.struct_AVCodecContext)(codecContext), codec, nil)
 	}
 
-	return (*Codec)(s.codec)
+	return (*Codec)(codecContext.codec)
 }
 
 func (ctxt *CodecContext) AvCodecGetPktTimebase() Rational {
@@ -146,6 +146,11 @@ func (ctxt *CodecContext) AvGetAudioFrameDuration(f int) int {
 	return int(C.av_get_audio_frame_duration((*C.struct_AVCodecContext)(ctxt), C.int(f)))
 }
 
+func (ctxt *CodecContext) CodecIsOpen() bool {
+	return ctxt.AvcodecIsOpen() == 1;
+}
+
+// Deprecated: For backward compatibility, please use CodecIsOpen
 func (ctxt *CodecContext) AvcodecIsOpen() int {
 	return int(C.avcodec_is_open((*C.struct_AVCodecContext)(ctxt)))
 }
