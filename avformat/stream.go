@@ -1,5 +1,6 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
+// Dmitry Patsura <talk@dmtry.me> https://github.com/ovr
 
 package avformat
 

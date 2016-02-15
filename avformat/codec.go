@@ -8,12 +8,10 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 
-func (s *CodecContext) Codec() *Codec {
-	codec := C.avcodec_find_decoder(s.codec_id);
-	if (codec == nil) {
-		panic("Codec not found")
-	}
+func (c *Codec) Name() string {
+	return C.GoString(c.name)
+}
 
-	C.avcodec_open2((*C.struct_AVCodecContext)(s), codec, nil)
-	return (*Codec)(s.codec)
+func (c *Codec) LongName() string {
+	return C.GoString(c.long_name)
 }
