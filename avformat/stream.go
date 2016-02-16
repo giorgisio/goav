@@ -1,11 +1,19 @@
 // Use of this source code is governed by a MIT license that can be found in the LICENSE file.
 // Giorgis (habtom@giorgis.io)
+// Dmitry Patsura <talk@dmtry.me> https://github.com/ovr
 
 package avformat
 
 //#cgo pkg-config: libavformat
+//#cgo pkg-config: libavutil
 //#include <libavformat/avformat.h>
+//#include <libavutil/display.h>
 import "C"
+import (
+	"strconv"
+	"unsafe"
+	"strings"
+)
 
 //Rational av_stream_get_r_frame_rate (const Stream *s)
 func (s *Stream) AvStreamGetRFrameRate() Rational {
@@ -16,7 +24,6 @@ func (s *Stream) AvStreamGetRFrameRate() Rational {
 func (s *Stream) AvStreamSetRFrameRate(r Rational) {
 	C.av_stream_set_r_frame_rate((*C.struct_AVStream)(s), (C.struct_AVRational)(r))
 }
-
 
 /**
  * Get rotation of the Stream by
