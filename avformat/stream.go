@@ -17,6 +17,32 @@ func (s *Stream) AvStreamSetRFrameRate(r Rational) {
 	C.av_stream_set_r_frame_rate((*C.struct_AVStream)(s), (C.struct_AVRational)(r))
 }
 
+
+/**
+ * Get rotation of the Stream by
+ * 1. MetaData
+ * 2. Metrix
+ */
+func (s *Stream) GetRotation() int64 {
+	dictionaryEntry := s.Metadata().Get("rotate")
+	if (dictionaryEntry != nil) {
+		value := dictionaryEntry.Value();
+		strings.TrimRight(value, "%")
+
+		rotation, err := strconv.ParseInt(value, 10, 64)
+		if (err == nil) {
+			return rotation
+		}
+	}
+
+	var displaymatrix (*C.uint8_t) = C.av_stream_get_side_data((*C.struct_AVStream)(s), C.AV_PKT_DATA_DISPLAYMATRIX, nil);
+	if (displaymatrix != nil) {
+		return -int64(C.av_display_rotation_get((*C.int32_t)(unsafe.Pointer(displaymatrix))))
+	}
+
+	return 0
+}
+
 //struct CodecParserContext * av_stream_get_parser (const Stream *s)
 func (s *Stream) AvStreamGetParser() *CodecParserContext {
 	return (*CodecParserContext)(C.av_stream_get_parser((*C.struct_AVStream)(s)))
