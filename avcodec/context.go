@@ -8,7 +8,20 @@ package avcodec
 import "C"
 import (
 	"unsafe"
+	"goav/avutil"
 )
+
+func (ctxt *CodecContext) Type() avutil.MediaType {
+	return (avutil.MediaType)(ctxt.codec_type)
+}
+
+func (ctxt *CodecContext) IsVideo() bool {
+	return (avutil.MediaType)(ctxt.codec_type) == avutil.AVMEDIA_TYPE_VIDEO
+}
+
+func (ctxt *CodecContext) IsAudio() bool {
+	return (avutil.MediaType)(ctxt.codec_type) == avutil.AVMEDIA_TYPE_AUDIO
+}
 
 func (ctxt *CodecContext) AvCodecGetPktTimebase() Rational {
 	return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
