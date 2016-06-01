@@ -179,7 +179,7 @@ func (ctxt *Context) Duration() int64 {
 }
 
 func (ctxt *Context) MaxAnalyzeDuration2() int64 {
-	return int64(ctxt.max_analyze_duration2)
+	return int64(ctxt.max_analyze_duration)
 }
 
 func (ctxt *Context) MaxInterleaveDelta() int64 {
@@ -191,7 +191,7 @@ func (ctxt *Context) OutputTsOffset() int64 {
 }
 
 func (ctxt *Context) Probesize2() int64 {
-	return int64(ctxt.probesize2)
+	return int64(ctxt.probesize)
 }
 
 func (ctxt *Context) SkipInitialBytes() int64 {
