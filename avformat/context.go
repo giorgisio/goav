@@ -7,8 +7,10 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
-	"github.com/giorgisio/goav/avcodec"
 	"unsafe"
+
+	"github.com/giorgisio/goav/avcodec"
+	"github.com/targodan/goav/avutil"
 )
 
 func (s *Context) AvFormatGetProbeScore() int {
@@ -80,8 +82,8 @@ func (s *Context) AvNewProgram(id int) *AvProgram {
 }
 
 //Read packets of a media file to get stream information.
-func (s *Context) AvformatFindStreamInfo(d **Dictionary) int {
-	return int(C.avformat_find_stream_info((*C.struct_AVFormatContext)(s), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
+func (s *Context) AvformatFindStreamInfo(d **Dictionary) error {
+	return avutil.CodeToError(int(C.avformat_find_stream_info((*C.struct_AVFormatContext)(s), (**C.struct_AVDictionary)(unsafe.Pointer(d)))))
 }
 
 //Find the programs which belong to a given stream.

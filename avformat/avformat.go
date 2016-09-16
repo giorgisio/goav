@@ -20,6 +20,8 @@ package avformat
 import "C"
 import (
 	"unsafe"
+
+	"github.com/targodan/goav/avutil"
 )
 
 type (
@@ -165,8 +167,8 @@ func AvProbeInputBuffer(pb *AvIOContext, f **InputFormat, fi string, l int, o, m
 }
 
 //Open an input stream and read the header.
-func AvformatOpenInput(ps **Context, fi string, fmt *InputFormat, d **Dictionary) int {
-	return int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(ps)), C.CString(fi), (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
+func AvformatOpenInput(ps **Context, fi string, fmt *InputFormat, d **Dictionary) error {
+	return avutil.CodeToError(int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(ps)), C.CString(fi), (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(d)))))
 }
 
 //Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.

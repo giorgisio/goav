@@ -17,6 +17,8 @@ package avcodec
 import "C"
 import (
 	"unsafe"
+
+	"github.com/targodan/goav/avutil"
 )
 
 type (
@@ -184,8 +186,8 @@ func AvcodecString(b string, bs int, ctxt *Context, e int) {
 }
 
 //Fill Frame audio data and linesize pointers.
-func AvcodecFillAudioFrame(f *Frame, c int, s AvSampleFormat, b *uint8, bs, a int) int {
-	return int(C.avcodec_fill_audio_frame((*C.struct_AVFrame)(f), C.int(c), (C.enum_AVSampleFormat)(s), (*C.uint8_t)(b), C.int(bs), C.int(a)))
+func AvcodecFillAudioFrame(f *Frame, c int, s AvSampleFormat, b *uint8, bs, a int) error {
+	return avutil.CodeToError(int(C.avcodec_fill_audio_frame((*C.struct_AVFrame)(f), C.int(c), (C.enum_AVSampleFormat)(s), (*C.uint8_t)(b), C.int(bs), C.int(a))))
 }
 
 //Return codec bits per sample.
