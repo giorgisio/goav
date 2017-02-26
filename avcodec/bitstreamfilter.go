@@ -21,7 +21,7 @@ func (f *BitStreamFilter) AvBitstreamFilterNext() *BitStreamFilter {
 }
 
 //Filter bitstream.
-func (bfx *BitStreamFilterContext) AvBitstreamFilterFilter(ctxt *Context, a string, p **uint8, ps *int, b *uint8, bs, k int) int {
+func (bfx *BitStreamFilterContext) AvBitstreamFilterFilter(ctxt *CodecContext, a string, p **uint8, ps *int, b *uint8, bs, k int) int {
 	return int(C.av_bitstream_filter_filter((*C.struct_AVBitStreamFilterContext)(bfx), (*C.struct_AVCodecContext)(ctxt), C.CString(a), (**C.uint8_t)(unsafe.Pointer(p)), (*C.int)(unsafe.Pointer(ps)), (*C.uint8_t)(b), C.int(bs), C.int(k)))
 }
 
