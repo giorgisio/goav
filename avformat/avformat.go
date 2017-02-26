@@ -20,6 +20,7 @@ package avformat
 import "C"
 import (
 	"unsafe"
+	"github.com/giorgisio/goav/avutil"
 )
 
 type (
@@ -28,8 +29,8 @@ type (
 	OutputFormat               C.struct_AVOutputFormat
 	Context                    C.struct_AVFormatContext
 	Frame                      C.struct_AVFrame
-	CodecContext               C.struct_AVCodecContext
 	Dictionary                 C.struct_AVDictionary
+	DictionaryEntry            C.struct_AVDictionaryEntry
 	AvIndexEntry               C.struct_AVIndexEntry
 	Stream                     C.struct_AVStream
 	AvProgram                  C.struct_AVProgram
@@ -48,7 +49,6 @@ type (
 	FFFrac                     C.struct_FFFrac
 	AvStreamParseType          C.enum_AVStreamParseType
 	AvDiscard                  C.enum_AVDiscard
-	MediaType                  C.enum_AVMediaType
 	AvDurationEstimationMethod C.enum_AVDurationEstimationMethod
 	AvPacketSideDataType       C.enum_AVPacketSideDataType
 	CodecId                    C.enum_AVCodecID
@@ -175,7 +175,7 @@ func AvGuessFormat(sn, f, mt string) *OutputFormat {
 }
 
 //Guess the codec ID based upon muxer and filename.
-func AvGuessCodec(fmt *OutputFormat, sn, f, mt string, t MediaType) CodecId {
+func AvGuessCodec(fmt *OutputFormat, sn, f, mt string, t avutil.MediaType) CodecId {
 	return (CodecId)(C.av_guess_codec((*C.struct_AVOutputFormat)(fmt), C.CString(sn), C.CString(f), C.CString(mt), (C.enum_AVMediaType)(t)))
 }
 

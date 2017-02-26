@@ -3,546 +3,550 @@
 
 package avcodec
 
-func (ctxt *Context) ActiveThreadType() int {
+import (
+	"github.com/giorgisio/goav/avutil"
+)
+
+func (ctxt *CodecContext) ActiveThreadType() int {
 	return int(ctxt.active_thread_type)
 }
 
-func (ctxt *Context) BFrameStrategy() int {
+func (ctxt *CodecContext) BFrameStrategy() int {
 	return int(ctxt.b_frame_strategy)
 }
 
-func (ctxt *Context) BQuantFactor() float64 {
+func (ctxt *CodecContext) BQuantFactor() float64 {
 	return float64(ctxt.b_quant_factor)
 }
 
-func (ctxt *Context) BQuantOffset() float64 {
+func (ctxt *CodecContext) BQuantOffset() float64 {
 	return float64(ctxt.b_quant_offset)
 }
 
-func (ctxt *Context) BSensitivity() int {
+func (ctxt *CodecContext) BSensitivity() int {
 	return int(ctxt.b_sensitivity)
 }
 
-func (ctxt *Context) BidirRefine() int {
+func (ctxt *CodecContext) BidirRefine() int {
 	return int(ctxt.bidir_refine)
 }
 
-func (ctxt *Context) BitRate() int {
+func (ctxt *CodecContext) BitRate() int {
 	return int(ctxt.bit_rate)
 }
 
-func (ctxt *Context) BitRateTolerance() int {
+func (ctxt *CodecContext) BitRateTolerance() int {
 	return int(ctxt.bit_rate_tolerance)
 }
 
-func (ctxt *Context) BitsPerCodedSample() int {
+func (ctxt *CodecContext) BitsPerCodedSample() int {
 	return int(ctxt.bits_per_coded_sample)
 }
 
-func (ctxt *Context) BitsPerRawSample() int {
+func (ctxt *CodecContext) BitsPerRawSample() int {
 	return int(ctxt.bits_per_raw_sample)
 }
 
-func (ctxt *Context) BlockAlign() int {
+func (ctxt *CodecContext) BlockAlign() int {
 	return int(ctxt.block_align)
 }
 
-func (ctxt *Context) BrdScale() int {
+func (ctxt *CodecContext) BrdScale() int {
 	return int(ctxt.brd_scale)
 }
 
-func (ctxt *Context) Channels() int {
+func (ctxt *CodecContext) Channels() int {
 	return int(ctxt.channels)
 }
 
-func (ctxt *Context) Chromaoffset() int {
+func (ctxt *CodecContext) Chromaoffset() int {
 	return int(ctxt.chromaoffset)
 }
 
-func (ctxt *Context) CodedHeight() int {
+func (ctxt *CodecContext) CodedHeight() int {
 	return int(ctxt.coded_height)
 }
 
-func (ctxt *Context) CodedWidth() int {
+func (ctxt *CodecContext) CodedWidth() int {
 	return int(ctxt.coded_width)
 }
 
-func (ctxt *Context) CoderType() int {
+func (ctxt *CodecContext) CoderType() int {
 	return int(ctxt.coder_type)
 }
 
-func (ctxt *Context) CompressionLevel() int {
+func (ctxt *CodecContext) CompressionLevel() int {
 	return int(ctxt.compression_level)
 }
 
-func (ctxt *Context) ContextModel() int {
+func (ctxt *CodecContext) ContextModel() int {
 	return int(ctxt.context_model)
 }
 
-func (ctxt *Context) Cutoff() int {
+func (ctxt *CodecContext) Cutoff() int {
 	return int(ctxt.cutoff)
 }
 
-func (ctxt *Context) DarkMasking() float64 {
+func (ctxt *CodecContext) DarkMasking() float64 {
 	return float64(ctxt.dark_masking)
 }
 
-func (ctxt *Context) DctAlgo() int {
+func (ctxt *CodecContext) DctAlgo() int {
 	return int(ctxt.dct_algo)
 }
 
-func (ctxt *Context) Debug() int {
+func (ctxt *CodecContext) Debug() int {
 	return int(ctxt.debug)
 }
 
-func (ctxt *Context) DebugMv() int {
+func (ctxt *CodecContext) DebugMv() int {
 	return int(ctxt.debug_mv)
 }
 
-func (ctxt *Context) Delay() int {
+func (ctxt *CodecContext) Delay() int {
 	return int(ctxt.delay)
 }
 
-func (ctxt *Context) DiaSize() int {
+func (ctxt *CodecContext) DiaSize() int {
 	return int(ctxt.dia_size)
 }
 
-func (ctxt *Context) ErrRecognition() int {
+func (ctxt *CodecContext) ErrRecognition() int {
 	return int(ctxt.err_recognition)
 }
 
-func (ctxt *Context) ErrorConcealment() int {
+func (ctxt *CodecContext) ErrorConcealment() int {
 	return int(ctxt.error_concealment)
 }
 
-func (ctxt *Context) ExtradataSize() int {
+func (ctxt *CodecContext) ExtradataSize() int {
 	return int(ctxt.extradata_size)
 }
 
-func (ctxt *Context) Flags() int {
+func (ctxt *CodecContext) Flags() int {
 	return int(ctxt.flags)
 }
 
-func (ctxt *Context) Flags2() int {
+func (ctxt *CodecContext) Flags2() int {
 	return int(ctxt.flags2)
 }
 
-func (ctxt *Context) FrameBits() int {
+func (ctxt *CodecContext) FrameBits() int {
 	return int(ctxt.frame_bits)
 }
 
-func (ctxt *Context) FrameNumber() int {
+func (ctxt *CodecContext) FrameNumber() int {
 	return int(ctxt.frame_number)
 }
 
-func (ctxt *Context) FrameSize() int {
+func (ctxt *CodecContext) FrameSize() int {
 	return int(ctxt.frame_size)
 }
 
-func (ctxt *Context) FrameSkipCmp() int {
+func (ctxt *CodecContext) FrameSkipCmp() int {
 	return int(ctxt.frame_skip_cmp)
 }
 
-func (ctxt *Context) FrameSkipExp() int {
+func (ctxt *CodecContext) FrameSkipExp() int {
 	return int(ctxt.frame_skip_exp)
 }
 
-func (ctxt *Context) FrameSkipFactor() int {
+func (ctxt *CodecContext) FrameSkipFactor() int {
 	return int(ctxt.frame_skip_factor)
 }
 
-func (ctxt *Context) FrameSkipThreshold() int {
+func (ctxt *CodecContext) FrameSkipThreshold() int {
 	return int(ctxt.frame_skip_threshold)
 }
 
-func (ctxt *Context) GlobalQuality() int {
+func (ctxt *CodecContext) GlobalQuality() int {
 	return int(ctxt.global_quality)
 }
 
-func (ctxt *Context) GopSize() int {
+func (ctxt *CodecContext) GopSize() int {
 	return int(ctxt.gop_size)
 }
 
-func (ctxt *Context) HasBFrames() int {
+func (ctxt *CodecContext) HasBFrames() int {
 	return int(ctxt.has_b_frames)
 }
 
-func (ctxt *Context) HeaderBits() int {
+func (ctxt *CodecContext) HeaderBits() int {
 	return int(ctxt.header_bits)
 }
 
-func (ctxt *Context) Height() int {
+func (ctxt *CodecContext) Height() int {
 	return int(ctxt.height)
 }
 
-func (ctxt *Context) ICount() int {
+func (ctxt *CodecContext) ICount() int {
 	return int(ctxt.i_count)
 }
 
-func (ctxt *Context) IQuantFactor() float64 {
+func (ctxt *CodecContext) IQuantFactor() float64 {
 	return float64(ctxt.i_quant_factor)
 }
 
-func (ctxt *Context) IQuantOffset() float64 {
+func (ctxt *CodecContext) IQuantOffset() float64 {
 	return float64(ctxt.i_quant_offset)
 }
 
-func (ctxt *Context) ITexBits() int {
+func (ctxt *CodecContext) ITexBits() int {
 	return int(ctxt.i_tex_bits)
 }
 
-func (ctxt *Context) IdctAlgo() int {
+func (ctxt *CodecContext) IdctAlgo() int {
 	return int(ctxt.idct_algo)
 }
 
-func (ctxt *Context) IldctCmp() int {
+func (ctxt *CodecContext) IldctCmp() int {
 	return int(ctxt.ildct_cmp)
 }
 
-func (ctxt *Context) IntraDcPrecision() int {
+func (ctxt *CodecContext) IntraDcPrecision() int {
 	return int(ctxt.intra_dc_precision)
 }
 
-func (ctxt *Context) KeyintMin() int {
+func (ctxt *CodecContext) KeyintMin() int {
 	return int(ctxt.keyint_min)
 }
 
-func (ctxt *Context) LastPredictorCount() int {
+func (ctxt *CodecContext) LastPredictorCount() int {
 	return int(ctxt.last_predictor_count)
 }
 
-func (ctxt *Context) Level() int {
+func (ctxt *CodecContext) Level() int {
 	return int(ctxt.level)
 }
 
-func (ctxt *Context) LogLevelOffset() int {
+func (ctxt *CodecContext) LogLevelOffset() int {
 	return int(ctxt.log_level_offset)
 }
 
-func (ctxt *Context) Lowres() int {
+func (ctxt *CodecContext) Lowres() int {
 	return int(ctxt.lowres)
 }
 
-func (ctxt *Context) LumiMasking() float64 {
+func (ctxt *CodecContext) LumiMasking() float64 {
 	return float64(ctxt.lumi_masking)
 }
 
-func (ctxt *Context) MaxBFrames() int {
+func (ctxt *CodecContext) MaxBFrames() int {
 	return int(ctxt.max_b_frames)
 }
 
-func (ctxt *Context) MaxPredictionOrder() int {
+func (ctxt *CodecContext) MaxPredictionOrder() int {
 	return int(ctxt.max_prediction_order)
 }
 
-func (ctxt *Context) MaxQdiff() int {
+func (ctxt *CodecContext) MaxQdiff() int {
 	return int(ctxt.max_qdiff)
 }
 
-func (ctxt *Context) MbCmp() int {
+func (ctxt *CodecContext) MbCmp() int {
 	return int(ctxt.mb_cmp)
 }
 
-func (ctxt *Context) MbDecision() int {
+func (ctxt *CodecContext) MbDecision() int {
 	return int(ctxt.mb_decision)
 }
 
-func (ctxt *Context) MbLmax() int {
+func (ctxt *CodecContext) MbLmax() int {
 	return int(ctxt.mb_lmax)
 }
 
-func (ctxt *Context) MbLmin() int {
+func (ctxt *CodecContext) MbLmin() int {
 	return int(ctxt.mb_lmin)
 }
 
-func (ctxt *Context) MeCmp() int {
+func (ctxt *CodecContext) MeCmp() int {
 	return int(ctxt.me_cmp)
 }
 
-func (ctxt *Context) MePenaltyCompensation() int {
+func (ctxt *CodecContext) MePenaltyCompensation() int {
 	return int(ctxt.me_penalty_compensation)
 }
 
-func (ctxt *Context) MePreCmp() int {
+func (ctxt *CodecContext) MePreCmp() int {
 	return int(ctxt.me_pre_cmp)
 }
 
-func (ctxt *Context) MeRange() int {
+func (ctxt *CodecContext) MeRange() int {
 	return int(ctxt.me_range)
 }
 
-func (ctxt *Context) MeSubCmp() int {
+func (ctxt *CodecContext) MeSubCmp() int {
 	return int(ctxt.me_sub_cmp)
 }
 
-func (ctxt *Context) MeSubpelQuality() int {
+func (ctxt *CodecContext) MeSubpelQuality() int {
 	return int(ctxt.me_subpel_quality)
 }
 
-func (ctxt *Context) MinPredictionOrder() int {
+func (ctxt *CodecContext) MinPredictionOrder() int {
 	return int(ctxt.min_prediction_order)
 }
 
-func (ctxt *Context) MiscBits() int {
+func (ctxt *CodecContext) MiscBits() int {
 	return int(ctxt.misc_bits)
 }
 
-func (ctxt *Context) MpegQuant() int {
+func (ctxt *CodecContext) MpegQuant() int {
 	return int(ctxt.mpeg_quant)
 }
 
-func (ctxt *Context) Mv0Threshold() int {
+func (ctxt *CodecContext) Mv0Threshold() int {
 	return int(ctxt.mv0_threshold)
 }
 
-func (ctxt *Context) MvBits() int {
+func (ctxt *CodecContext) MvBits() int {
 	return int(ctxt.mv_bits)
 }
 
-func (ctxt *Context) NoiseReduction() int {
+func (ctxt *CodecContext) NoiseReduction() int {
 	return int(ctxt.noise_reduction)
 }
 
-func (ctxt *Context) NsseWeight() int {
+func (ctxt *CodecContext) NsseWeight() int {
 	return int(ctxt.nsse_weight)
 }
 
-func (ctxt *Context) PCount() int {
+func (ctxt *CodecContext) PCount() int {
 	return int(ctxt.p_count)
 }
 
-func (ctxt *Context) PMasking() float64 {
+func (ctxt *CodecContext) PMasking() float64 {
 	return float64(ctxt.p_masking)
 }
 
-func (ctxt *Context) PTexBits() int {
+func (ctxt *CodecContext) PTexBits() int {
 	return int(ctxt.p_tex_bits)
 }
 
-func (ctxt *Context) PreDiaSize() int {
+func (ctxt *CodecContext) PreDiaSize() int {
 	return int(ctxt.pre_dia_size)
 }
 
-func (ctxt *Context) PreMe() int {
+func (ctxt *CodecContext) PreMe() int {
 	return int(ctxt.pre_me)
 }
 
-func (ctxt *Context) PredictionMethod() int {
+func (ctxt *CodecContext) PredictionMethod() int {
 	return int(ctxt.prediction_method)
 }
 
-func (ctxt *Context) Profile() int {
+func (ctxt *CodecContext) Profile() int {
 	return int(ctxt.profile)
 }
 
-func (ctxt *Context) Qblur() float64 {
+func (ctxt *CodecContext) Qblur() float64 {
 	return float64(ctxt.qblur)
 }
 
-func (ctxt *Context) Qcompress() float64 {
+func (ctxt *CodecContext) Qcompress() float64 {
 	return float64(ctxt.qcompress)
 }
 
-func (ctxt *Context) Qmax() int {
+func (ctxt *CodecContext) Qmax() int {
 	return int(ctxt.qmax)
 }
 
-func (ctxt *Context) Qmin() int {
+func (ctxt *CodecContext) Qmin() int {
 	return int(ctxt.qmin)
 }
 
-func (ctxt *Context) RcBufferSize() int {
+func (ctxt *CodecContext) RcBufferSize() int {
 	return int(ctxt.rc_buffer_size)
 }
 
-func (ctxt *Context) RcInitialBufferOccupancy() int {
+func (ctxt *CodecContext) RcInitialBufferOccupancy() int {
 	return int(ctxt.rc_initial_buffer_occupancy)
 }
 
-func (ctxt *Context) RcMaxAvailableVbvUse() float64 {
+func (ctxt *CodecContext) RcMaxAvailableVbvUse() float64 {
 	return float64(ctxt.rc_max_available_vbv_use)
 }
 
-func (ctxt *Context) RcMaxRate() int {
+func (ctxt *CodecContext) RcMaxRate() int {
 	return int(ctxt.rc_max_rate)
 }
 
-func (ctxt *Context) RcMinRate() int {
+func (ctxt *CodecContext) RcMinRate() int {
 	return int(ctxt.rc_min_rate)
 }
 
-func (ctxt *Context) RcMinVbvOverflowUse() float64 {
+func (ctxt *CodecContext) RcMinVbvOverflowUse() float64 {
 	return float64(ctxt.rc_min_vbv_overflow_use)
 }
 
-func (ctxt *Context) RcOverrideCount() int {
+func (ctxt *CodecContext) RcOverrideCount() int {
 	return int(ctxt.rc_override_count)
 }
 
-func (ctxt *Context) RefcountedFrames() int {
+func (ctxt *CodecContext) RefcountedFrames() int {
 	return int(ctxt.refcounted_frames)
 }
 
-func (ctxt *Context) Refs() int {
+func (ctxt *CodecContext) Refs() int {
 	return int(ctxt.refs)
 }
 
-func (ctxt *Context) RtpPayloadSize() int {
+func (ctxt *CodecContext) RtpPayloadSize() int {
 	return int(ctxt.rtp_payload_size)
 }
 
-func (ctxt *Context) SampleRate() int {
+func (ctxt *CodecContext) SampleRate() int {
 	return int(ctxt.sample_rate)
 }
 
-func (ctxt *Context) ScenechangeThreshold() int {
+func (ctxt *CodecContext) ScenechangeThreshold() int {
 	return int(ctxt.scenechange_threshold)
 }
 
-func (ctxt *Context) SeekPreroll() int {
+func (ctxt *CodecContext) SeekPreroll() int {
 	return int(ctxt.seek_preroll)
 }
 
-func (ctxt *Context) SideDataOnlyPackets() int {
+func (ctxt *CodecContext) SideDataOnlyPackets() int {
 	return int(ctxt.side_data_only_packets)
 }
 
-func (ctxt *Context) SkipAlpha() int {
+func (ctxt *CodecContext) SkipAlpha() int {
 	return int(ctxt.skip_alpha)
 }
 
-func (ctxt *Context) SkipBottom() int {
+func (ctxt *CodecContext) SkipBottom() int {
 	return int(ctxt.skip_bottom)
 }
 
-func (ctxt *Context) SkipCount() int {
+func (ctxt *CodecContext) SkipCount() int {
 	return int(ctxt.skip_count)
 }
 
-func (ctxt *Context) SkipTop() int {
+func (ctxt *CodecContext) SkipTop() int {
 	return int(ctxt.skip_top)
 }
 
-func (ctxt *Context) SliceCount() int {
+func (ctxt *CodecContext) SliceCount() int {
 	return int(ctxt.slice_count)
 }
 
-func (ctxt *Context) SliceFlags() int {
+func (ctxt *CodecContext) SliceFlags() int {
 	return int(ctxt.slice_flags)
 }
 
-func (ctxt *Context) Slices() int {
+func (ctxt *CodecContext) Slices() int {
 	return int(ctxt.slices)
 }
 
-func (ctxt *Context) SpatialCplxMasking() float64 {
+func (ctxt *CodecContext) SpatialCplxMasking() float64 {
 	return float64(ctxt.spatial_cplx_masking)
 }
 
-func (ctxt *Context) StrictStdCompliance() int {
+func (ctxt *CodecContext) StrictStdCompliance() int {
 	return int(ctxt.strict_std_compliance)
 }
 
-func (ctxt *Context) SubCharencMode() int {
+func (ctxt *CodecContext) SubCharencMode() int {
 	return int(ctxt.sub_charenc_mode)
 }
 
-func (ctxt *Context) SubtitleHeaderSize() int {
+func (ctxt *CodecContext) SubtitleHeaderSize() int {
 	return int(ctxt.subtitle_header_size)
 }
 
-func (ctxt *Context) TemporalCplxMasking() float64 {
+func (ctxt *CodecContext) TemporalCplxMasking() float64 {
 	return float64(ctxt.temporal_cplx_masking)
 }
 
-func (ctxt *Context) ThreadCount() int {
+func (ctxt *CodecContext) ThreadCount() int {
 	return int(ctxt.thread_count)
 }
 
-func (ctxt *Context) ThreadSafeCallbacks() int {
+func (ctxt *CodecContext) ThreadSafeCallbacks() int {
 	return int(ctxt.thread_safe_callbacks)
 }
 
-func (ctxt *Context) ThreadType() int {
+func (ctxt *CodecContext) ThreadType() int {
 	return int(ctxt.thread_type)
 }
 
-func (ctxt *Context) TicksPerFrame() int {
+func (ctxt *CodecContext) TicksPerFrame() int {
 	return int(ctxt.ticks_per_frame)
 }
 
-func (ctxt *Context) Trellis() int {
+func (ctxt *CodecContext) Trellis() int {
 	return int(ctxt.trellis)
 }
 
-func (ctxt *Context) Width() int {
+func (ctxt *CodecContext) Width() int {
 	return int(ctxt.width)
 }
 
-func (ctxt *Context) WorkaroundBugs() int {
+func (ctxt *CodecContext) WorkaroundBugs() int {
 	return int(ctxt.workaround_bugs)
 }
 
-func (ctxt *Context) AudioServiceType() AvAudioServiceType {
+func (ctxt *CodecContext) AudioServiceType() AvAudioServiceType {
 	return (AvAudioServiceType)(ctxt.audio_service_type)
 }
 
-func (ctxt *Context) ChromaSampleLocation() AvChromaLocation {
+func (ctxt *CodecContext) ChromaSampleLocation() AvChromaLocation {
 	return (AvChromaLocation)(ctxt.chroma_sample_location)
 }
 
-func (ctxt *Context) CodecDescriptor() *Descriptor {
+func (ctxt *CodecContext) CodecDescriptor() *Descriptor {
 	return (*Descriptor)(ctxt.codec_descriptor)
 }
 
-func (ctxt *Context) CodecId() CodecId {
+func (ctxt *CodecContext) CodecId() CodecId {
 	return (CodecId)(ctxt.codec_id)
 }
 
-func (ctxt *Context) CodecType() MediaType {
-	return (MediaType)(ctxt.codec_type)
+func (ctxt *CodecContext) CodecType() avutil.MediaType {
+	return (avutil.MediaType)(ctxt.codec_type)
 }
 
-func (ctxt *Context) ColorPrimaries() AvColorPrimaries {
+func (ctxt *CodecContext) ColorPrimaries() AvColorPrimaries {
 	return (AvColorPrimaries)(ctxt.color_primaries)
 }
 
-func (ctxt *Context) ColorRange() AvColorRange {
+func (ctxt *CodecContext) ColorRange() AvColorRange {
 	return (AvColorRange)(ctxt.color_range)
 }
 
-func (ctxt *Context) ColorTrc() AvColorTransferCharacteristic {
+func (ctxt *CodecContext) ColorTrc() AvColorTransferCharacteristic {
 	return (AvColorTransferCharacteristic)(ctxt.color_trc)
 }
 
-func (ctxt *Context) Colorspace() AvColorSpace {
+func (ctxt *CodecContext) Colorspace() AvColorSpace {
 	return (AvColorSpace)(ctxt.colorspace)
 }
 
-func (ctxt *Context) FieldOrder() AvFieldOrder {
+func (ctxt *CodecContext) FieldOrder() AvFieldOrder {
 	return (AvFieldOrder)(ctxt.field_order)
 }
 
-func (ctxt *Context) PixFmt() PixelFormat {
+func (ctxt *CodecContext) PixFmt() PixelFormat {
 	return (PixelFormat)(ctxt.pix_fmt)
 }
 
-func (ctxt *Context) RequestSampleFmt() AvSampleFormat {
+func (ctxt *CodecContext) RequestSampleFmt() AvSampleFormat {
 	return (AvSampleFormat)(ctxt.request_sample_fmt)
 }
 
-func (ctxt *Context) SampleFmt() AvSampleFormat {
+func (ctxt *CodecContext) SampleFmt() AvSampleFormat {
 	return (AvSampleFormat)(ctxt.sample_fmt)
 }
 
-func (ctxt *Context) SkipFrame() AvDiscard {
+func (ctxt *CodecContext) SkipFrame() AvDiscard {
 	return (AvDiscard)(ctxt.skip_frame)
 }
 
-func (ctxt *Context) SkipIdct() AvDiscard {
+func (ctxt *CodecContext) SkipIdct() AvDiscard {
 	return (AvDiscard)(ctxt.skip_idct)
 }
 
-func (ctxt *Context) SkipLoopFilter() AvDiscard {
+func (ctxt *CodecContext) SkipLoopFilter() AvDiscard {
 	return (AvDiscard)(ctxt.skip_loop_filter)
 }

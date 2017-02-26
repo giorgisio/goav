@@ -8,6 +8,7 @@ package avformat
 import "C"
 import (
 	"github.com/giorgisio/goav/avcodec"
+	"github.com/giorgisio/goav/avutil"
 	"unsafe"
 )
 
@@ -90,7 +91,7 @@ func (s *Context) AvFindProgramFromStream(l *AvProgram, su int) *AvProgram {
 }
 
 //Find the "best" stream in the file.
-func AvFindBestStream(ic *Context, t MediaType, ws, rs int, c **AvCodec, f int) int {
+func AvFindBestStream(ic *Context, t avutil.MediaType, ws, rs int, c **AvCodec, f int) int {
 	return int(C.av_find_best_stream((*C.struct_AVFormatContext)(ic), (C.enum_AVMediaType)(t), C.int(ws), C.int(rs), (**C.struct_AVCodec)(unsafe.Pointer(c)), C.int(f)))
 }
 
@@ -121,7 +122,7 @@ func (s *Context) AvReadPause() int {
 
 //Close an opened input Context.
 func (s *Context) AvformatCloseInput() {
-	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(s)))
+	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(&s)))
 }
 
 //Allocate the stream private data and write the stream header to an output media file.

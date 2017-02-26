@@ -8,10 +8,16 @@ package avformat
 import "C"
 import (
 	"unsafe"
+	"github.com/giorgisio/goav/avcodec"
 )
 
-func (avs *Stream) Codec() *CodecContext {
-	return (*CodecContext)(unsafe.Pointer(avs.codec))
+func (avs *Stream) CodecContext() *avcodec.CodecContext  {
+	return (*avcodec.CodecContext)(unsafe.Pointer(avs.codec))
+}
+
+// Deprecated: For backward compatibility, please use CodecContext method
+func (avs *Stream) Codec() *avcodec.CodecContext {
+	return (*avcodec.CodecContext)(unsafe.Pointer(avs.codec))
 }
 
 func (avs *Stream) Metadata() *Dictionary {
