@@ -10,7 +10,7 @@ package avutil
 */
 import "C"
 import (
-	"fmt"
+	"image"
 	"unsafe"
 )
 
@@ -108,15 +108,24 @@ func Linesize(f *Frame) int {
 	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
 }
 
-// PictureChannelData return the pointer to the array at the specified |position|.
-// |position| should range from 0 to AV_NUM_DATA_POINTERS (as specified in FFmpeg)
-func PictureChannelData(f *Frame, position int, height int) (b []byte, err error) {
-	if position > len(f.data) || position < 0 {
-		err = fmt.Errorf("Channel data postion %v out of range", position)
-		return
+//GetPicture creates a YCbCr image from the frame
+func GetPicture(f *Frame) (img *image.YCbCr, err error) {
+	w := int(f.linesize[0])
+	h := int(f.height)
+	r := image.Rectangle{image.Point{0,0}, image.Point{w, h}}
+	img = image.NewYCbCr(r, image.YCbCrSubsampleRatio422)
+	// convert the frame data data to a Go byte array
+	img.Y = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w * h))
+
+	wCb := int(f.linesize[1])
+	if unsafe.Pointer(f.data[1]) != nil {
+		img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb * h))
 	}
-	l := Linesize(f)
-	b = C.GoBytes(unsafe.Pointer(f.data[position]), C.int(height * l))
+
+	// wCr := int(f.linesize[2])
+	// if unsafe.Pointer(f.data[2]) != nil {
+	// 	img.Cr = C.GoBytes(unsafe.Pointer(f.data[2]), C.int(wCr * h))
+	// }
 	return
 }
 
