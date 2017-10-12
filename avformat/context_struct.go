@@ -47,7 +47,7 @@ func (ctxt *Context) Programs() **AvProgram {
 }
 
 func (ctxt *Context) Streams() *Stream {
-	return (*Stream)(unsafe.Pointer(ctxt.streams))
+	return (*Stream)(unsafe.Pointer(*ctxt.streams))
 }
 
 func (ctxt *Context) Filename() string {
