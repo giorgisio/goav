@@ -10,6 +10,7 @@ package avutil
 */
 import "C"
 import (
+	"fmt"
 	"unsafe"
 )
 
@@ -102,8 +103,21 @@ func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
 func Data(f *Frame) *uint8 {
 	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
 }
+
 func Linesize(f *Frame) int {
 	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
+}
+
+// PictureChannelData return the pointer to the array at the specified |position|.
+// |position| should range from 0 to AV_NUM_DATA_POINTERS (as specified in FFmpeg)
+func PictureChannelData(f *Frame, position int, height int) (b []byte, err error) {
+	if position > len(f.data) || position < 0 {
+		err = fmt.Errorf("Channel data postion %v out of range", position)
+		return
+	}
+	l := Linesize(f)
+	b = C.GoBytes(unsafe.Pointer(f.data[position]), C.int(height * l))
+	return
 }
 
 // //static int get_video_buffer (Frame *frame, int align)
