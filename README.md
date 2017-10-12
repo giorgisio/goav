@@ -2,18 +2,19 @@
 Golang binding for FFmpeg
 
 A comprehensive binding to the ffmpeg video/audio manipulation library.
+This was forked off from github.com/giorgisio/goav
 
-[![GoDoc](https://godoc.org/github.com/giorgisio/goav?status.svg)](https://godoc.org/github.com/giorgisio/goav)
+[![GoDoc](https://godoc.org/github.com/selfmodify/goav?status.svg)](https://godoc.org/github.com/selfmodify/goav)
 
 ## Usage
 
 `````go
 
-import "github.com/giorgisio/goav/avformat"
+import "github.com/selfmodify/goav/avformat"
 
 func main() {
 
-	filename := "/home/giorgis/media/sample.mp4"
+	filename := "sample.mp4"
 
 	// Register all formats and codecs
 	avformat.AvRegisterAll()
@@ -59,12 +60,12 @@ export FFMPEG_ROOT=$HOME/ffmpeg
 export CGO_LDFLAGS="-L$FFMPEG_ROOT/lib/ -lavcodec -lavformat -lavutil -lswscale -lswresample -lavdevice -lavfilter"
 export CGO_CFLAGS="-I$FFMPEG_ROOT/include"
 export LD_LIBRARY_PATH=$HOME/ffmpeg/lib
-``` 
+```
 
-``` 
-go get github.com/giorgisio/goav
+```
+go get github.com/selfmodify/goav
 
-``` 
+```
 
 ## More Examples
 

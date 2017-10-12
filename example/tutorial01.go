@@ -3,10 +3,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/giorgisio/goav/avcodec"
-	"github.com/giorgisio/goav/avformat"
-	"github.com/giorgisio/goav/avutil"
-	"github.com/giorgisio/goav/swscale"
+	"github.com/selfmodify/goav/avcodec"
+	"github.com/selfmodify/goav/avformat"
+	"github.com/selfmodify/goav/avutil"
+	"github.com/selfmodify/goav/swscale"
 	"log"
 	"os"
 	"unsafe"
