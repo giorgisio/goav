@@ -117,10 +117,10 @@ func GetPicture(f *Frame) (img *image.YCbCr, err error) {
 	// convert the frame data data to a Go byte array
 	img.Y = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w * h))
 
-	wCb := int(f.linesize[1])
-	if unsafe.Pointer(f.data[1]) != nil {
-		img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb * h))
-	}
+	// wCb := int(f.linesize[1])
+	// if unsafe.Pointer(f.data[1]) != nil {
+	// 	img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb * h))
+	// }
 
 	// wCr := int(f.linesize[2])
 	// if unsafe.Pointer(f.data[2]) != nil {

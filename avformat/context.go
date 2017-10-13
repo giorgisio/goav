@@ -7,8 +7,16 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
+	"time"
 	"github.com/selfmodify/goav/avcodec"
 	"unsafe"
+)
+
+const (
+	AvseekFlagBackward = 1 ///< seek backward
+	AvseekFlagByte = 2     ///< seeking based on position in bytes
+	AvseekFlagAny = 4      ///< seek to any frame, even non-keyframes
+	AvseekFlagFrame = 8    ///< seeking based on frame number
 )
 
 func (s *Context) AvFormatGetProbeScore() int {
@@ -102,6 +110,12 @@ func (s *Context) AvReadFrame(pkt *avcodec.Packet) int {
 //Seek to the keyframe at timestamp.
 func (s *Context) AvSeekFrame(st int, t int64, f int) int {
 	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t), C.int(f)))
+}
+
+// AvSeekFrameTime seeks to a specified time location.
+func (s *Context) AvSeekFrameTime(st int, t time.Duration) int {
+	t2 := t.Nanoseconds()/10000
+	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagFrame))
 }
 
 //Seek to timestamp ts.
