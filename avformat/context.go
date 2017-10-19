@@ -8,15 +8,17 @@ package avformat
 import "C"
 import (
 	"time"
-	"github.com/selfmodify/goav/avcodec"
 	"unsafe"
+
+	"github.com/selfmodify/goav/avcodec"
+	"github.com/selfmodify/goav/common"
 )
 
 const (
 	AvseekFlagBackward = 1 ///< seek backward
-	AvseekFlagByte = 2     ///< seeking based on position in bytes
-	AvseekFlagAny = 4      ///< seek to any frame, even non-keyframes
-	AvseekFlagFrame = 8    ///< seeking based on frame number
+	AvseekFlagByte     = 2 ///< seeking based on position in bytes
+	AvseekFlagAny      = 4 ///< seek to any frame, even non-keyframes
+	AvseekFlagFrame    = 8 ///< seeking based on frame number
 )
 
 func (s *Context) AvFormatGetProbeScore() int {
@@ -113,9 +115,10 @@ func (s *Context) AvSeekFrame(st int, t int64, f int) int {
 }
 
 // AvSeekFrameTime seeks to a specified time location.
-func (s *Context) AvSeekFrameTime(st int, t time.Duration) int {
-	t2 := t.Nanoseconds()/10000
-	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagFrame))
+// |timebase| is codec specific and can be obtained by calling AvCodecGetPktTimebase2
+func (s *Context) AvSeekFrameTime(st int, at time.Duration, timebase common.AVRational) int {
+	t2 := C.double(at.Seconds()) / ((C.double(timebase.Num)) / C.double(timebase.Den))
+	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagBackward))
 }
 
 //Seek to timestamp ts.

@@ -8,10 +8,22 @@ package avcodec
 import "C"
 import (
 	"unsafe"
+
+	"github.com/selfmodify/goav/common"
 )
 
 func (ctxt *Context) AvCodecGetPktTimebase() Rational {
 	return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
+}
+
+// AvCodecGetPktTimebase2 returns the timebase rational number as numerator and denominator
+func (ctxt *Context) AvCodecGetPktTimebase2() (timebase common.AVRational) {
+	r := ctxt.AvCodecGetPktTimebase()
+	timebase = common.AVRational{
+		Num: int(r.num),
+		Den: int(r.den),
+	}
+	return
 }
 
 func (ctxt *Context) AvCodecSetPktTimebase(r Rational) {
