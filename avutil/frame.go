@@ -112,20 +112,20 @@ func Linesize(f *Frame) int {
 func GetPicture(f *Frame) (img *image.YCbCr, err error) {
 	w := int(f.linesize[0])
 	h := int(f.height)
-	r := image.Rectangle{image.Point{0,0}, image.Point{w, h}}
-	img = image.NewYCbCr(r, image.YCbCrSubsampleRatio422)
+	r := image.Rectangle{image.Point{0, 0}, image.Point{w, h}}
+	img = image.NewYCbCr(r, image.YCbCrSubsampleRatio420)
 	// convert the frame data data to a Go byte array
-	img.Y = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w * h))
+	img.Y = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w*h))
 
-	// wCb := int(f.linesize[1])
-	// if unsafe.Pointer(f.data[1]) != nil {
-	// 	img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb * h))
-	// }
+	wCb := int(f.linesize[1])
+	if unsafe.Pointer(f.data[1]) != nil {
+		img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb*h))
+	}
 
-	// wCr := int(f.linesize[2])
-	// if unsafe.Pointer(f.data[2]) != nil {
-	// 	img.Cr = C.GoBytes(unsafe.Pointer(f.data[2]), C.int(wCr * h))
-	// }
+	wCr := int(f.linesize[2])
+	if unsafe.Pointer(f.data[2]) != nil {
+		img.Cr = C.GoBytes(unsafe.Pointer(f.data[2]), C.int(wCr*h))
+	}
 	return
 }
 
