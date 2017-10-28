@@ -110,21 +110,29 @@ func Linesize(f *Frame) int {
 
 //GetPicture creates a YCbCr image from the frame
 func GetPicture(f *Frame) (img *image.YCbCr, err error) {
+	// For 4:4:4, CStride == YStride/1 && len(Cb) == len(Cr) == len(Y)/1.
+	// For 4:2:2, CStride == YStride/2 && len(Cb) == len(Cr) == len(Y)/2.
+	// For 4:2:0, CStride == YStride/2 && len(Cb) == len(Cr) == len(Y)/4.
+	// For 4:4:0, CStride == YStride/1 && len(Cb) == len(Cr) == len(Y)/2.
+	// For 4:1:1, CStride == YStride/4 && len(Cb) == len(Cr) == len(Y)/4.
+	// For 4:1:0, CStride == YStride/4 && len(Cb) == len(Cr) == len(Y)/8.
+
 	w := int(f.linesize[0])
 	h := int(f.height)
 	r := image.Rectangle{image.Point{0, 0}, image.Point{w, h}}
+	// TODO: Use the sub sample ratio from the input image 'f.format'
 	img = image.NewYCbCr(r, image.YCbCrSubsampleRatio420)
 	// convert the frame data data to a Go byte array
 	img.Y = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w*h))
 
 	wCb := int(f.linesize[1])
 	if unsafe.Pointer(f.data[1]) != nil {
-		img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb*h))
+		img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb*h/2))
 	}
 
 	wCr := int(f.linesize[2])
 	if unsafe.Pointer(f.data[2]) != nil {
-		img.Cr = C.GoBytes(unsafe.Pointer(f.data[2]), C.int(wCr*h))
+		img.Cr = C.GoBytes(unsafe.Pointer(f.data[2]), C.int(wCr*h/2))
 	}
 	return
 }
