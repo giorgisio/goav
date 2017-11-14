@@ -11,6 +11,7 @@ package avutil
 import "C"
 import (
 	"image"
+	"log"
 	"unsafe"
 )
 
@@ -134,6 +135,25 @@ func GetPicture(f *Frame) (img *image.YCbCr, err error) {
 	if unsafe.Pointer(f.data[2]) != nil {
 		img.Cr = C.GoBytes(unsafe.Pointer(f.data[2]), C.int(wCr*h/2))
 	}
+	return
+}
+
+func GetPictureRGB(f *Frame) (img *image.NRGBA, err error) {
+	w := int(f.linesize[0])
+	h := int(f.height)
+	r := image.Rectangle{image.Point{0, 0}, image.Point{w, h}}
+	// TODO: Use the sub sample ratio from the input image 'f.format'
+	img = image.NewNRGBA(r)
+	// convert the frame data data to a Go byte array
+	img.Pix = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w*h))
+	img.Stride = w
+	log.Println("w", w, "h", h)
+	return
+}
+
+func AvFrameGetInfo(f *Frame) (width int, height int) {
+	width = int(f.linesize[0])
+	height = int(f.height)
 	return
 }
 
