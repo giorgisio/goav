@@ -101,8 +101,12 @@ func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
 	return (*AvFrameSideData)(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t)))
 }
 
-func Data(f *Frame) *uint8 {
-	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
+func Data(f *Frame) (data [8]*uint8) {
+	// return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
+	for i := range data {
+		data[i] = (*uint8)(f.data[i])
+	}
+	return
 }
 
 func Linesize(f *Frame) int {
@@ -138,12 +142,12 @@ func GetPicture(f *Frame) (img *image.YCbCr, err error) {
 	return
 }
 
-func GetPictureRGB(f *Frame) (img *image.NRGBA, err error) {
+func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
 	w := int(f.linesize[0])
 	h := int(f.height)
 	r := image.Rectangle{image.Point{0, 0}, image.Point{w, h}}
 	// TODO: Use the sub sample ratio from the input image 'f.format'
-	img = image.NewNRGBA(r)
+	img = image.NewRGBA(r)
 	// convert the frame data data to a Go byte array
 	img.Pix = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w*h))
 	img.Stride = w
@@ -151,10 +155,16 @@ func GetPictureRGB(f *Frame) (img *image.NRGBA, err error) {
 	return
 }
 
-func AvFrameGetInfo(f *Frame) (width int, height int, linesize *[8]int) {
+func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int, data [8]*uint8) {
 	width = int(f.linesize[0])
 	height = int(f.height)
-	linesize = (*[8]int)(unsafe.Pointer(&f.linesize))
+	log.Println("Linesize is ", f.linesize)
+	for i := range linesize {
+		linesize[i] = int(f.linesize[i])
+	}
+	for i := range data {
+		data[i] = (*uint8)(f.data[i])
+	}
 	return
 }
 
