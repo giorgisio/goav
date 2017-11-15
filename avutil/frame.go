@@ -151,9 +151,10 @@ func GetPictureRGB(f *Frame) (img *image.NRGBA, err error) {
 	return
 }
 
-func AvFrameGetInfo(f *Frame) (width int, height int) {
+func AvFrameGetInfo(f *Frame) (width int, height int, linesize *[8]int) {
 	width = int(f.linesize[0])
 	height = int(f.height)
+	linesize = (*[8]int)(unsafe.Pointer(&f.linesize))
 	return
 }
 
