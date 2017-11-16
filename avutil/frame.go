@@ -102,15 +102,17 @@ func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
 }
 
 func Data(f *Frame) (data [8]*uint8) {
-	// return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
 	for i := range data {
 		data[i] = (*uint8)(f.data[i])
 	}
 	return
 }
 
-func Linesize(f *Frame) int {
-	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
+func Linesize(f *Frame) (linesize [8]int32) {
+	for i := range linesize {
+		linesize[i] = int32(f.linesize[i])
+	}
+	return
 }
 
 //GetPicture creates a YCbCr image from the frame
@@ -153,6 +155,13 @@ func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
 	img.Stride = w
 	log.Println("w", w, "h", h)
 	return
+}
+
+func AvSetFrame(f *Frame, w int, h int, pixFmt int) {
+	f.width = C.int(w)
+	f.height = C.int(h)
+	f.format = C.int(pixFmt)
+	C.av_frame_get_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), 32)
 }
 
 func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8]*uint8) {
