@@ -155,12 +155,12 @@ func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
 	return
 }
 
-func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int, data [8]*uint8) {
+func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8]*uint8) {
 	width = int(f.linesize[0])
 	height = int(f.height)
 	log.Println("Linesize is ", f.linesize)
 	for i := range linesize {
-		linesize[i] = int(f.linesize[i])
+		linesize[i] = int32(f.linesize[i])
 	}
 	for i := range data {
 		data[i] = (*uint8)(f.data[i])
