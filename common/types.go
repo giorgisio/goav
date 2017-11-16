@@ -9,3 +9,10 @@ type AVRational struct {
 	Num int
 	Den int
 }
+
+type PixelFormat int
+
+const (
+	AV_PIX_FMT_RGB24 PixelFormat = 3
+	AV_PIX_FMT_RGBA              = 28
+)
