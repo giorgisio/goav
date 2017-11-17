@@ -13,6 +13,7 @@ type AVRational struct {
 type PixelFormat int
 
 const (
-	AV_PIX_FMT_RGB24 PixelFormat = 3
+	AV_PIX_FMT_YUV   PixelFormat = 0
+	AV_PIX_FMT_RGB24             = 3
 	AV_PIX_FMT_RGBA              = 28
 )
