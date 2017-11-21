@@ -7,6 +7,7 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
+	"log"
 	"time"
 	"unsafe"
 
@@ -117,8 +118,9 @@ func (s *Context) AvSeekFrame(st int, t int64, f int) int {
 // AvSeekFrameTime seeks to a specified time location.
 // |timebase| is codec specific and can be obtained by calling AvCodecGetPktTimebase2
 func (s *Context) AvSeekFrameTime(st int, at time.Duration, timebase common.AVRational) int {
-	t2 := C.double(at.Seconds()) / ((C.double(timebase.Num)) / C.double(timebase.Den))
-	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagBackward))
+	t2 := C.double(C.double(at.Seconds())*C.double(timebase.Den)) / (C.double(timebase.Num))
+	log.Printf("Seeking to time src:%v %v", at, t2)
+	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagAny))
 }
 
 //Seek to timestamp ts.
