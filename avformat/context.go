@@ -7,7 +7,6 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
-	"log"
 	"time"
 	"unsafe"
 
@@ -119,7 +118,7 @@ func (s *Context) AvSeekFrame(st int, t int64, f int) int {
 // |timebase| is codec specific and can be obtained by calling AvCodecGetPktTimebase2
 func (s *Context) AvSeekFrameTime(st int, at time.Duration, timebase common.AVRational) int {
 	t2 := C.double(C.double(at.Seconds())*C.double(timebase.Den)) / (C.double(timebase.Num))
-	log.Printf("Seeking to time :%v TimebaseTime:%v ActualTimebase:%v", at, t2, timebase)
+	// log.Printf("Seeking to time :%v TimebaseTime:%v ActualTimebase:%v", at, t2, timebase)
 	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagBackward))
 }
 
