@@ -180,4 +180,10 @@ func (ctxt *Context) SetTimebase(num1 int, den1 int) {
 		den: C.int(den1),
 	}
 	ctxt.AvCodecSetPktTimebase(r)
+	ctxt.width = 640
+	ctxt.height = 480
+	ctxt.bit_rate = 1000000
+	ctxt.gop_size = 10
+	ctxt.max_b_frames = 0
+	ctxt.pix_fmt = int32(common.AV_PIX_FMT_YUV)
 }

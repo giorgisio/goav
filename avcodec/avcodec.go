@@ -112,6 +112,7 @@ func AvcodecLicense() string {
 //Register all the codecs, parsers and bitstream filters which were enabled at configuration time.
 func AvcodecRegisterAll() {
 	C.avcodec_register_all()
+	// C.av_log_set_level(0xffff)
 }
 
 //Get the Class for Context.
