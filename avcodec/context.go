@@ -173,3 +173,11 @@ func (p *Parser) AvParserNext() *Parser {
 func (p *Parser) AvRegisterCodecParser() {
 	C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
 }
+
+func (ctxt *Context) SetTimebase(num1 int, den1 int) {
+	r := Rational{
+		num: C.int(num1),
+		den: C.int(den1),
+	}
+	ctxt.AvCodecSetPktTimebase(r)
+}
