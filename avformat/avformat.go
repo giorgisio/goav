@@ -19,6 +19,8 @@ package avformat
 //#include <libavdevice/avdevice.h>
 import "C"
 import (
+	"fmt"
+	"log"
 	"unsafe"
 )
 
@@ -272,4 +274,13 @@ func AvformatGetMovVideoTags() *AvCodecTag {
 
 func AvformatGetMovAudioTags() *AvCodecTag {
 	return (*AvCodecTag)(C.avformat_get_mov_audio_tags())
+}
+
+func AvIOopen(ctxt **AvIOContext) (err error) {
+	log.Println("Value of ctxt is", ctxt)
+	ret := C.avio_open((**C.struct_AVIOContext)(unsafe.Pointer(ctxt)), nil, 2 /* AVIO_FLAG_WRITE*/)
+	if ret < 0 {
+		return fmt.Errorf("Error creating avio_open. Err: %v", ret)
+	}
+	return
 }

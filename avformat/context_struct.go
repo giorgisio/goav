@@ -249,3 +249,11 @@ func (ctxt *Context) PacketSize() uint {
 func (ctxt *Context) Probesize() uint {
 	return uint(ctxt.probesize)
 }
+
+func (ctxt *Context) SetPb(pb *AvIOContext) {
+	ctxt.pb = (*C.struct_AVIOContext)(unsafe.Pointer(pb))
+}
+
+func (ctxt *Context) Pb2() **AvIOContext {
+	return (**AvIOContext)(unsafe.Pointer(&ctxt.pb))
+}

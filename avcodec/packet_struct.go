@@ -3,6 +3,10 @@
 
 package avcodec
 
+//#cgo pkg-config: libavcodec
+//#include <libavcodec/avcodec.h>
+import "C"
+
 func (p *Packet) Buf() *AvBufferRef {
 	return (*AvBufferRef)(p.buf)
 }
@@ -35,4 +39,7 @@ func (p *Packet) Pts() int64 {
 }
 func (p *Packet) Data() *uint8 {
 	return (*uint8)(p.data)
+}
+func (p *Packet) SetPts(pts int64) {
+	p.pts = C.int64_t(pts)
 }

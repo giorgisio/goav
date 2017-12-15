@@ -210,6 +210,14 @@ func (s *Context) AvformatQueueAttachedPictures() int {
 	return int(C.avformat_queue_attached_pictures((*C.struct_AVFormatContext)(s)))
 }
 
+func (s *Context) AvformatNewStream2(c *AvCodec) *Stream {
+	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c)))
+	stream.codec.pix_fmt = int32(common.AV_PIX_FMT_YUV)
+	stream.codec.width = 640
+	stream.codec.height = 480
+	return stream
+}
+
 // //av_format_control_message av_format_get_control_message_cb (const Context *s)
 // func (s *Context) AvFormatControlMessage() C.av_format_get_control_message_cb {
 // 	return C.av_format_get_control_message_cb((*C.struct_AVFormatContext)(s))

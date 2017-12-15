@@ -175,15 +175,19 @@ func (p *Parser) AvRegisterCodecParser() {
 }
 
 func (ctxt *Context) SetTimebase(num1 int, den1 int) {
-	r := Rational{
-		num: C.int(num1),
-		den: C.int(den1),
-	}
-	ctxt.AvCodecSetPktTimebase(r)
+	ctxt.time_base.num = C.int(num1)
+	ctxt.time_base.den = C.int(den1)
+}
+
+func (ctxt *Context) SetEncodeParams(width int, height int, pxlFmt common.PixelFormat) {
 	ctxt.width = 640
 	ctxt.height = 480
-	ctxt.bit_rate = 1000000
-	ctxt.gop_size = 10
-	ctxt.max_b_frames = 0
-	ctxt.pix_fmt = int32(common.AV_PIX_FMT_YUV)
+	// ctxt.bit_rate = 1000000
+	// ctxt.gop_size = 10
+	// ctxt.max_b_frames = 0
+	// ctxt.has_b_frames = 0
+	// ctxt.extradata = nil
+	// ctxt.extradata_size = 0
+	// ctxt.channels = 0
+	ctxt.pix_fmt = int32(pxlFmt)
 }
