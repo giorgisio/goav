@@ -10,6 +10,7 @@ package avutil
 */
 import "C"
 import (
+	"fmt"
 	"image"
 	"log"
 	"unsafe"
@@ -24,9 +25,9 @@ type (
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
 
-func AvprivFrameGetMetadatap(f *Frame) **Dictionary {
-	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
-}
+// func AvprivFrameGetMetadatap(f *Frame) **Dictionary {
+// 	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
+// }
 
 func AvFrameSetQpTable(f *Frame, b *AvBufferRef, s, q int) int {
 	return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
@@ -149,6 +150,7 @@ func SetPicture(f *Frame, img *image.YCbCr) {
 	d := Data(f)
 	// FIXME: Save the original pointers somewhere, this is a memory leak
 	d[0] = (*uint8)(unsafe.Pointer(&img.Y[0]))
+	d[1] = (*uint8)(unsafe.Pointer(&img.Cb[0]))
 }
 
 func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
@@ -164,11 +166,15 @@ func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
 	return
 }
 
-func AvSetFrame(f *Frame, w int, h int, pixFmt int) {
+func AvSetFrame(f *Frame, w int, h int, pixFmt int) (err error) {
 	f.width = C.int(w)
 	f.height = C.int(h)
 	f.format = C.int(pixFmt)
-	C.av_frame_get_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), 32 /*alignment*/)
+	if ret := C.av_frame_get_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), 32 /*alignment*/); ret < 0 {
+		err = fmt.Errorf("Error allocating avframe buffer. Err: %v", ret)
+		return
+	}
+	return
 }
 
 func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8]*uint8) {

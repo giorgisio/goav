@@ -16,6 +16,7 @@ package avcodec
 //#include <libavutil/avutil.h>
 import "C"
 import (
+	"fmt"
 	"unsafe"
 )
 
@@ -243,4 +244,20 @@ func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 
 func AvcodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
+}
+
+func (ctxt *Context) AvcodecReceivePacket(p *Packet) (ret int) {
+	ret = int(C.avcodec_receive_packet((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)),
+		(*C.struct_AVPacket)(unsafe.Pointer(p))))
+	return ret
+}
+
+func (ctxt *Context) AvcodecSendFrame(f *Frame) (err error) {
+	ret := C.avcodec_send_frame((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)),
+		(*C.struct_AVFrame)(unsafe.Pointer(f)))
+	if ret < 0 {
+		err = fmt.Errorf("Error receiving packet. Err: %v", ret)
+		return
+	}
+	return
 }
