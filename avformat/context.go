@@ -215,6 +215,8 @@ func (s *Context) AvformatNewStream2(c *AvCodec) *Stream {
 	stream.codec.pix_fmt = int32(common.AV_PIX_FMT_YUV)
 	stream.codec.width = 640
 	stream.codec.height = 480
+	stream.time_base.num = 1
+	stream.time_base.num = 25
 	return stream
 }
 

@@ -7,6 +7,8 @@ package avcodec
 //#include <libavcodec/avcodec.h>
 import "C"
 
+var gi int64
+
 func (p *Packet) Buf() *AvBufferRef {
 	return (*AvBufferRef)(p.buf)
 }
@@ -40,6 +42,9 @@ func (p *Packet) Pts() int64 {
 func (p *Packet) Data() *uint8 {
 	return (*uint8)(p.data)
 }
-func (p *Packet) SetPts(pts int64) {
-	p.pts = C.int64_t(pts)
+func (p *Packet) SetPts(pts int64, index int) {
+	p.pts = C.int64_t(gi * 25)
+	gi = gi + 1
+	//p.pts = C.int64_t(pts)
+	p.stream_index = C.int(index)
 }

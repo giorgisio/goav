@@ -148,9 +148,10 @@ func GetPicture(f *Frame) (img *image.YCbCr, err error) {
 // SetPicture sets the image pointer of |f| to the image pointers of |img|
 func SetPicture(f *Frame, img *image.YCbCr) {
 	d := Data(f)
+	// l := Linesize(f)
 	// FIXME: Save the original pointers somewhere, this is a memory leak
 	d[0] = (*uint8)(unsafe.Pointer(&img.Y[0]))
-	d[1] = (*uint8)(unsafe.Pointer(&img.Cb[0]))
+	// d[1] = (*uint8)(unsafe.Pointer(&img.Cb[0]))
 }
 
 func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
