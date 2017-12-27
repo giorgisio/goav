@@ -19,8 +19,6 @@ package avformat
 //#include <libavdevice/avdevice.h>
 import "C"
 import (
-	"fmt"
-	"ourlog"
 	"unsafe"
 )
 
@@ -274,30 +272,4 @@ func AvformatGetMovVideoTags() *AvCodecTag {
 
 func AvformatGetMovAudioTags() *AvCodecTag {
 	return (*AvCodecTag)(C.avformat_get_mov_audio_tags())
-}
-
-func AvIOopen(ctxt **Context) (err error) {
-	// buffer_size := 4096
-	// buffer := C.av_malloc(C.size_t(buffer_size))
-	// if buffer == nil {
-	// 	err = fmt.Errorf("Could not allocate IOContext buffer")
-	// 	return
-	// }
-	// ptr := C.avio_alloc_context((*C.uchar)(unsafe.Pointer(buffer)), C.int(buffer_size),
-	// 	0 /*write_flag*/, nil /*opaque*/, nil /*read_packet*/, nil /*write_packet*/, nil /*seek*/)
-	// if ptr == nil {
-	// 	err = fmt.Errorf("Cannot allocate AVIO Context")
-	// 	C.av_freep(buffer)
-	// 	return
-	// }
-	// (*ctxt).pb = ptr
-	ourlog.Info("Before AvIOContext pB", (*ctxt).pb)
-	ret := C.avio_open((**C.struct_AVIOContext)(unsafe.Pointer(ctxt)), C.CString("test.mp4"), 3 /* AVIO_FLAG_WRITE*/)
-	if ret < 0 {
-		err = fmt.Errorf("Error creating avio_open. Err: %v", ret)
-		// C.av_freep(buffer)
-		(*ctxt).SetPb(nil)
-		return
-	}
-	return
 }

@@ -180,14 +180,15 @@ func (ctxt *Context) SetTimebase(num1 int, den1 int) {
 }
 
 func (ctxt *Context) SetEncodeParams(width int, height int, pxlFmt common.PixelFormat) {
-	ctxt.width = 640
-	ctxt.height = 480
+	ctxt.width = C.int(width)
+	ctxt.height = C.int(height)
 	// ctxt.bit_rate = 1000000
-	// ctxt.gop_size = 10
-	// ctxt.max_b_frames = 0
+	ctxt.gop_size = 3
+	// ctxt.max_b_frames = 2
 	// ctxt.has_b_frames = 0
 	// ctxt.extradata = nil
 	// ctxt.extradata_size = 0
 	// ctxt.channels = 0
 	ctxt.pix_fmt = int32(pxlFmt)
+	// C.av_opt_set(ctxt.priv_data, "preset", "ultrafast", 0)
 }
