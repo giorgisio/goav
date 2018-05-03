@@ -179,7 +179,7 @@ func (ctxt *Context) SetTimebase(num1 int, den1 int) {
 	ctxt.time_base.den = C.int(den1)
 }
 
-func (ctxt *Context) SetEncodeParams(width int, height int, pxlFmt common.PixelFormat, hasBframes bool, gopSize int) {
+func (ctxt *Context) SetEncodeParams2(width int, height int, pxlFmt common.PixelFormat, hasBframes bool, gopSize int) {
 	ctxt.width = C.int(width)
 	ctxt.height = C.int(height)
 	// ctxt.bit_rate = 1000000
@@ -195,4 +195,8 @@ func (ctxt *Context) SetEncodeParams(width int, height int, pxlFmt common.PixelF
 	// ctxt.channels = 0
 	ctxt.pix_fmt = int32(pxlFmt)
 	// C.av_opt_set(ctxt.priv_data, "preset", "ultrafast", 0)
+}
+
+func (ctxt *Context) SetEncodeParams(width int, height int, pxlFmt common.PixelFormat) {
+	ctxt.SetEncodeParams2(width, height, pxlFmt, false /*no b frames*/, 10)
 }
