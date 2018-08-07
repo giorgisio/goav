@@ -244,3 +244,7 @@ func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 func AvcodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
 }
+
+func (f *Frame) Pts() int64 {
+	return int64(f.pts)
+}
