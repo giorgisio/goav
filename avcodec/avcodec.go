@@ -60,12 +60,12 @@ func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
 }
 
-//If c is NULL, returns the first registered codec, if c is non-NULL,
+// AvCodecNext If c is NULL, returns the first registered codec, if c is non-NULL,
 func (c *Codec) AvCodecNext() *Codec {
 	return (*Codec)(C.av_codec_next((*C.struct_AVCodec)(c)))
 }
 
-//Register the codec codec and initialize libavcodec.
+// Register the codec codec and initialize libavcodec.
 func (c *Codec) AvcodecRegister() {
 	C.avcodec_register((*C.struct_AVCodec)(c))
 }
