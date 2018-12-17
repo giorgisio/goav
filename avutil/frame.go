@@ -25,9 +25,9 @@ type (
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
 
-// func AvprivFrameGetMetadatap(f *Frame) **Dictionary {
-// 	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
-// }
+func AvprivFrameGetMetadatap(f *Frame) *Dictionary {
+	return (*Dictionary)(unsafe.Pointer(f.metadata))
+}
 
 func AvFrameSetQpTable(f *Frame, b *AvBufferRef, s, q int) int {
 	return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
@@ -44,7 +44,7 @@ func AvFrameAlloc() *Frame {
 
 //Free the frame and any dynamically allocated objects in it, e.g.
 func AvFrameFree(f *Frame) {
-	C.av_frame_free((**C.struct_AVFrame)(unsafe.Pointer(f)))
+	C.av_frame_free((**C.struct_AVFrame)(unsafe.Pointer(&f)))
 }
 
 //Allocate new buffer(s) for audio or video data.

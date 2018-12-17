@@ -176,7 +176,7 @@ func main() {
 				l := avutil.Linesize(videoFrame)
 				dr := avutil.Data(videoFrameRGB)
 				lr := avutil.Linesize(videoFrameRGB)
-				swscale.SwsScale(ctxtSws,
+				swscale.SwsScale2(ctxtSws,
 					d,
 					l,
 					0,
