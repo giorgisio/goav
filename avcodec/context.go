@@ -9,7 +9,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/selfmodify/goav/common"
+	"github.com/giorgisio/goav/common"
 )
 
 func (ctxt *Context) AvCodecGetPktTimebase() Rational {
