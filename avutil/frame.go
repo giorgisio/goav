@@ -10,6 +10,9 @@ package avutil
 */
 import "C"
 import (
+	"fmt"
+	"image"
+	"log"
 	"unsafe"
 )
 
@@ -22,9 +25,9 @@ type (
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
 
-func AvprivFrameGetMetadatap(f *Frame) **Dictionary {
-	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
-}
+// func AvprivFrameGetMetadatap(f *Frame) **Dictionary {
+// 	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
+// }
 
 func AvFrameSetQpTable(f *Frame, b *AvBufferRef, s, q int) int {
 	return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
@@ -99,11 +102,97 @@ func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
 	return (*AvFrameSideData)(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t)))
 }
 
-func Data(f *Frame) *uint8 {
-	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
+func Data(f *Frame) (data [8]*uint8) {
+	for i := range data {
+		data[i] = (*uint8)(f.data[i])
+	}
+	return
 }
-func Linesize(f *Frame) int {
-	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
+
+func Linesize(f *Frame) (linesize [8]int32) {
+	for i := range linesize {
+		linesize[i] = int32(f.linesize[i])
+	}
+	return
+}
+
+//GetPicture creates a YCbCr image from the frame
+func GetPicture(f *Frame) (img *image.YCbCr, err error) {
+	// For 4:4:4, CStride == YStride/1 && len(Cb) == len(Cr) == len(Y)/1.
+	// For 4:2:2, CStride == YStride/2 && len(Cb) == len(Cr) == len(Y)/2.
+	// For 4:2:0, CStride == YStride/2 && len(Cb) == len(Cr) == len(Y)/4.
+	// For 4:4:0, CStride == YStride/1 && len(Cb) == len(Cr) == len(Y)/2.
+	// For 4:1:1, CStride == YStride/4 && len(Cb) == len(Cr) == len(Y)/4.
+	// For 4:1:0, CStride == YStride/4 && len(Cb) == len(Cr) == len(Y)/8.
+
+	w := int(f.linesize[0])
+	h := int(f.height)
+	r := image.Rectangle{image.Point{0, 0}, image.Point{w, h}}
+	// TODO: Use the sub sample ratio from the input image 'f.format'
+	img = image.NewYCbCr(r, image.YCbCrSubsampleRatio420)
+	// convert the frame data data to a Go byte array
+	img.Y = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w*h))
+
+	wCb := int(f.linesize[1])
+	if unsafe.Pointer(f.data[1]) != nil {
+		img.Cb = C.GoBytes(unsafe.Pointer(f.data[1]), C.int(wCb*h/2))
+	}
+
+	wCr := int(f.linesize[2])
+	if unsafe.Pointer(f.data[2]) != nil {
+		img.Cr = C.GoBytes(unsafe.Pointer(f.data[2]), C.int(wCr*h/2))
+	}
+	return
+}
+
+// SetPicture sets the image pointer of |f| to the image pointers of |img|
+func SetPicture(f *Frame, img *image.YCbCr) {
+	d := Data(f)
+	// l := Linesize(f)
+	// FIXME: Save the original pointers somewhere, this is a memory leak
+	d[0] = (*uint8)(unsafe.Pointer(&img.Y[0]))
+	// d[1] = (*uint8)(unsafe.Pointer(&img.Cb[0]))
+}
+
+func GetPictureRGB(f *Frame) (img *image.RGBA, err error) {
+	w := int(f.linesize[0])
+	h := int(f.height)
+	r := image.Rectangle{image.Point{0, 0}, image.Point{w, h}}
+	// TODO: Use the sub sample ratio from the input image 'f.format'
+	img = image.NewRGBA(r)
+	// convert the frame data data to a Go byte array
+	img.Pix = C.GoBytes(unsafe.Pointer(f.data[0]), C.int(w*h))
+	img.Stride = w
+	log.Println("w", w, "h", h)
+	return
+}
+
+func AvSetFrame(f *Frame, w int, h int, pixFmt int) (err error) {
+	f.width = C.int(w)
+	f.height = C.int(h)
+	f.format = C.int(pixFmt)
+	if ret := C.av_frame_get_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), 32 /*alignment*/); ret < 0 {
+		err = fmt.Errorf("Error allocating avframe buffer. Err: %v", ret)
+		return
+	}
+	return
+}
+
+func AvFrameGetInfo(f *Frame) (width int, height int, linesize [8]int32, data [8]*uint8) {
+	width = int(f.linesize[0])
+	height = int(f.height)
+	for i := range linesize {
+		linesize[i] = int32(f.linesize[i])
+	}
+	for i := range data {
+		data[i] = (*uint8)(f.data[i])
+	}
+	// log.Println("Linesize is ", f.linesize, "Data is", data)
+	return
+}
+
+func GetBestEffortTimestamp(f *Frame) int64 {
+	return int64(f.best_effort_timestamp)
 }
 
 // //static int get_video_buffer (Frame *frame, int align)
