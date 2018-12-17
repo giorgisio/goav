@@ -8,22 +8,15 @@ package avcodec
 import "C"
 import (
 	"unsafe"
-
-	"github.com/selfmodify/goav/common"
 )
 
 func (ctxt *Context) AvCodecGetPktTimebase() Rational {
-	return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
+	return Rational(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
 }
 
 // AvCodecGetPktTimebase2 returns the timebase rational number as numerator and denominator
-func (ctxt *Context) AvCodecGetPktTimebase2() (timebase common.AVRational) {
-	r := ctxt.AvCodecGetPktTimebase()
-	timebase = common.AVRational{
-		Num: int(r.num),
-		Den: int(r.den),
-	}
-	return
+func (ctxt *Context) AvCodecGetPktTimebase2() Rational {
+	return ctxt.AvCodecGetPktTimebase()
 }
 
 func (ctxt *Context) AvCodecSetPktTimebase(r Rational) {
@@ -179,7 +172,7 @@ func (ctxt *Context) SetTimebase(num1 int, den1 int) {
 	ctxt.time_base.den = C.int(den1)
 }
 
-func (ctxt *Context) SetEncodeParams2(width int, height int, pxlFmt common.PixelFormat, hasBframes bool, gopSize int) {
+func (ctxt *Context) SetEncodeParams2(width int, height int, pxlFmt PixelFormat, hasBframes bool, gopSize int) {
 	ctxt.width = C.int(width)
 	ctxt.height = C.int(height)
 	// ctxt.bit_rate = 1000000
@@ -197,6 +190,14 @@ func (ctxt *Context) SetEncodeParams2(width int, height int, pxlFmt common.Pixel
 	// C.av_opt_set(ctxt.priv_data, "preset", "ultrafast", 0)
 }
 
-func (ctxt *Context) SetEncodeParams(width int, height int, pxlFmt common.PixelFormat) {
+func (ctxt *Context) SetEncodeParams(width int, height int, pxlFmt PixelFormat) {
 	ctxt.SetEncodeParams2(width, height, pxlFmt, false /*no b frames*/, 10)
+}
+
+func (ctxt *Context) AvcodecSendPacket(packet *Packet) int {
+	return (int)(C.avcodec_send_packet((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(packet)))
+}
+
+func (ctxt *Context) AvcodecReceiveFrame(frame *Frame) int {
+	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(frame)))
 }

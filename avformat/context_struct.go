@@ -7,6 +7,7 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
+	"reflect"
 	"unsafe"
 )
 
@@ -42,12 +43,24 @@ func (ctxt *Context) InterruptCallback() AvIOInterruptCB {
 	return AvIOInterruptCB(ctxt.interrupt_callback)
 }
 
-func (ctxt *Context) Programs() **AvProgram {
-	return (**AvProgram)(unsafe.Pointer(ctxt.programs))
+func (ctxt *Context) Programs() []*AvProgram {
+	header := reflect.SliceHeader{
+		Data: uintptr(unsafe.Pointer(ctxt.programs)),
+		Len:  int(ctxt.NbPrograms()),
+		Cap:  int(ctxt.NbPrograms()),
+	}
+
+	return *((*[]*AvProgram)(unsafe.Pointer(&header)))
 }
 
-func (ctxt *Context) Streams() *Stream {
-	return (*Stream)(unsafe.Pointer(*ctxt.streams))
+func (ctxt *Context) Streams() []*Stream {
+	header := reflect.SliceHeader{
+		Data: uintptr(unsafe.Pointer(ctxt.streams)),
+		Len:  int(ctxt.NbStreams()),
+		Cap:  int(ctxt.NbStreams()),
+	}
+
+	return *((*[]*Stream)(unsafe.Pointer(&header)))
 }
 
 func (ctxt *Context) Filename() string {
