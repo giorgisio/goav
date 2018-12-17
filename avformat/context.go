@@ -7,8 +7,18 @@ package avformat
 //#include <libavformat/avformat.h>
 import "C"
 import (
-	"github.com/giorgisio/goav/avcodec"
+	"time"
 	"unsafe"
+
+	"github.com/selfmodify/goav/avcodec"
+	"github.com/selfmodify/goav/common"
+)
+
+const (
+	AvseekFlagBackward = 1 ///< seek backward
+	AvseekFlagByte     = 2 ///< seeking based on position in bytes
+	AvseekFlagAny      = 4 ///< seek to any frame, even non-keyframes
+	AvseekFlagFrame    = 8 ///< seeking based on frame number
 )
 
 func (s *Context) AvFormatGetProbeScore() int {
@@ -104,6 +114,14 @@ func (s *Context) AvSeekFrame(st int, t int64, f int) int {
 	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t), C.int(f)))
 }
 
+// AvSeekFrameTime seeks to a specified time location.
+// |timebase| is codec specific and can be obtained by calling AvCodecGetPktTimebase2
+func (s *Context) AvSeekFrameTime(st int, at time.Duration, timebase common.AVRational) int {
+	t2 := C.double(C.double(at.Seconds())*C.double(timebase.Den)) / (C.double(timebase.Num))
+	// log.Printf("Seeking to time :%v TimebaseTime:%v ActualTimebase:%v", at, t2, timebase)
+	return int(C.av_seek_frame((*C.struct_AVFormatContext)(s), C.int(st), C.int64_t(t2), AvseekFlagBackward))
+}
+
 //Seek to timestamp ts.
 func (s *Context) AvformatSeekFile(si int, mit, ts, mat int64, f int) int {
 	return int(C.avformat_seek_file((*C.struct_AVFormatContext)(s), C.int(si), C.int64_t(mit), C.int64_t(ts), C.int64_t(mat), C.int(f)))
@@ -190,6 +208,16 @@ func (s *Context) AvformatMatchStreamSpecifier(st *Stream, spec string) int {
 
 func (s *Context) AvformatQueueAttachedPictures() int {
 	return int(C.avformat_queue_attached_pictures((*C.struct_AVFormatContext)(s)))
+}
+
+func (s *Context) AvformatNewStream2(c *AvCodec) *Stream {
+	stream := (*Stream)(C.avformat_new_stream((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c)))
+	stream.codec.pix_fmt = int32(common.AV_PIX_FMT_YUV)
+	stream.codec.width = 640
+	stream.codec.height = 480
+	stream.time_base.num = 1
+	stream.time_base.num = 25
+	return stream
 }
 
 // //av_format_control_message av_format_get_control_message_cb (const Context *s)

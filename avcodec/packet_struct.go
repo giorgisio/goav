@@ -3,6 +3,10 @@
 
 package avcodec
 
+//#cgo pkg-config: libavcodec
+//#include <libavcodec/avcodec.h>
+import "C"
+
 func (p *Packet) Buf() *AvBufferRef {
 	return (*AvBufferRef)(p.buf)
 }

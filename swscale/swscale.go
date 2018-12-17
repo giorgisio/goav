@@ -70,6 +70,15 @@ func SwsScale(ctxt *Context, src *uint8, str int, y, h int, d *uint8, ds int) in
 	return int(C.sws_scale(cctxt, &csrc, cstr, C.int(y), C.int(h), &cd, cds))
 }
 
+func SwsScale2(ctxt *Context, srcData [8]*uint8, srcStride [8]int32, y, h int, dstData [8]*uint8, dstStride [8]int32) int {
+	cctxt := (*C.struct_SwsContext)(unsafe.Pointer(ctxt))
+	csrc := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
+	cstr := (*C.int)(unsafe.Pointer(&srcStride[0]))
+	cd := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
+	cds := (*C.int)(unsafe.Pointer(&dstStride))
+	return int(C.sws_scale(cctxt, csrc, cstr, C.int(y), C.int(h), cd, cds))
+}
+
 func SwsSetcolorspacedetails(ctxt *Context, it *int, sr int, t *int, dr, b, c, s int) int {
 	cit := (*C.int)(unsafe.Pointer(it))
 	ct := (*C.int)(unsafe.Pointer(t))
