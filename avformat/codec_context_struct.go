@@ -12,11 +12,12 @@ package avformat
 //#include <inttypes.h>
 //#include <stdint.h>
 //#include <string.h>
-//#include <libavutil/avutil.h>
+//#include <libavformat/avformat.h>
+//#include <libavcodec/avcodec.h>
 import "C"
 import (
-	"github.com/giorgisio/goav/avutil"
-
+	"github.com/giorgisio/goav/avcodec"
+)
 
 func (cctxt *CodecContext) Type() MediaType {
 	return MediaType(cctxt.codec_type)
@@ -42,10 +43,10 @@ func (cctxt *CodecContext) SetCodecType(ctype MediaType) {
 	cctxt.codec_type = C.enum_AVMediaType(ctype)
 }
 
-func (cctxt *CodecContext) GetTimeBase() avutil.Rational {
-	return avutil.Rational(cctxt.time_base)
+func (cctxt *CodecContext) GetTimeBase() avcodec.Rational {
+	return avcodec.ToRational((*avcodec._Ctype_struct_AVRational)(&cctxt.time_base))
 }
 
-func (cctxt *CodecContext) SetTimeBase(timeBase avutil.Rational) {
+func (cctxt *CodecContext) SetTimeBase(timeBase avcodec.Rational) {
 	cctxt.time_base = C.struct_AVRational(timeBase)
 }
