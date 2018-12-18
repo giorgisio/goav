@@ -17,6 +17,7 @@ package avcodec
 import "C"
 
 const (
+	AV_PIX_FMT_YUV        = 0
 	AV_PIX_FMT_YUV420P9   = int(C.AV_PIX_FMT_YUV420P9)
 	AV_PIX_FMT_YUV422P9   = int(C.AV_PIX_FMT_YUV422P9)
 	AV_PIX_FMT_YUV444P9   = int(C.AV_PIX_FMT_YUV444P9)

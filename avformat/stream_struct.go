@@ -8,6 +8,8 @@ package avformat
 import "C"
 import (
 	"unsafe"
+
+	"github.com/giorgisio/goav/avcodec"
 )
 
 func (avs *Stream) Codec() *CodecContext {
@@ -34,24 +36,24 @@ func (avs *Stream) ProbeData() AvProbeData {
 	return AvProbeData(avs.probe_data)
 }
 
-func (avs *Stream) AvgFrameRate() Rational {
-	return Rational(avs.avg_frame_rate)
+func (avs *Stream) AvgFrameRate() avcodec.Rational {
+	return newRational(avs.avg_frame_rate)
 }
 
 // func (avs *Stream) DisplayAspectRatio() *Rational {
 // 	return (*Rational)(unsafe.Pointer(avs.display_aspect_ratio))
 // }
 
-func (avs *Stream) RFrameRate() Rational {
-	return Rational(avs.r_frame_rate)
+func (avs *Stream) RFrameRate() avcodec.Rational {
+	return newRational(avs.r_frame_rate)
 }
 
-func (avs *Stream) SampleAspectRatio() Rational {
-	return Rational(avs.sample_aspect_ratio)
+func (avs *Stream) SampleAspectRatio() avcodec.Rational {
+	return newRational(avs.sample_aspect_ratio)
 }
 
-func (avs *Stream) TimeBase() Rational {
-	return Rational(avs.time_base)
+func (avs *Stream) TimeBase() avcodec.Rational {
+	return newRational(avs.time_base)
 }
 
 // func (avs *Stream) RecommendedEncoderConfiguration() string {

@@ -44,9 +44,10 @@ func (cctxt *CodecContext) SetCodecType(ctype MediaType) {
 }
 
 func (cctxt *CodecContext) GetTimeBase() avcodec.Rational {
-	return avcodec.ToRational((*avcodec._Ctype_struct_AVRational)(&cctxt.time_base))
+	return newRational(cctxt.time_base)
 }
 
 func (cctxt *CodecContext) SetTimeBase(timeBase avcodec.Rational) {
-	cctxt.time_base = C.struct_AVRational(timeBase)
+	cctxt.time_base.num = C.int(timeBase.Num())
+	cctxt.time_base.den = C.int(timeBase.Den())
 }

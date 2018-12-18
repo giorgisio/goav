@@ -38,7 +38,6 @@ type (
 	Packet                     C.struct_AVPacket
 	CodecParserContext         C.struct_AVCodecParserContext
 	AvIOContext                C.struct_AVIOContext
-	Rational                   C.struct_AVRational
 	AvCodec                    C.struct_AVCodec
 	AvCodecTag                 C.struct_AVCodecTag
 	Class                      C.struct_AVClass
