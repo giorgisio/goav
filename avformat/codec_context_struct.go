@@ -16,6 +16,9 @@ package avformat
 //#include <libavcodec/avcodec.h>
 import "C"
 import (
+	"reflect"
+	"unsafe"
+
 	"github.com/giorgisio/goav/avcodec"
 )
 
@@ -50,4 +53,93 @@ func (cctxt *CodecContext) GetTimeBase() avcodec.Rational {
 func (cctxt *CodecContext) SetTimeBase(timeBase avcodec.Rational) {
 	cctxt.time_base.num = C.int(timeBase.Num())
 	cctxt.time_base.den = C.int(timeBase.Den())
+}
+
+func (cctx *CodecContext) GetWidth() int {
+	return int(cctx.width)
+}
+
+func (cctx *CodecContext) SetWidth(w int) {
+	cctx.width = C.int(w)
+}
+
+func (cctx *CodecContext) GetHeight() int {
+	return int(cctx.height)
+}
+
+func (cctx *CodecContext) SetHeight(h int) {
+	cctx.height = C.int(h)
+}
+
+func (cctx *CodecContext) GetPixelFormat() avcodec.PixelFormat {
+	return avcodec.PixelFormat(C.int(cctx.pix_fmt))
+}
+
+func (cctx *CodecContext) SetPixelFormat(fmt avcodec.PixelFormat) {
+	cctx.pix_fmt = C.enum_AVPixelFormat(C.int(fmt))
+}
+
+func (cctx *CodecContext) GetFlags() int {
+	return int(cctx.flags)
+}
+
+func (cctx *CodecContext) SetFlags(flags int) {
+	cctx.flags = C.int(flags)
+}
+
+func (cctx *CodecContext) GetMeRange() int {
+	return int(cctx.me_range)
+}
+
+func (cctx *CodecContext) SetMeRange(r int) {
+	cctx.me_range = C.int(r)
+}
+
+func (cctx *CodecContext) GetMaxQDiff() int {
+	return int(cctx.max_qdiff)
+}
+
+func (cctx *CodecContext) SetMaxQDiff(v int) {
+	cctx.max_qdiff = C.int(v)
+}
+
+func (cctx *CodecContext) GetQMin() int {
+	return int(cctx.qmin)
+}
+
+func (cctx *CodecContext) SetQMin(v int) {
+	cctx.qmin = C.int(v)
+}
+
+func (cctx *CodecContext) GetQMax() int {
+	return int(cctx.qmax)
+}
+
+func (cctx *CodecContext) SetQMax(v int) {
+	cctx.qmax = C.int(v)
+}
+
+func (cctx *CodecContext) GetQCompress() float32 {
+	return float32(cctx.qcompress)
+}
+
+func (cctx *CodecContext) SetQCompress(v float32) {
+	cctx.qcompress = C.float(v)
+}
+
+func (cctx *CodecContext) GetExtraData() []byte {
+	header := reflect.SliceHeader{
+		Data: uintptr(unsafe.Pointer(ctxt.extradata)),
+		Len: int(ctxt.extradata_size),
+		Cap: int(ctxt.extradata_size),
+	}
+
+	return *((*[]byte)(unsafe.Pointer(&header)))
+}
+
+func (cctx *CodecContext) SetExtraData(data []byte) {
+	header := (*reflect.SliceHeader)(unsafe.Pointer(&data))
+
+	cctx.extradata = (*C.uint8_t)(header.Data)
+	cctx.extradata_size = C.int(header.Len)
 }

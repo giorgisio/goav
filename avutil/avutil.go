@@ -71,23 +71,3 @@ func AvFopenUtf8(p, m string) *File {
 func AvGetTimeBaseQ() Rational {
 	return (Rational)(C.av_get_time_base_q())
 }
-
-/*
-		c->width = i_video_stream->codec->width;
-		c->height = i_video_stream->codec->height;
-		c->pix_fmt = i_video_stream->codec->pix_fmt;
-		printf("%d %d %d", c->width, c->height, c->pix_fmt);
-		c->flags = i_video_stream->codec->flags;
-		c->flags |= CODEC_FLAG_GLOBAL_HEADER;
-		c->me_range = i_video_stream->codec->me_range;
-		c->max_qdiff = i_video_stream->codec->max_qdiff;
-
-		c->qmin = i_video_stream->codec->qmin;
-		c->qmax = i_video_stream->codec->qmax;
-
-		c->qcompress = i_video_stream->codec->qcompress;
-
-		c->extradata = i_video_stream->codec->extradata;
-		c->extradata_size = i_video_stream->codec->extradata_size;
-
- */
