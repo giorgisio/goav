@@ -14,7 +14,7 @@ import (
 
 func main() {
 
-	filename := "sample.mp4"
+	const filename = "sample.mp4"
 
 	var (
 		ctxtFormat    *avformat.Context
@@ -25,7 +25,7 @@ func main() {
 		videoFrameRGB *avutil.Frame
 		packet        *avcodec.Packet
 		ctxtSws       *swscale.Context
-		videoStream   int
+		videoStream   *avformat.Stream
 		frameFinished int
 		numBytes      int
 		url           string
@@ -51,7 +51,7 @@ func main() {
 	ctxtFormat.AvDumpFormat(0, url, 0)
 
 	// Find the first video stream
-	videoStream = -1
+	videoStream = nil
 
 	//ctxtFormat->nb_streams
 	n := ctxtFormat.NbStreams()
@@ -62,23 +62,21 @@ func main() {
 
 	log.Print("Number of Streams:", n)
 
-	for i := 0; i < int(n); i++ {
+	for i, stream := range s {
 		// ctxtFormat->streams[i]->codec->codec_type
 		log.Println("Stream Number:", i)
 
-		//FIX: AvMEDIA_TYPE_VIDEO
-		if (*avformat.CodecContext)(s.Codec()) != nil {
-			videoStream = i
+		if int(stream.Codec().Type()) != avformat.AVMEDIA_TYPE_VIDEO {
+			videoStream = stream
 			break
 		}
 	}
 
-	if videoStream == -1 {
-		log.Println("Couldn't find a video stream")
-		return
+	if videoStream == nil {
+		log.Fatalln("Couldn't find a video stream")
 	}
 
-	codec := s.Codec()
+	codec := videoStream.Codec()
 
 	// Get a pointer to the codec context for the video stream
 	//ctxtSource = ctxtFormat.streams[videoStream].codec
@@ -165,7 +163,7 @@ func main() {
 	for ctxtFormat.AvReadFrame(packet) >= 0 {
 		// Is this a packet from the video stream?
 		s := packet.StreamIndex()
-		if s == videoStream {
+		if s == videoStream.Index() {
 			// Decode video frame
 			ctxtDest.AvcodecDecodeVideo2((*avcodec.Frame)(unsafe.Pointer(videoFrame)), &frameFinished, packet)
 

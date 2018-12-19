@@ -28,17 +28,26 @@ func (p *Packet) Size() int {
 func (p *Packet) StreamIndex() int {
 	return int(p.stream_index)
 }
+func (p *Packet) SetStreamIndex(idx int) {
+	p.stream_index = C.int(idx)
+}
 func (p *Packet) ConvergenceDuration() int64 {
 	return int64(p.convergence_duration)
 }
 func (p *Packet) Dts() int64 {
 	return int64(p.dts)
 }
+func (p *Packet) SetDts(dts int64) {
+	p.dts = C.int64_t(dts)
+}
 func (p *Packet) Pos() int64 {
 	return int64(p.pos)
 }
 func (p *Packet) Pts() int64 {
 	return int64(p.pts)
+}
+func (p *Packet) SetPts(pts int64) {
+	p.dts = C.int64_t(pts)
 }
 func (p *Packet) Data() *uint8 {
 	return (*uint8)(p.data)

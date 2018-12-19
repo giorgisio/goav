@@ -24,8 +24,8 @@ func (avs *Stream) IndexEntries() *AvIndexEntry {
 	return (*AvIndexEntry)(unsafe.Pointer(avs.index_entries))
 }
 
-func (avs *Stream) AttachedPic() Packet {
-	return Packet(avs.attached_pic)
+func (avs *Stream) AttachedPic() avcodec.Packet {
+	return *fromCPacket(&avs.attached_pic)
 }
 
 func (avs *Stream) SideData() *AvPacketSideData {
