@@ -227,3 +227,7 @@ func (avs *Stream) PtsReorderErrorCount() uint8 {
 func (avs *Stream) IndexEntriesAllocatedSize() uint {
 	return uint(avs.index_entries_allocated_size)
 }
+
+func (avs *Stream) Free() {
+	C.av_freep(unsafe.Pointer(avs))
+}

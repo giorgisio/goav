@@ -20,6 +20,8 @@ package avformat
 import "C"
 import (
 	"unsafe"
+
+	"github.com/giorgisio/goav/avutil"
 )
 
 type (
@@ -63,6 +65,10 @@ func (ctxt *AvIOContext) AvGetPacket(pkt *Packet, s int) int {
 //Read data and append it to the current content of the Packet.
 func (ctxt *AvIOContext) AvAppendPacket(pkt *Packet, s int) int {
 	return int(C.av_append_packet((*C.struct_AVIOContext)(ctxt), (*C.struct_AVPacket)(pkt), C.int(s)))
+}
+
+func (ctxt *AvIOContext) Close() error {
+	return avutil.ErrorFromCode(int(C.avio_close((*C.AVIOContext)(unsafe.Pointer(ctxt)))))
 }
 
 func (f *InputFormat) AvRegisterInputFormat() {
@@ -271,4 +277,13 @@ func AvformatGetMovVideoTags() *AvCodecTag {
 
 func AvformatGetMovAudioTags() *AvCodecTag {
 	return (*AvCodecTag)(C.avformat_get_mov_audio_tags())
+}
+
+func AvIOOpen(url string, flags int) (res *AvIOContext, err error) {
+	urlStr := C.CString(url)
+	defer C.free(unsafe.Pointer(urlStr))
+
+	err = avutil.ErrorFromCode(int(C.avio_open((**C.AVIOContext)(unsafe.Pointer(&res)), urlStr, C.int(flags))))
+
+	return
 }

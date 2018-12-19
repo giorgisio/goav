@@ -143,3 +143,8 @@ func (cctx *CodecContext) SetExtraData(data []byte) {
 	cctx.extradata = (*C.uint8_t)(unsafe.Pointer(header.Data))
 	cctx.extradata_size = C.int(header.Len)
 }
+
+func (cctx *CodecContext) Release() {
+	C.avcodec_close((*C.struct_AVCodecContext)(unsafe.Pointer(cctx)))
+	C.av_freep(unsafe.Pointer(cctx))
+}
