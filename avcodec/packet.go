@@ -10,6 +10,12 @@ import (
 	"unsafe"
 )
 
+const (
+	AV_PKT_FLAG_KEY = int(C.AV_PKT_FLAG_KEY)
+	AV_PKT_FLAG_CORRUPT = int(C.AV_PKT_FLAG_CORRUPT)
+	AV_PKT_FLAG_DISCARD = int(C.AV_PKT_FLAG_DISCARD)
+)
+
 //Initialize optional fields of a packet with default values.
 func (p *Packet) AvInitPacket() {
 	C.av_init_packet((*C.struct_AVPacket)(p))
