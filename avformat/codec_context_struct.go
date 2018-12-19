@@ -129,9 +129,9 @@ func (cctx *CodecContext) SetQCompress(v float32) {
 
 func (cctx *CodecContext) GetExtraData() []byte {
 	header := reflect.SliceHeader{
-		Data: uintptr(unsafe.Pointer(ctxt.extradata)),
-		Len: int(ctxt.extradata_size),
-		Cap: int(ctxt.extradata_size),
+		Data: uintptr(unsafe.Pointer(cctx.extradata)),
+		Len: int(cctx.extradata_size),
+		Cap: int(cctx.extradata_size),
 	}
 
 	return *((*[]byte)(unsafe.Pointer(&header)))
@@ -140,6 +140,6 @@ func (cctx *CodecContext) GetExtraData() []byte {
 func (cctx *CodecContext) SetExtraData(data []byte) {
 	header := (*reflect.SliceHeader)(unsafe.Pointer(&data))
 
-	cctx.extradata = (*C.uint8_t)(header.Data)
+	cctx.extradata = (*C.uint8_t)(unsafe.Pointer(header.Data))
 	cctx.extradata_size = C.int(header.Len)
 }
