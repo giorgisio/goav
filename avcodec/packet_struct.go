@@ -16,6 +16,9 @@ func (p *Packet) Duration() int {
 func (p *Packet) Flags() int {
 	return int(p.flags)
 }
+func (p *Packet) SetFlags(flags int) {
+	p.flags = C.int(flags)
+}
 func (p *Packet) SideDataElems() int {
 	return int(p.side_data_elems)
 }
