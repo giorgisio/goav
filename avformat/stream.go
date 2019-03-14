@@ -6,7 +6,9 @@ package avformat
 //#cgo pkg-config: libavformat
 //#include <libavformat/avformat.h>
 import "C"
-import "github.com/ampsight/goav/avcodec"
+import (
+	"github.com/ampsight/goav/avcodec"
+)
 
 //Rational av_stream_get_r_frame_rate (const Stream *s)
 func (s *Stream) AvStreamGetRFrameRate() avcodec.Rational {

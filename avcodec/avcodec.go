@@ -33,6 +33,7 @@ type (
 	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
 	Rational                      C.struct_AVRational
 	Class                         C.struct_AVClass
+	AvCodecParameters             C.struct_AVCodecParameters
 	AvHWAccel                     C.struct_AVHWAccel
 	AvPacketSideData              C.struct_AVPacketSideData
 	AvPanScan                     C.struct_AVPanScan
@@ -55,6 +56,30 @@ type (
 	PixelFormat                   C.enum_AVPixelFormat
 	AvSampleFormat                C.enum_AVSampleFormat
 )
+
+func (cp *AvCodecParameters) AvCodecGetId() CodecId {
+	return *((*CodecId)(unsafe.Pointer(&cp.codec_id)))
+}
+
+func (cp *AvCodecParameters) AvCodecGetType() MediaType {
+	return *((*MediaType)(unsafe.Pointer(&cp.codec_type)))
+}
+
+func (cp *AvCodecParameters) AvCodecGetWidth() int {
+	return *((*int)(unsafe.Pointer(&cp.width)))
+}
+
+func (cp *AvCodecParameters) AvCodecGetHeight() int {
+	return *((*int)(unsafe.Pointer(&cp.height)))
+}
+
+func (cp *AvCodecParameters) AvCodecGetChannels() int {
+	return *((*int)(unsafe.Pointer(&cp.channels)))
+}
+
+func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
+	return *((*int)(unsafe.Pointer(&cp.sample_rate)))
+}
 
 func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
@@ -136,6 +161,10 @@ func AvsubtitleFree(s *AvSubtitle) {
 	C.avsubtitle_free((*C.struct_AVSubtitle)(s))
 }
 
+func AvPacketAlloc() *Packet {
+	return (*Packet)(C.av_packet_alloc())
+}
+
 //Pack a dictionary for use in side_data.
 func AvPacketPackDictionary(d *Dictionary, s *int) *uint8 {
 	return (*uint8)(C.av_packet_pack_dictionary((*C.struct_AVDictionary)(d), (*C.int)(unsafe.Pointer(s))))
@@ -149,6 +178,10 @@ func AvPacketUnpackDictionary(d *uint8, s int, dt **Dictionary) int {
 //Find a registered decoder with a matching codec ID.
 func AvcodecFindDecoder(id CodecId) *Codec {
 	return (*Codec)(C.avcodec_find_decoder((C.enum_AVCodecID)(id)))
+}
+
+func AvCodecIterate(p *unsafe.Pointer) *Codec {
+	return (*Codec)(C.av_codec_iterate(p))
 }
 
 //Find a registered decoder with the specified name.

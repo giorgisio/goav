@@ -12,6 +12,10 @@ import (
 	"github.com/ampsight/goav/avcodec"
 )
 
+func (avs *Stream) CodecParameters() *avcodec.AvCodecParameters {
+	return (*avcodec.AvCodecParameters)(unsafe.Pointer(avs.codecpar))
+}
+
 func (avs *Stream) Codec() *CodecContext {
 	return (*CodecContext)(unsafe.Pointer(avs.codec))
 }
