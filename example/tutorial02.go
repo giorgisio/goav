@@ -155,7 +155,6 @@ func main() {
 					}
 					for response >= 0 {
 						response = pCodecCtx.AvcodecReceiveFrame((*avcodec.Frame)(unsafe.Pointer(pFrame)))
-						fmt.Printf("Receive frame response: %d\n", response)
 						if response == avutil.AvErrorEAGAIN || response == avutil.AvErrorEOF {
 							break
 						} else if response < 0 {
@@ -170,6 +169,7 @@ func main() {
 								avutil.Data(pFrameRGB), avutil.Linesize(pFrameRGB))
 
 							// Save the frame to disk
+							fmt.Printf("Writing frame %d\n", frameNumber)
 							SaveFrame(pFrameRGB, pCodecCtx.Width(), pCodecCtx.Height(), frameNumber)
 						} else {
 							return
