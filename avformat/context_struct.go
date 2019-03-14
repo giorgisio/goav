@@ -46,19 +46,18 @@ func (ctxt *Context) InterruptCallback() AvIOInterruptCB {
 func (ctxt *Context) Programs() []*AvProgram {
 	header := reflect.SliceHeader{
 		Data: uintptr(unsafe.Pointer(ctxt.programs)),
-		Len: int(ctxt.NbPrograms()),
-		Cap: int(ctxt.NbPrograms()),
+		Len:  int(ctxt.NbPrograms()),
+		Cap:  int(ctxt.NbPrograms()),
 	}
 
 	return *((*[]*AvProgram)(unsafe.Pointer(&header)))
 }
 
-
 func (ctxt *Context) Streams() []*Stream {
 	header := reflect.SliceHeader{
 		Data: uintptr(unsafe.Pointer(ctxt.streams)),
-		Len: int(ctxt.NbStreams()),
-		Cap: int(ctxt.NbStreams()),
+		Len:  int(ctxt.NbStreams()),
+		Cap:  int(ctxt.NbStreams()),
 	}
 
 	return *((*[]*Stream)(unsafe.Pointer(&header)))
