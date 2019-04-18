@@ -20,8 +20,8 @@ func (avs *Stream) Codec() *CodecContext {
 	return (*CodecContext)(unsafe.Pointer(avs.codec))
 }
 
-func (avs *Stream) Metadata() *Dictionary {
-	return (*Dictionary)(unsafe.Pointer(avs.metadata))
+func (avs *Stream) Metadata() *avutil.Dictionary {
+	return (*avutil.Dictionary)(unsafe.Pointer(avs.metadata))
 }
 
 func (avs *Stream) IndexEntries() *AvIndexEntry {
