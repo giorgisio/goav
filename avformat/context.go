@@ -188,7 +188,10 @@ func (s *Context) AvFindDefaultStreamIndex() int {
 
 //Print detailed information about the input or output format, such as duration, bitrate, streams, container, programs, metadata, side data, codec and time base.
 func (s *Context) AvDumpFormat(i int, url string, io int) {
-	C.av_dump_format((*C.struct_AVFormatContext)(unsafe.Pointer(s)), C.int(i), C.CString(url), C.int(io))
+	Curl := C.CString(url)
+	defer C.free(unsafe.Pointer(Curl))
+
+	C.av_dump_format((*C.struct_AVFormatContext)(unsafe.Pointer(s)), C.int(i), Curl, C.int(io))
 }
 
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
@@ -203,7 +206,10 @@ func (s *Context) AvGuessFrameRate(st *Stream, fr *Frame) avcodec.Rational {
 
 //Check if the stream st contained in s is matched by the stream specifier spec.
 func (s *Context) AvformatMatchStreamSpecifier(st *Stream, spec string) int {
-	return int(C.avformat_match_stream_specifier((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), C.CString(spec)))
+	Cspec := C.CString(spec)
+	defer C.free(unsafe.Pointer(Cspec))
+
+	return int(C.avformat_match_stream_specifier((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), Cspec))
 }
 
 func (s *Context) AvformatQueueAttachedPictures() int {
