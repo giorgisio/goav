@@ -11,6 +11,7 @@ import (
 	"unsafe"
 
 	"github.com/giorgisio/goav/avcodec"
+	"github.com/giorgisio/goav/avutil"
 )
 
 const (
