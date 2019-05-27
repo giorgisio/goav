@@ -66,11 +66,11 @@ func (cp *AvCodecParameters) AvCodecGetType() MediaType {
 }
 
 func (cp *AvCodecParameters) AvCodecGetWidth() int {
-	return *((*int)(unsafe.Pointer(&cp.width)))
+	return (int)(*((*int32)(unsafe.Pointer(&cp.width))))
 }
 
 func (cp *AvCodecParameters) AvCodecGetHeight() int {
-	return *((*int)(unsafe.Pointer(&cp.height)))
+	return (int)(*((*int32)(unsafe.Pointer(&cp.height))))
 }
 
 func (cp *AvCodecParameters) AvCodecGetChannels() int {
