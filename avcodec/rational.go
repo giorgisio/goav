@@ -26,7 +26,7 @@ func (r Rational) Den() int {
 }
 
 func (r Rational) String() string {
-	return fmt.Sprintln("%d/%d", int(r.num), int(r.den))
+	return fmt.Sprintf("%d/%d", int(r.num), int(r.den))
 }
 
 func (r *Rational) Assign(o Rational) {

@@ -24,5 +24,4 @@ func main() {
 	log.Printf("AvUtil Version:\t%v", avutil.AvutilVersion())
 	log.Printf("AvCodec Version:\t%v", avcodec.AvcodecVersion())
 	log.Printf("Resample Version:\t%v", swresample.SwresampleLicense())
-
 }
