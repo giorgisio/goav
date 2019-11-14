@@ -4,6 +4,8 @@ Golang binding for FFmpeg
 A comprehensive binding to the ffmpeg video/audio manipulation library.
 
 [![GoDoc](https://godoc.org/github.com/giorgisio/goav?status.svg)](https://godoc.org/github.com/giorgisio/goav)
+[![CircleCI](https://circleci.com/gh/giorgisio/goav/tree/master.svg?style=shield)](https://circleci.com/gh/giorgisio/goav/tree/master)
+
 
 ## Usage
 
@@ -66,12 +68,12 @@ export FFMPEG_ROOT=$HOME/ffmpeg
 export CGO_LDFLAGS="-L$FFMPEG_ROOT/lib/ -lavcodec -lavformat -lavutil -lswscale -lswresample -lavdevice -lavfilter"
 export CGO_CFLAGS="-I$FFMPEG_ROOT/include"
 export LD_LIBRARY_PATH=$HOME/ffmpeg/lib
-``` 
+```
 
-``` 
+```
 go get github.com/giorgisio/goav
 
-``` 
+```
 
 ## More Examples
 
