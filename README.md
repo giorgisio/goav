@@ -55,7 +55,7 @@ func main() {
 
 1. Install [golang 1.13+](https://golang.org/dl/).
 
-1. Install ffmpeg using the [ffmpeg installation instructions](https://github.com/FFmpeg/FFmpeg/blob/master/INSTALL.md)
+1. Install ffmpeg using the [ffmpeg installation instructions](https://github.com/FFmpeg/FFmpeg/blob/master/INSTALL.md).
 
 1. Install goav build library dependencies:
 
