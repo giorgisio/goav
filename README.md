@@ -7,7 +7,7 @@ A comprehensive binding to the ffmpeg video/audio manipulation library.
 
 ## Usage
 
-`````go
+```go
 
 import "github.com/giorgisio/goav/avformat"
 
@@ -38,7 +38,7 @@ func main() {
 	//...
 
 }
-`````
+```
 
 ## Libraries
 
