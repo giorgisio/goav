@@ -59,29 +59,28 @@ func main() {
 
 1. Install goav build library dependencies:
 
-``` sh
-sudo apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texi2html zlib1g-dev
+    ``` sh
+    sudo apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texi2html zlib1g-dev
 
-sudo apt install -y libavdevice-dev libavfilter-dev libswscale-dev libavcodec-dev libavformat-dev libswresample-dev libavutil-dev
+    sudo apt install -y libavdevice-dev libavfilter-dev libswscale-dev libavcodec-dev libavformat-dev libswresample-dev libavutil-dev
 
-sudo apt-get install yasm
-```
+    sudo apt-get install yasm
+    ```
 
 1. Set the environment envariables such that goav will be built properly
 
-``` sh
-export FFMPEG_ROOT=$HOME/ffmpeg
-export CGO_LDFLAGS="-L$FFMPEG_ROOT/lib/ -lavcodec -lavformat -lavutil -lswscale -lswresample -lavdevice -lavfilter"
-export CGO_CFLAGS="-I$FFMPEG_ROOT/include"
-export LD_LIBRARY_PATH=$HOME/ffmpeg/lib
+    ``` sh
+    export FFMPEG_ROOT=$HOME/ffmpeg
+    export CGO_LDFLAGS="-L$FFMPEG_ROOT/lib/ -lavcodec -lavformat -lavutil -lswscale -lswresample -lavdevice -lavfilter"
+    export CGO_CFLAGS="-I$FFMPEG_ROOT/include"
+    export LD_LIBRARY_PATH=$HOME/ffmpeg/lib
 ``` 
 
 1. Obtain this library using the go toolchain
 
-``` sh
-go get github.com/giorgisio/goav
-
-``` 
+    ``` sh
+    go get github.com/giorgisio/goav
+    ``` 
 
 ## More Examples
 
