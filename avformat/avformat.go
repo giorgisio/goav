@@ -267,16 +267,16 @@ func AvAddIndexEntry(st *Stream, pos, t, int64, s, d, f int) int {
 
 //Split a URL string into components.
 func AvUrlSplit(proto_size, authorization_size, hostname_size int, pp *int, path_size int, url string) (proto, authorization, hostname, path string) {
-	Cproto := (*C.char)(C.malloc(C.sizeof_char * C.ulong(proto_size)))
+	Cproto := (*C.char)(C.malloc(C.sizeof_char * C.size_t(proto_size)))
 	defer C.free(unsafe.Pointer(Cproto))
 
-	Cauthorization := (*C.char)(C.malloc(C.sizeof_char * C.ulong(authorization_size)))
+	Cauthorization := (*C.char)(C.malloc(C.sizeof_char * C.size_t(authorization_size)))
 	defer C.free(unsafe.Pointer(Cauthorization))
 
-	Chostname := (*C.char)(C.malloc(C.sizeof_char * C.ulong(hostname_size)))
+	Chostname := (*C.char)(C.malloc(C.sizeof_char * C.size_t(hostname_size)))
 	defer C.free(unsafe.Pointer(Chostname))
 
-	Cpath := (*C.char)(C.malloc(C.sizeof_char * C.ulong(path_size)))
+	Cpath := (*C.char)(C.malloc(C.sizeof_char * C.size_t(path_size)))
 	defer C.free(unsafe.Pointer(Cpath))
 
 	Curl := C.CString(url)
@@ -297,7 +297,7 @@ func AvUrlSplit(proto_size, authorization_size, hostname_size int, pp *int, path
 //int av_get_frame_filename (char *buf, int buf_size, const char *path, int number)
 //Return in 'buf' the path with 'd' replaced by a number.
 func AvGetFrameFilename(buf_size int, path string, number int) (int, string) {
-	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.ulong(buf_size)))
+	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.size_t(buf_size)))
 	defer C.free(unsafe.Pointer(Cbuf))
 
 	Cpath := C.CString(path)
@@ -318,7 +318,7 @@ func AvFilenameNumberTest(filename string) int {
 
 //Generate an SDP for an RTP session.
 func AvSdpCreate(ac **Context, n_files int, buf_size int) (int, string) {
-	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.ulong(buf_size)))
+	Cbuf := (*C.char)(C.malloc(C.sizeof_char * C.size_t(buf_size)))
 	defer C.free(unsafe.Pointer(Cbuf))
 
 	ret := int(C.av_sdp_create((**C.struct_AVFormatContext)(unsafe.Pointer(ac)), C.int(n_files), Cbuf, C.int(buf_size)))
