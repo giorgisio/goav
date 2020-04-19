@@ -1,4 +1,3 @@
-
 package avformat_test
 
 import (
