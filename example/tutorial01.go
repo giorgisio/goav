@@ -155,8 +155,10 @@ func main() {
 					}
 					for response >= 0 {
 						response = pCodecCtx.AvcodecReceiveFrame((*avcodec.Frame)(unsafe.Pointer(pFrame)))
-						if response == avutil.AvErrorEAGAIN || response == avutil.AvErrorEOF {
+						if response == avutil.AvErrorEOF {
 							break
+						} else if response == avutil.AvErrorEAGAIN {
+							continue
 						} else if response < 0 {
 							fmt.Printf("Error while receiving a frame from the decoder: %s\n", avutil.ErrorFromCode(response))
 							return
