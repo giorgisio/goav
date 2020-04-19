@@ -57,6 +57,14 @@ type (
 	AvSampleFormat                C.enum_AVSampleFormat
 )
 
+const (
+	FF_COMPLIANCE_VERY_STRICT  = 2 ///< Strictly conform to an older more strict version of the spec or reference software.
+	FF_COMPLIANCE_STRICT       = 1 ///< Strictly conform to all the things in the spec no matter what consequences.
+	FF_COMPLIANCE_NORMAL       = 0
+	FF_COMPLIANCE_UNOFFICIAL   = -1 ///< Allow unofficial extensions
+	FF_COMPLIANCE_EXPERIMENTAL = -2 ///< Allow nonstandardized experimental things.
+)
+
 func (cp *AvCodecParameters) AvCodecGetId() CodecId {
 	return *((*CodecId)(unsafe.Pointer(&cp.codec_id)))
 }

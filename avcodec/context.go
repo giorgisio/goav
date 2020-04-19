@@ -201,3 +201,31 @@ func (ctxt *Context) AvcodecSendPacket(packet *Packet) int {
 func (ctxt *Context) AvcodecReceiveFrame(frame *Frame) int {
 	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(frame)))
 }
+
+func (ctxt *Context) SetChannels(channels int) {
+	ctxt.channels = C.int(channels)
+}
+
+func (ctxt *Context) SetChannelLayout(channelLayout int) {
+	ctxt.channel_layout = C.ulong(channelLayout)
+}
+
+func (ctxt *Context) SetSampleRate(sampleRate int) {
+	ctxt.sample_rate = C.int(sampleRate)
+}
+
+func (ctxt *Context) SetSampleFmt(sampleFmt AvSampleFormat) {
+	ctxt.sample_fmt = int32(sampleFmt)
+}
+
+func (ctxt *Context) SetBitRate(bitRate int64) {
+	ctxt.bit_rate = C.int64_t(bitRate)
+}
+
+func (ctxt *Context) SetFlags(flags int) {
+	ctxt.flags = C.int(flags)
+}
+
+func (ctxt *Context) SetStrictStdCompliance(s int) {
+	ctxt.strict_std_compliance = C.int(s)
+}
