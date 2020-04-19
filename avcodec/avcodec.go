@@ -81,6 +81,26 @@ func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
 	return *((*int)(unsafe.Pointer(&cp.sample_rate)))
 }
 
+func (cp *AvCodecParameters) AvCodecGetCodecTag() uint32 {
+	return uint32(cp.codec_tag)
+}
+
+func (cp *AvCodecParameters) AvCodecSetCodecTag(tag uint32) {
+	cp.codec_tag = C.uint32_t(tag)
+}
+
+func (dst *AvCodecParameters) AvCodecParametersCopy(src *AvCodecParameters) int {
+	return int(C.avcodec_parameters_copy((*C.struct_AVCodecParameters)(dst), (*C.struct_AVCodecParameters)(src)))
+}
+
+func (cp *AvCodecParameters) AvCodecParametersFromContext(ctx *Context) int {
+	return int(C.avcodec_parameters_from_context((*C.struct_AVCodecParameters)(cp), (*C.struct_AVCodecContext)(ctx)))
+}
+
+func (cp *AvCodecParameters) AvCodecParametersToContext(ctx *Context) int {
+	return int(C.avcodec_parameters_to_context((*C.struct_AVCodecContext)(ctx), (*C.struct_AVCodecParameters)(cp)))
+}
+
 func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
 }
