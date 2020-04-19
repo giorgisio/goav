@@ -16,7 +16,9 @@ import "errors"
 
 const (
 	AvErrorEOF    = -('E' | ('O' << 8) | ('F' << 16) | (' ' << 24))
+	AvErrorEXIT   = -('E' | ('X' << 8) | ('I' << 16) | ('T' << 24))
 	AvErrorEAGAIN = -11
+	AvErrorENOMEM = -12
 )
 
 func ErrorFromCode(code int) error {
