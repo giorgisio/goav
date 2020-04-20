@@ -133,6 +133,11 @@ func (s *Stream) AvStreamGetSideData(t AvPacketSideDataType, z int) *uint8 {
 	return (*uint8)(C.av_stream_get_side_data((*C.struct_AVStream)(s), (C.enum_AVPacketSideDataType)(t), (*C.int)(unsafe.Pointer(&z))))
 }
 
+func (s *Stream) SetTimebase(num1 int, den1 int) {
+	s.time_base.num = C.int(num1)
+	s.time_base.den = C.int(den1)
+}
+
 //Allocate an Context for an output format.
 func AvformatAllocOutputContext2(ctx **Context, o *OutputFormat, fo, fi string) int {
 	Cformat_name := (*C.char)(nil)
