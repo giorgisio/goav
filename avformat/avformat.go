@@ -56,6 +56,10 @@ type (
 
 type File C.FILE
 
+const (
+	AVFMT_GLOBALHEADER = int(C.AVFMT_GLOBALHEADER)
+)
+
 //Allocate and read the payload of a packet and initialize its fields with default values.
 func (ctxt *AvIOContext) AvGetPacket(pkt *avcodec.Packet, s int) int {
 	return int(C.av_get_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
@@ -86,6 +90,10 @@ func (f *InputFormat) AvIformatNext() *InputFormat {
 //If f is NULL, returns the first registered output format, if f is non-NULL, returns the next registered output format after f or NULL if f is the last one.
 func (f *OutputFormat) AvOformatNext() *OutputFormat {
 	return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
+}
+
+func (f *OutputFormat) Flags() int {
+	return int(f.flags)
 }
 
 //Return the LIBAvFORMAT_VERSION_INT constant.

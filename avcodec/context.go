@@ -206,8 +206,8 @@ func (ctxt *Context) SetChannels(channels int) {
 	ctxt.channels = C.int(channels)
 }
 
-func (ctxt *Context) SetChannelLayout(channelLayout int) {
-	ctxt.channel_layout = C.ulong(channelLayout)
+func (ctxt *Context) SetChannelLayout(channelLayout uint64) {
+	ctxt.channel_layout = C.uint64_t(channelLayout)
 }
 
 func (ctxt *Context) SetSampleRate(sampleRate int) {

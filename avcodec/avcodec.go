@@ -16,6 +16,7 @@ package avcodec
 //#include <libavutil/avutil.h>
 import "C"
 import (
+	"reflect"
 	"unsafe"
 )
 
@@ -139,6 +140,16 @@ func (c *Codec) AvCodecIsEncoder() int {
 
 func (c *Codec) AvCodecIsDecoder() int {
 	return int(C.av_codec_is_decoder((*C.struct_AVCodec)(c)))
+}
+
+func (c *Codec) SampleFmts() []AvSampleFormat {
+	header := reflect.SliceHeader{
+		Data: uintptr(unsafe.Pointer(c.sample_fmts)),
+		Len:  1, // Todo: scan array and set size
+		Cap:  1,
+	}
+
+	return *((*[]AvSampleFormat)(unsafe.Pointer(&header)))
 }
 
 //Same behaviour av_fast_malloc but the buffer has additional FF_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
