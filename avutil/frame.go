@@ -209,3 +209,51 @@ func GetBestEffortTimestamp(f *Frame) int64 {
 // func GetFrameDefaults(f *Frame) {
 // 	C.get_frame_defaults(*C.struct_AVFrame(f))
 // }
+
+func (f *Frame) GetDataP() **uint8 {
+	return (**uint8)(unsafe.Pointer(&f.data[0]))
+}
+
+func (f *Frame) ExtendedData() **uint8 {
+	return (**uint8)(unsafe.Pointer(f.extended_data))
+}
+
+func (f *Frame) Pts() int64 {
+	return int64(f.pts)
+}
+
+func (f *Frame) NbSamples() int {
+	return int(f.nb_samples)
+}
+
+func (f *Frame) ChennelLayout() uint64 {
+	return uint64(f.channel_layout)
+}
+
+func (f *Frame) SampleFmt() AvSampleFormat {
+	return AvSampleFormat(f.format)
+}
+
+func (f *Frame) SampleRate() int {
+	return int(f.sample_rate)
+}
+
+func (f *Frame) SetPts(pts int64) {
+	f.pts = C.int64_t(pts)
+}
+
+func (f *Frame) SetNbSamples(nbSamples int) {
+	f.nb_samples = C.int(nbSamples)
+}
+
+func (f *Frame) SetChannelLayout(channelLayout uint64) {
+	f.channel_layout = C.uint64_t(channelLayout)
+}
+
+func (f *Frame) SetSampleFmt(format AvSampleFormat) {
+	f.format = C.int(format)
+}
+
+func (f *Frame) SetSampleRate(sampleRate int) {
+	f.sample_rate = C.int(sampleRate)
+}
