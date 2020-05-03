@@ -22,6 +22,11 @@ func (s *Context) SwrIsInitialized() int {
 	return int(C.swr_is_initialized((*C.struct_SwrContext)(s)))
 }
 
+//Allocate Context and set/reset common parameters.
+func SwrAllocSetOpts(ocl int64, osf AvSampleFormat, osr int, icl int64, isf AvSampleFormat, isr int) *Context {
+	return (*Context)(C.swr_alloc_set_opts((*C.struct_SwrContext)(unsafe.Pointer(nil)), C.int64_t(ocl), (C.enum_AVSampleFormat)(osf), C.int(osr), C.int64_t(icl), (C.enum_AVSampleFormat)(isf), C.int(isr), 0, unsafe.Pointer(nil)))
+}
+
 //Allocate Context if needed and set/reset common parameters.
 func (s *Context) SwrAllocSetOpts(ocl int64, osf AvSampleFormat, osr int, icl int64, isf AvSampleFormat, isr, lo, lc int) *Context {
 	return (*Context)(C.swr_alloc_set_opts((*C.struct_SwrContext)(s), C.int64_t(ocl), (C.enum_AVSampleFormat)(osf), C.int(osr), C.int64_t(icl), (C.enum_AVSampleFormat)(isf), C.int(isr), C.int(lo), unsafe.Pointer(&lc)))
@@ -29,7 +34,7 @@ func (s *Context) SwrAllocSetOpts(ocl int64, osf AvSampleFormat, osr int, icl in
 
 //Context destructor functions. Free the given Context and set the pointer to NULL.
 func (s *Context) SwrFree() {
-	C.swr_free((**C.struct_SwrContext)(unsafe.Pointer(s)))
+	C.swr_free((**C.struct_SwrContext)(unsafe.Pointer(&s)))
 }
 
 //Closes the context so that swr_is_initialized() returns 0.
