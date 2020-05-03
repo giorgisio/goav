@@ -531,6 +531,10 @@ func (ctxt *Context) RequestSampleFmt() AvSampleFormat {
 	return (AvSampleFormat)(ctxt.request_sample_fmt)
 }
 
+func (ctxt *Context) ChannelLayout() uint64 {
+	return uint64(ctxt.channel_layout)
+}
+
 func (ctxt *Context) SampleFmt() AvSampleFormat {
 	return (AvSampleFormat)(ctxt.sample_fmt)
 }
