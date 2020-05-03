@@ -2,15 +2,17 @@ package swresample
 
 import (
 	"testing"
+
+	"github.com/giorgisio/goav/avutil"
 )
 
 func TestAllocAndFree(t *testing.T) {
 	resampleCtx := SwrAllocSetOpts(
-		3, //AV_CH_LAYOUT_STEREO
-		1, //AV_SAMPLE_FMT_S16
+		avutil.AV_CH_LAYOUT_STEREO,
+		AvSampleFormat(avutil.AV_SAMPLE_FMT_S16),
 		48000,
-		3, //AV_CH_LAYOUT_STEREO
-		6, //AV_SAMPLE_FMT_S16P
+		avutil.AV_CH_LAYOUT_STEREO,
+		AvSampleFormat(avutil.AV_SAMPLE_FMT_S16P),
 		48000)
 	if resampleCtx == nil {
 		t.Error("Could not allocate resample context\n")
