@@ -59,23 +59,18 @@ func SaveFrame(frame *avutil.Frame, width, height, frameNumber int) {
 	}
 }
 
-func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Please provide a movie file")
-		os.Exit(1)
-	}
-
+func SaveFrames(inputFileName string) int {
 	// Open video file
 	pFormatContext := avformat.AvformatAllocContext()
-	if avformat.AvformatOpenInput(&pFormatContext, os.Args[1], nil, nil) != 0 {
-		fmt.Printf("Unable to open file %s\n", os.Args[1])
-		os.Exit(1)
+	if avformat.AvformatOpenInput(&pFormatContext, inputFileName, nil, nil) != 0 {
+		fmt.Printf("Unable to open file %s\n", inputFileName)
+		return 1
 	}
 
 	// Retrieve stream information
 	if pFormatContext.AvformatFindStreamInfo(nil) < 0 {
 		fmt.Println("Couldn't find stream information")
-		os.Exit(1)
+		return 1
 	}
 
 	// Dump information about file onto standard error
@@ -92,19 +87,19 @@ func main() {
 			pCodec := avcodec.AvcodecFindDecoder(avcodec.CodecId(pCodecCtxOrig.GetCodecId()))
 			if pCodec == nil {
 				fmt.Println("Unsupported codec!")
-				os.Exit(1)
+				return 1
 			}
 			// Copy context
 			pCodecCtx := pCodec.AvcodecAllocContext3()
 			if pCodecCtx.AvcodecCopyContext((*avcodec.Context)(unsafe.Pointer(pCodecCtxOrig))) != 0 {
 				fmt.Println("Couldn't copy codec context")
-				os.Exit(1)
+				return 1
 			}
 
 			// Open codec
 			if pCodecCtx.AvcodecOpen2(pCodec, nil) < 0 {
 				fmt.Println("Could not open codec")
-				os.Exit(1)
+				return 1
 			}
 
 			// Allocate video frame
@@ -114,7 +109,7 @@ func main() {
 			pFrameRGB := avutil.AvFrameAlloc()
 			if pFrameRGB == nil {
 				fmt.Println("Unable to allocate RGB Frame")
-				os.Exit(1)
+				return 1
 			}
 
 			// Determine required buffer size and allocate buffer
@@ -161,7 +156,7 @@ func main() {
 							continue
 						} else if response < 0 {
 							fmt.Printf("Error while receiving a frame from the decoder: %s\n", avutil.ErrorFromCode(response))
-							return
+							return 1
 						}
 
 						if frameNumber <= 5 {
@@ -174,7 +169,7 @@ func main() {
 							fmt.Printf("Writing frame %d\n", frameNumber)
 							SaveFrame(pFrameRGB, pCodecCtx.Width(), pCodecCtx.Height(), frameNumber)
 						} else {
-							return
+							return 0
 						}
 						frameNumber++
 					}
@@ -203,7 +198,16 @@ func main() {
 
 		default:
 			fmt.Println("Didn't find a video stream")
-			os.Exit(1)
+			return 1
 		}
 	}
+	return 0
+}
+
+func main() {
+	if len(os.Args) < 2 {
+		fmt.Println("Please provide a movie file")
+		os.Exit(1)
+	}
+	os.Exit(SaveFrames(os.Args[1]))
 }
