@@ -1,3 +1,9 @@
+This is fork of https://github.com/giorgisio/goav
+I added some methods for my use case.
+Also fixed known bugs and add more example.
+
+Following is the original README.md.
+
 # goav
 Golang binding for FFmpeg
 
