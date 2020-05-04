@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/tetsu-koba/goav/avcodec"
 	"github.com/tetsu-koba/goav/avdevice"
@@ -12,17 +12,21 @@ import (
 	"github.com/tetsu-koba/goav/swscale"
 )
 
-func main() {
+func PrintVersions() {
 
 	// Register all formats and codecs
-	avformat.AvRegisterAll()
-	avcodec.AvcodecRegisterAll()
+	//avformat.AvRegisterAll()
+	//avcodec.AvcodecRegisterAll()
 
-	log.Printf("AvFilter Version:\t%v", avfilter.AvfilterVersion())
-	log.Printf("AvDevice Version:\t%v", avdevice.AvdeviceVersion())
-	log.Printf("SWScale Version:\t%v", swscale.SwscaleVersion())
-	log.Printf("AvUtil Version:\t%v", avutil.AvutilVersion())
-	log.Printf("AvCodec Version:\t%v", avcodec.AvcodecVersion())
-	log.Printf("Resample Version:\t%v", swresample.SwresampleLicense())
+	fmt.Printf("AvFormat Version:\t%v\n", avformat.AvformatVersion())
+	fmt.Printf("AvFilter Version:\t%v\n", avfilter.AvfilterVersion())
+	fmt.Printf("AvDevice Version:\t%v\n", avdevice.AvdeviceVersion())
+	fmt.Printf("SWScale Version:\t%v\n", swscale.SwscaleVersion())
+	fmt.Printf("AvUtil Version:\t%v\n", avutil.AvutilVersion())
+	fmt.Printf("AvCodec Version:\t%v\n", avcodec.AvcodecVersion())
+	fmt.Printf("Resample Version:\t%v\n", swresample.SwresampleLicense())
+}
 
+func main() {
+	PrintVersions()
 }
