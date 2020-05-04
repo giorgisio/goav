@@ -3,7 +3,7 @@ package swresample
 import (
 	"testing"
 
-	"github.com/giorgisio/goav/avutil"
+	"github.com/tetsu-koba/goav/avutil"
 )
 
 func TestAllocAndFree(t *testing.T) {

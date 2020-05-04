@@ -6,7 +6,7 @@ package avformat
 //#cgo pkg-config: libavutil
 //#include <libavutil/avutil.h>
 import "C"
-import "github.com/giorgisio/goav/avcodec"
+import "github.com/tetsu-koba/goav/avcodec"
 
 func newRational(r C.struct_AVRational) avcodec.Rational {
 	return avcodec.NewRational(int(r.num), int(r.den))
