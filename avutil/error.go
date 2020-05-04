@@ -12,13 +12,16 @@ package avutil
 //#include <stdlib.h>
 //static const char *error2string(int code) { return av_err2str(code); }
 import "C"
-import "errors"
+import (
+	"errors"
+	"syscall"
+)
 
 const (
 	AvErrorEOF    = -('E' | ('O' << 8) | ('F' << 16) | (' ' << 24))
 	AvErrorEXIT   = -('E' | ('X' << 8) | ('I' << 16) | ('T' << 24))
-	AvErrorEAGAIN = -11
-	AvErrorENOMEM = -12
+	AvErrorEAGAIN = -int(syscall.EAGAIN)
+	AvErrorENOMEM = -int(syscall.ENOMEM)
 )
 
 func ErrorFromCode(code int) error {
