@@ -119,8 +119,8 @@ func (ctxt *Context) ExtradataSize() int {
 	return int(ctxt.extradata_size)
 }
 
-func (ctxt *Context) Flags() int {
-	return int(ctxt.flags)
+func (ctxt *Context) Flags() uint {
+	return uint(ctxt.flags)
 }
 
 func (ctxt *Context) Flags2() int {

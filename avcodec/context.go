@@ -230,7 +230,7 @@ func (ctxt *Context) SetBitRate(bitRate int64) {
 	ctxt.bit_rate = C.int64_t(bitRate)
 }
 
-func (ctxt *Context) SetFlags(flags int) {
+func (ctxt *Context) SetFlags(flags uint) {
 	ctxt.flags = C.int(flags)
 }
 
