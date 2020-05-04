@@ -67,27 +67,27 @@ const (
 )
 
 func (cp *AvCodecParameters) AvCodecGetId() CodecId {
-	return *((*CodecId)(unsafe.Pointer(&cp.codec_id)))
+	return CodecId(cp.codec_id)
 }
 
 func (cp *AvCodecParameters) AvCodecGetType() MediaType {
-	return *((*MediaType)(unsafe.Pointer(&cp.codec_type)))
+	return MediaType(cp.codec_type)
 }
 
 func (cp *AvCodecParameters) AvCodecGetWidth() int {
-	return (int)(*((*int32)(unsafe.Pointer(&cp.width))))
+	return int(cp.width)
 }
 
 func (cp *AvCodecParameters) AvCodecGetHeight() int {
-	return (int)(*((*int32)(unsafe.Pointer(&cp.height))))
+	return int(cp.height)
 }
 
 func (cp *AvCodecParameters) AvCodecGetChannels() int {
-	return *((*int)(unsafe.Pointer(&cp.channels)))
+	return int(cp.channels)
 }
 
 func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
-	return *((*int)(unsafe.Pointer(&cp.sample_rate)))
+	return int(cp.sample_rate)
 }
 
 func (cp *AvCodecParameters) AvCodecGetCodecTag() uint32 {
