@@ -1,4 +1,4 @@
-// +build !n4
+// +build !n3,!n2,!n1,!n0
 // require ffmpeg tag n4.x
 
 package avutil
