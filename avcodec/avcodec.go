@@ -161,8 +161,14 @@ func AvsubtitleFree(s *AvSubtitle) {
 	C.avsubtitle_free((*C.struct_AVSubtitle)(s))
 }
 
+//Alloc a packet
 func AvPacketAlloc() *Packet {
 	return (*Packet)(C.av_packet_alloc())
+}
+
+//Free a packet
+func AvPacketFree(packet *Packet) {
+	C.av_packet_free(&packet)
 }
 
 //Pack a dictionary for use in side_data.
