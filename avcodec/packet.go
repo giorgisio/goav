@@ -61,7 +61,7 @@ func (p *Packet) AvCopyPacketSideData(r *Packet) int {
 
 }
 
-//Free a packet.
+//Free inner data of a packet.
 func (p *Packet) AvFreePacket() {
 	C.av_free_packet((*C.struct_AVPacket)(p))
 
