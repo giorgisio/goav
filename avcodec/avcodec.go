@@ -168,7 +168,7 @@ func AvPacketAlloc() *Packet {
 
 //Free a packet
 func AvPacketFree(packet *Packet) {
-	C.av_packet_free(&packet)
+	C.av_packet_free((**C.struct_AVPacket) & packet)
 }
 
 //Pack a dictionary for use in side_data.
