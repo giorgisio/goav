@@ -80,9 +80,20 @@ func (cp *AvCodecParameters) AvCodecGetChannels() int {
 func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
 	return (int)(*((*int32)(unsafe.Pointer(&cp.sample_rate))))
 }
+func (cp *AvCodecParameters) AvCodecGetBitRate() int64{
+	return (int64)(*((*int64)(unsafe.Pointer(&cp.bit_rate))))
+}
 
 func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
+}
+
+func (c *Codec) AvCodecGetName() string{
+	return C.GoString(c.name)
+}
+
+func (c *Codec) AvCodecGetId() int{
+	return (int)(*((*int32)(unsafe.Pointer(&c.id))))
 }
 
 // AvCodecNext If c is NULL, returns the first registered codec, if c is non-NULL,
@@ -278,6 +289,4 @@ func AvcodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
 }
 
-func (f *Frame) Pts() int64 {
-	return int64(f.pts)
-}
+

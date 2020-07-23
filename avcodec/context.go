@@ -66,8 +66,14 @@ func (ctxt *Context) AvcodecGetContextDefaults3(c *Codec) int {
 }
 
 //Copy the settings of the source Context into the destination Context.
+//Deprecated：The semantics of this function are ill-defined and it should not be used. If you need to transfer the stream parameters from one codec context to another, use an intermediate AVCodecParameters instance and the avcodec_parameters_from_context() / avcodec_parameters_to_context() functions.
 func (ctxt *Context) AvcodecCopyContext(ctxt2 *Context) int {
 	return int(C.avcodec_copy_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecContext)(ctxt2)))
+}
+
+//Fill the codec context based on the values from the supplied codec parameters.
+func (ctxt *Context) AvcodecParametersToContext(parameters *AvCodecParameters) int {
+	return int(C.avcodec_parameters_to_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecParameters)(parameters)))
 }
 
 //Initialize the Context to use the given Codec
@@ -76,9 +82,11 @@ func (ctxt *Context) AvcodecOpen2(c *Codec, d **Dictionary) int {
 }
 
 //Close a given Context and free all the data associated with it (but not the Context itself).
+//Deprecated:Do not use this function. Use avcodec_free_context() to destroy a codec context (either open or closed). Opening and closing a codec context multiple times is not supported anymore – use multiple codec contexts instead.
 func (ctxt *Context) AvcodecClose() int {
 	return int(C.avcodec_close((*C.struct_AVCodecContext)(ctxt)))
 }
+
 
 //The default callback for Context.get_buffer2().
 func (s *Context) AvcodecDefaultGetBuffer2(f *Frame, l int) int {
