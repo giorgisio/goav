@@ -57,7 +57,7 @@ func (ctxt *Context) AvCodecSetChromaIntraMatrix(t *uint16) {
 
 //Free the codec context and everything associated with it and write NULL to the provided pointer.
 func (ctxt *Context) AvcodecFreeContext() {
-	C.avcodec_free_context((**C.struct_AVCodecContext)(unsafe.Pointer(ctxt)))
+	C.avcodec_free_context((**C.struct_AVCodecContext)(unsafe.Pointer(&ctxt)))
 }
 
 //Set the fields of the given Context to default values corresponding to the given codec (defaults may be codec-dependent).
