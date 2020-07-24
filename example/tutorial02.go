@@ -1,29 +1,31 @@
 package main
 
 import (
+	"fmt"
 	"github.com/giorgisio/goav/avcodec"
 	"github.com/giorgisio/goav/avformat"
 	"github.com/giorgisio/goav/avutil"
 	"log"
+	"os"
 	"unsafe"
 )
 
 func main() {
-	filename := "/Users/jason12360/Desktop/732/mediaCollector/video/bunny_1080p_60fps.mp4"
+	filename := "/Users/jason12360/Desktop/study/ffmpeg/ffmpeg-libav-tutorial/small_bunny_1080p_60fps.mp4"
 
 	// Register all formats and codecs
 
 	ctx := avformat.AvformatAllocContext()
-
+	defer ctx.AvformatCloseInput()
 	// Open video file
 	if avformat.AvformatOpenInput(&ctx, filename, nil, nil) != 0 {
-		log.Println("Error: Couldn't open file.")
+		log.Fatalf("Error: Couldn't open file.")
 		return
 	}
 
 	// Retrieve stream information
 	if ctx.AvformatFindStreamInfo(nil) < 0 {
-		log.Println("Error: Couldn't find stream information.")
+		log.Fatalf("Error: Couldn't find stream information.")
 
 		// Close input file and free context
 		ctx.AvformatCloseInput()
@@ -44,7 +46,7 @@ func main() {
 
 		localCodec := avcodec.AvcodecFindDecoder(localCodecParameters.AvCodecGetId())
 		if localCodec == nil {
-			log.Printf("Error unsupported codec")
+			log.Fatalf("Error unsupported codec")
 			return
 		}
 
@@ -61,31 +63,39 @@ func main() {
 		}
 		log.Printf("\tCodec %s ID %d bit_rate %d", localCodec.AvCodecGetName(), localCodec.AvCodecGetId(), localCodecParameters.AvCodecGetBitRate())
 	}
-	avCodecContext := avCodec.AvcodecAllocContext3()
-	if avCodecContext == nil {
-		log.Printf("failed to allocated memory for AVCodecContext")
-		return
-	}
-	if avCodecContext.AvcodecParametersToContext(avCodecParameters) < 0 {
-		log.Printf("failed to copy codec params to codec context")
-		return
-	}
-	if avCodecContext.AvcodecOpen2(avCodec, nil) < 0 {
-		log.Printf("failed to open codec through avcodec_open2")
-		return
-	}
 
 	avFrame := avutil.AvFrameAlloc()
 	if avFrame == nil {
-		log.Printf("failed to allocated memory for AVFrame")
+		log.Fatalf("failed to allocated memory for AVFrame")
 		return
 	}
+	defer avutil.AvFrameFree(avFrame)
 
 	avPacket := avcodec.AvPacketAlloc()
 	if avPacket == nil {
-		log.Printf("failed to allocated memory for AVPacket")
+		log.Fatalf("failed to allocated memory for AVPacket")
 		return
 	}
+	defer avPacket.AVPacketFree()
+
+	avCodecContext := avCodec.AvcodecAllocContext3()
+	if avCodecContext == nil {
+		log.Fatalf("failed to allocated memory for AVCodecContext")
+		return
+	}
+	defer avCodecContext.AvcodecFreeContext()
+
+	if avCodecContext.AvcodecParametersToContext(avCodecParameters) < 0 {
+		log.Fatalf("failed to copy codec params to codec context")
+		return
+	}
+	if avCodecContext.AvcodecOpen2(avCodec, nil) < 0 {
+		log.Fatalf("failed to open codec through avcodec_open2")
+		return
+	}
+
+
+
 	timesLimit := 8
 	for ctx.AvReadFrame(avPacket) >= 0 {
 		if avPacket.StreamIndex() == videoStreamIndex {
@@ -103,19 +113,14 @@ func main() {
 	}
 	log.Printf("releasing all the resources")
 
-	ctx.AvformatCloseInput()
-	avPacket.AvFreePacket()
-	avutil.AvFrameFree(avFrame)
-	avCodecContext.AvcodecFreeContext()
 	return
 
 }
 
-
 func decodePacket(avPacket *avcodec.Packet, avCodecContext *avcodec.Context, avFrame *avcodec.Frame) int {
 	sendResponse := avCodecContext.AvcodecSendPacket(avPacket)
 	if sendResponse < 0 {
-		log.Printf("Error while sending a packet to the decoder: %s", avutil.ErrorFromCode(sendResponse))
+		log.Fatalf("Error while sending a packet to the decoder: %s", avutil.ErrorFromCode(sendResponse))
 		return sendResponse
 	}
 	for sendResponse >= 0 {
@@ -123,7 +128,7 @@ func decodePacket(avPacket *avcodec.Packet, avCodecContext *avcodec.Context, avF
 		if receiveResponse == avutil.AvErrorEAGAIN || receiveResponse == avutil.AvErrorEOF {
 			break
 		} else if receiveResponse < 0 {
-			log.Printf("Error while receiving a frame from the decoder: %s", avutil.ErrorFromCode(receiveResponse))
+			log.Fatalf("Error while receiving a frame from the decoder: %s", avutil.ErrorFromCode(receiveResponse))
 			return receiveResponse
 		}
 		if receiveResponse >= 0 {
@@ -136,7 +141,34 @@ func decodePacket(avPacket *avcodec.Packet, avCodecContext *avcodec.Context, avF
 				avFrame.GetKeyFrame(),
 				avFrame.GetCodedPictureNumber(),
 			)
+			fileName := fmt.Sprintf("frame-%d.pgm", avCodecContext.FrameNumber())
+			save_gray_frame(avFrame, fileName)
 		}
 	}
 	return 1
+}
+
+func save_gray_frame(avFrame *avcodec.Frame, fileName string) {
+	//width := avFrame.GetWidth()
+	//height := avFrame.GetHeight()
+	//fileName := fmt.Sprintf("frame%d.ppm", frameNumber)
+	file, err := os.Create(fileName)
+	if err != nil {
+		log.Println("Error Reading")
+		return
+	}
+	defer file.Close()
+
+	header := fmt.Sprintf("P5\n%d %d\n255\n", avFrame.GetWidth(), avFrame.GetHeight())
+	_,err =file.Write([]byte(header))
+	if err != nil{
+		log.Fatalf("can not write to file,the err is %v",err)
+	}
+
+	buffer := avFrame.GetData()
+	_,err =file.Write(buffer[0])
+	if err != nil{
+		log.Fatalf("can not write to file,the err is %v",err)
+	}
+	return
 }
