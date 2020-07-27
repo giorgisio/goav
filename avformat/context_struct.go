@@ -233,6 +233,9 @@ func (ctxt *Context) Oformat() *OutputFormat {
 // 	return uint8(ctxt.dump_separator)
 // }
 
+func (outputFmt *OutputFormat) GetFlags() int {
+	return int(outputFmt.flags)
+}
 func (ctxt *Context) CorrectTsOverflow() int {
 	return int(ctxt.correct_ts_overflow)
 }

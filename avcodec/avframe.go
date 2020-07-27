@@ -1,5 +1,6 @@
 package avcodec
 
+import "C"
 import (
 	"github.com/giorgisio/goav/avutil"
 	"unsafe"
@@ -38,13 +39,12 @@ func (f *Frame) GetHeight() int {
 
 func (f *Frame) GetData() [][]byte{
 	var data [][]byte
+	var slice []byte
 	for i:=0;i<len(f.linesize);i++ {
 		wrap := int(f.linesize[i])
-		var slice []byte
 		if f.data[i] != nil{
 			slice = ((*[2<<31]byte)(unsafe.Pointer(f.data[i])))[:f.GetHeight()*wrap]
 		}
-
 		data = append(data,slice)
 	}
 	return data

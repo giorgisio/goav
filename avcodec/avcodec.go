@@ -80,19 +80,26 @@ func (cp *AvCodecParameters) AvCodecGetChannels() int {
 func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
 	return (int)(*((*int32)(unsafe.Pointer(&cp.sample_rate))))
 }
-func (cp *AvCodecParameters) AvCodecGetBitRate() int64{
+func (cp *AvCodecParameters) AvCodecGetBitRate() int64 {
 	return (int64)(*((*int64)(unsafe.Pointer(&cp.bit_rate))))
+}
+func (cp *AvCodecParameters) AvCodecParametersFree() {
+	C.avcodec_parameters_free((**C.struct_AVCodecParameters)(unsafe.Pointer(&cp)))
+}
+
+func (cp *AvCodecParameters) AvCodecParametersCopyTo(dst *AvCodecParameters) int {
+	return int(C.avcodec_parameters_copy((*C.struct_AVCodecParameters)(unsafe.Pointer(dst)), (*C.struct_AVCodecParameters)(unsafe.Pointer(cp))))
 }
 
 func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
 }
 
-func (c *Codec) AvCodecGetName() string{
+func (c *Codec) AvCodecGetName() string {
 	return C.GoString(c.name)
 }
 
-func (c *Codec) AvCodecGetId() int{
+func (c *Codec) AvCodecGetId() int {
 	return (int)(*((*int32)(unsafe.Pointer(&c.id))))
 }
 
@@ -288,5 +295,3 @@ func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 func AvcodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
 }
-
-
