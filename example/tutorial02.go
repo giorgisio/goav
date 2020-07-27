@@ -1,5 +1,17 @@
 package main
+// tutorial02.go
+// Code based on a tutorial at https://github.com/leandromoreira/ffmpeg-libav-tutoria
 
+// A small sample program that shows how to use libavformat and libavcodec to
+// read video from a file.
+//
+// Use
+//
+//
+// tutorial01 myvideofile.mpg
+//
+// to write the first eight frames from "small_bunny_1080p_60fps.mp4" to disk in pgm
+// format.
 import (
 	"fmt"
 	"github.com/giorgisio/goav/avcodec"
