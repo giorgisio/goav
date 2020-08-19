@@ -14,6 +14,10 @@ func (f *Frame) GetPicType() avutil.AvPictureType {
 	return (avutil.AvPictureType)(f.pict_type)
 }
 
+func (f *Frame) SetPicType(pictureType avutil.AvPictureType)  {
+	f.pict_type =  uint32(pictureType)
+}
+
 func (f *Frame) GetPktSize() int {
 	return int(f.pkt_size)
 }

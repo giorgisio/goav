@@ -25,6 +25,10 @@ func (s *Context) AvFormatGetProbeScore() int {
 	return int(C.av_format_get_probe_score((*C.struct_AVFormatContext)(s)))
 }
 
+func (s *Context) AvFormatGetPrivData() unsafe.Pointer{
+	return unsafe.Pointer((*C.struct_AVFormatContext)(s).priv_data)
+}
+
 func (s *Context) AvFormatGetVideoCodec() *AvCodec {
 	return (*AvCodec)(C.av_format_get_video_codec((*C.struct_AVFormatContext)(s)))
 }

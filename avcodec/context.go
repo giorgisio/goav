@@ -14,6 +14,15 @@ func (ctxt *Context) AvCodecGetPktTimebase() Rational {
 	return Rational(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
 }
 
+func (ctxt *Context) GetPixFmt() int{
+	return int(ctxt.pix_fmt)
+}
+
+func (ctxt *Context) SetPixFmt(pixFmt int ) {
+	ctxt.pix_fmt = int32(pixFmt)
+}
+
+
 // AvCodecGetPktTimebase2 returns the timebase rational number as numerator and denominator
 func (ctxt *Context) AvCodecGetPktTimebase2() Rational {
 	return ctxt.AvCodecGetPktTimebase()
@@ -75,6 +84,8 @@ func (ctxt *Context) AvcodecCopyContext(ctxt2 *Context) int {
 func (ctxt *Context) AvcodecParametersToContext(parameters *AvCodecParameters) int {
 	return int(C.avcodec_parameters_to_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecParameters)(parameters)))
 }
+
+
 
 //Initialize the Context to use the given Codec
 func (ctxt *Context) AvcodecOpen2(c *Codec, d **Dictionary) int {
@@ -206,6 +217,46 @@ func (ctxt *Context) AvcodecSendPacket(packet *Packet) int {
 	return (int)(C.avcodec_send_packet((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(packet)))
 }
 
+func (ctxt *Context) AvcodecReceivePacket(packet *Packet) int {
+	return (int)(C.avcodec_receive_packet((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(packet)))
+}
+
 func (ctxt *Context) AvcodecReceiveFrame(frame *Frame) int {
 	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(frame)))
+}
+
+func (ctxt *Context) AvcodecSendFrame(frame *Frame) int {
+	return (int)(C.avcodec_send_frame((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(frame)))
+}
+
+func (ctxt *Context) GetBitRate() int64{
+	return (int64)(ctxt.bit_rate)
+}
+
+func (ctxt *Context) SetBitRate (bitrate int64){
+	ctxt.bit_rate = C.longlong(bitrate)
+}
+
+func (ctxt *Context) GetRcBufferSize() int{
+	return (int)(ctxt.rc_buffer_size)
+}
+
+func (ctxt *Context) SetRcBufferSize (rcBufferSize int){
+	ctxt.rc_buffer_size = C.int(rcBufferSize)
+}
+
+func (ctxt *Context) GetRcMaxRate() int64{
+	return (int64)(ctxt.rc_max_rate)
+}
+
+func (ctxt *Context) SetRcMaxRate (rcMaxRate int64){
+	ctxt.rc_max_rate = C.longlong(rcMaxRate)
+}
+
+func (ctxt *Context) GetRcMinRate() int64{
+	return (int64)(ctxt.rc_min_rate)
+}
+
+func (ctxt *Context) SetRcMinRate (rcMinRate int64){
+	ctxt.rc_min_rate = C.longlong(rcMinRate)
 }

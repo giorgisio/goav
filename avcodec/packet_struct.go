@@ -13,6 +13,9 @@ func (p *Packet) Buf() *AvBufferRef {
 func (p *Packet) Duration() int {
 	return int(p.duration)
 }
+func (p *Packet) SetDuration(duration int) {
+	p.duration = C.longlong(duration)
+}
 func (p *Packet) Flags() int {
 	return int(p.flags)
 }

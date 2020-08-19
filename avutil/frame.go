@@ -209,3 +209,7 @@ func GetBestEffortTimestamp(f *Frame) int64 {
 // func GetFrameDefaults(f *Frame) {
 // 	C.get_frame_defaults(*C.struct_AVFrame(f))
 // }
+
+func (f *Frame) SetPicType(pictureType AvPictureType)  {
+	f.pict_type =  uint32(pictureType)
+}

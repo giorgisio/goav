@@ -91,12 +91,29 @@ func (cp *AvCodecParameters) AvCodecParametersCopyTo(dst *AvCodecParameters) int
 	return int(C.avcodec_parameters_copy((*C.struct_AVCodecParameters)(unsafe.Pointer(dst)), (*C.struct_AVCodecParameters)(unsafe.Pointer(cp))))
 }
 
+func (cp *AvCodecParameters) AvCodecParametersFromContext(ctxt *Context) int {
+	return int(C.avcodec_parameters_from_context((*C.struct_AVCodecParameters)(cp), (*C.struct_AVCodecContext)(ctxt)))
+}
+
 func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
 }
 
 func (c *Codec) AvCodecGetName() string {
 	return C.GoString(c.name)
+}
+
+func (c *Codec) GetPixFmts() []int {
+	var ret []int
+	pointer := c.pix_fmts
+	elementPointer := uintptr(unsafe.Pointer(pointer))
+	element := (int)(*((*int32)(unsafe.Pointer(elementPointer))))
+	for element != -1 {
+		elementPointer = elementPointer + 32
+		ret = append(ret, element)
+		element = (int)(*((*int32)(unsafe.Pointer(elementPointer))))
+	}
+	return ret
 }
 
 func (c *Codec) AvCodecGetId() int {
