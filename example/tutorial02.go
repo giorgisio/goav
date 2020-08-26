@@ -23,7 +23,7 @@ import (
 )
 
 func main() {
-	filename := "/Users/jason12360/Desktop/study/ffmpeg/ffmpeg-libav-tutorial/small_bunny_1080p_60fps.mp4"
+	filename := "/Users/jason12360/Desktop/test.mp4"
 
 	// Register all formats and codecs
 

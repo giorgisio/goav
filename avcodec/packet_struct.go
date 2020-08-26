@@ -58,3 +58,10 @@ func (p *Packet) Data() *uint8 {
 func (p *Packet) SetPos(pos int64) {
 	p.pos = C.int64_t(pos)
 }
+
+func (p *Packet) SetData(data *byte){
+	p.data = (*C.uchar)(data)
+}
+func (p *Packet) SetSize(size int){
+	p.size = C.int(size)
+}
