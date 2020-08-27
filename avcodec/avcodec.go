@@ -31,6 +31,7 @@ type (
 	Packet                        C.struct_AVPacket
 	BitStreamFilter               C.struct_AVBitStreamFilter
 	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
+	BSFContext					  C.struct_AVBSFContext
 	Rational                      C.struct_AVRational
 	Class                         C.struct_AVClass
 	AvCodecParameters             C.struct_AVCodecParameters
