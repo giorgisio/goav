@@ -50,3 +50,11 @@ func (bfx *BSFContext) AvBsfInit() int {
 func (bfx *BSFContext) CodecParameters() *AvCodecParameters {
 	return (*AvCodecParameters)(unsafe.Pointer(bfx.par_in))
 }
+
+func (bfx *BSFContext) AvBfsSendPacket(packet *Packet) int {
+	return (int)(C.av_bsf_send_packet((*C.struct_AVBSFContext)(bfx), (*C.struct_AVPacket)(packet)))
+}
+
+func (bfx *BSFContext) AvBfsReceivePacket(packet *Packet) int {
+	return (int)(C.av_bsf_receive_packet((*C.struct_AVBSFContext)(bfx), (*C.struct_AVPacket)(packet)))
+}
