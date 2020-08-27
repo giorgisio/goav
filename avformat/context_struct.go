@@ -233,6 +233,14 @@ func (ctxt *Context) Oformat() *OutputFormat {
 // 	return uint8(ctxt.dump_separator)
 // }
 
+func (outputFmt *OutputFormat) GetFlags() int {
+	return int(outputFmt.flags)
+}
+
+func (outputFmt *OutputFormat) SetFlags(flag int) {
+	outputFmt.flags = C.int(flag)
+}
+
 func (ctxt *Context) CorrectTsOverflow() int {
 	return int(ctxt.correct_ts_overflow)
 }
@@ -272,3 +280,4 @@ func (ctxt *Context) SetPb(pb *AvIOContext) {
 func (ctxt *Context) Pb2() **AvIOContext {
 	return (**AvIOContext)(unsafe.Pointer(&ctxt.pb))
 }
+

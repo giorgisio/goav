@@ -62,9 +62,14 @@ func (p *Packet) AvCopyPacketSideData(r *Packet) int {
 }
 
 //Free a packet.
+//Deprecated:FF_ENABLE_DEPRECATION_WARNINGS,please use AVPacketFree instead
 func (p *Packet) AvFreePacket() {
 	C.av_free_packet((*C.struct_AVPacket)(p))
 
+}
+
+func (p *Packet) AVPacketFree(){
+	C.av_packet_free((**C.struct_AVPacket)(unsafe.Pointer(&p)))
 }
 
 //Allocate new information of a packet.

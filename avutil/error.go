@@ -26,3 +26,9 @@ func ErrorFromCode(code int) error {
 
 	return errors.New(C.GoString(C.error2string(C.int(code))))
 }
+
+func AvStrError(code int) string {
+	errorString := C.char('u')
+	C.av_strerror(C.int(code),&errorString,C.ulong(100))
+	return C.GoString(&errorString)
+}

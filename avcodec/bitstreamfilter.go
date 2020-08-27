@@ -11,13 +11,13 @@ import (
 )
 
 //Register a bitstream filter.
-func (b *BitStreamFilter) AvRegisterBitstreamFilter() {
-	C.av_register_bitstream_filter((*C.struct_AVBitStreamFilter)(b))
+func (bsf *BitStreamFilter) AvRegisterBitstreamFilter() {
+	C.av_register_bitstream_filter((*C.struct_AVBitStreamFilter)(bsf))
 }
 
 //BitStreamFilter *av_bitstream_filter_next (const BitStreamFilter *f)
-func (f *BitStreamFilter) AvBitstreamFilterNext() *BitStreamFilter {
-	return (*BitStreamFilter)(C.av_bitstream_filter_next((*C.struct_AVBitStreamFilter)(f)))
+func (bsf *BitStreamFilter) AvBitstreamFilterNext() *BitStreamFilter {
+	return (*BitStreamFilter)(C.av_bitstream_filter_next((*C.struct_AVBitStreamFilter)(bsf)))
 }
 
 //Filter bitstream.
@@ -33,4 +33,28 @@ func (bfx *BitStreamFilterContext) AvBitstreamFilterClose() {
 //Create and initialize a bitstream filter context given a bitstream filter name.
 func AvBitstreamFilterInit(n string) *BitStreamFilterContext {
 	return (*BitStreamFilterContext)(C.av_bitstream_filter_init(C.CString(n)))
+}
+
+func AvBsfGetByName(name string) *BitStreamFilter{
+	return (*BitStreamFilter)(C.av_bsf_get_by_name(C.CString(name)))
+}
+
+func (bsf *BitStreamFilter) AvBsfAlloc(bsfContext **BSFContext) int{
+	return int(C.av_bsf_alloc((*C.struct_AVBitStreamFilter)(bsf),(**C.struct_AVBSFContext)(unsafe.Pointer(bsfContext))))
+}
+
+func (bfx *BSFContext) AvBsfInit() int {
+	return int(C.av_bsf_init((*C.struct_AVBSFContext)(bfx)))
+}
+
+func (bfx *BSFContext) CodecParameters() *AvCodecParameters {
+	return (*AvCodecParameters)(unsafe.Pointer(bfx.par_in))
+}
+
+func (bfx *BSFContext) AvBfsSendPacket(packet *Packet) int {
+	return (int)(C.av_bsf_send_packet((*C.struct_AVBSFContext)(bfx), (*C.struct_AVPacket)(packet)))
+}
+
+func (bfx *BSFContext) AvBfsReceivePacket(packet *Packet) int {
+	return (int)(C.av_bsf_receive_packet((*C.struct_AVBSFContext)(bfx), (*C.struct_AVPacket)(packet)))
 }

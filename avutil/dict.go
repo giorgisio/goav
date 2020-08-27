@@ -29,6 +29,7 @@ const (
 	AV_DICT_DONT_OVERWRITE  = int(C.AV_DICT_DONT_OVERWRITE)
 	AV_DICT_APPEND          = int(C.AV_DICT_APPEND)
 	AV_DICT_MULTIKEY        = int(C.AV_DICT_MULTIKEY)
+	AV_NOPTS_VALUE          = int64 (C.AV_NOPTS_VALUE)
 )
 
 func (d *Dictionary) AvDictGet(key string, prev *DictionaryEntry, flags int) *DictionaryEntry {

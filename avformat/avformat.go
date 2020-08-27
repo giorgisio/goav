@@ -134,14 +134,17 @@ func (s *Stream) AvStreamGetSideData(t AvPacketSideDataType, z int) *uint8 {
 }
 
 //Allocate an Context for an output format.
-func AvformatAllocOutputContext2(ctx **Context, o *OutputFormat, fo, fi string) int {
-	Cformat_name := C.CString(fo)
-	defer C.free(unsafe.Pointer(Cformat_name))
+func AvAllocOutputContext2(ctx **Context, o *OutputFormat, format, filename *string) int {
+	var CFormatName *C.char
+	if format != nil{
+		CFormatName = C.CString(*format)
+	}
+	defer C.free(unsafe.Pointer(CFormatName))
 
-	Cfilename := C.CString(fi)
-	defer C.free(unsafe.Pointer(Cfilename))
+	CFilename := C.CString(*filename)
+	defer C.free(unsafe.Pointer(CFilename))
 
-	return int(C.avformat_alloc_output_context2((**C.struct_AVFormatContext)(unsafe.Pointer(ctx)), (*C.struct_AVOutputFormat)(o), Cformat_name, Cfilename))
+	return int(C.avformat_alloc_output_context2((**C.struct_AVFormatContext)(unsafe.Pointer(ctx)), (*C.struct_AVOutputFormat)(o), CFormatName, CFilename))
 }
 
 //Find InputFormat based on the short name of the input format.
