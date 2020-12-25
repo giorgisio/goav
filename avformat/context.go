@@ -222,7 +222,7 @@ func (s *Context) AvformatNewStream2(c *AvCodec) *Stream {
 	stream.codec.width = 640
 	stream.codec.height = 480
 	stream.time_base.num = 1
-	stream.time_base.num = 25
+	stream.time_base.den = 25
 	return stream
 }
 
