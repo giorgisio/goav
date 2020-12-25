@@ -61,6 +61,11 @@ func (avs *Stream) TimeBase() avcodec.Rational {
 	return newRational(avs.time_base)
 }
 
+func (avs *Stream) SetTimeBase(value avcodec.Rational) {
+	avs.time_base.num = C.int(value.Num())
+	avs.time_base.den = C.int(value.Den())
+}
+
 // func (avs *Stream) RecommendedEncoderConfiguration() string {
 // 	return C.GoString(avs.recommended_encoder_configuration)
 // }
