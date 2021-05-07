@@ -7,7 +7,9 @@ A comprehensive binding to the ffmpeg video/audio manipulation library.
 
 ## Usage
 
-`````go
+### 1. go code
+
+```go
 
 import "github.com/giorgisio/goav/avformat"
 
@@ -38,7 +40,15 @@ func main() {
 	//...
 
 }
-`````
+```
+
+### run
+
+```shell
+# set PKG_CONFIG_PATH to find specified header file
+export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:YOUR_FFMPEG_PKG_CONFIG_PATH
+go run main.go
+```
 
 ## Libraries
 
@@ -80,7 +90,6 @@ Coding examples are available in the examples/ directory.
 ## Note
 - Function names in Go are consistent with that of the libraries to help with easy search
 - [cgo: Extending Go with C](http://blog.giorgis.io/cgo-examples)
-- goav comes with absolutely no warranty.
 
 ## Contribute
 - Fork this repo and create your own feature branch.
