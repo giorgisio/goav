@@ -26,10 +26,12 @@ import (
 )
 
 type (
+	DeviceInfoList          C.struct_AVDeviceInfoList
+	DeviceCapabilitiesQuery C.struct_AVDeviceCapabilitiesQuery
 	AvProbeData                C.struct_AVProbeData
 	InputFormat                C.struct_AVInputFormat
 	OutputFormat               C.struct_AVOutputFormat
-	Context                    C.struct_AVFormatContext
+	FormatContext              C.struct_AVFormatContext
 	Frame                      C.struct_AVFrame
 	CodecContext               C.struct_AVCodecContext
 	AvIndexEntry               C.struct_AVIndexEntry
@@ -42,7 +44,7 @@ type (
 	AvCodec                    C.struct_AVCodec
 	AvCodecTag                 C.struct_AVCodecTag
 	Class                      C.struct_AVClass
-	AvFormatInternal           C.struct_AVFormatInternal
+	FormatInternal           C.struct_AVFormatInternal
 	AvIOInterruptCB            C.struct_AVIOInterruptCB
 	AvPacketSideData           C.struct_AVPacketSideData
 	FFFrac                     C.struct_FFFrac
@@ -62,7 +64,7 @@ func (ctxt *AvIOContext) AvGetPacket(pkt *avcodec.Packet, s int) int {
 }
 
 //Read data and append it to the current content of the Packet.
-func (ctxt *AvIOContext) AvAppendPacket(pkt *avcodec.Packet, s int) int {
+func (ctxt *AvIOContext) AvAppendPacket(pkt *avcodec., s int) int {
 	return int(C.av_append_packet((*C.struct_AVIOContext)(ctxt), toCPacket(pkt), C.int(s)))
 }
 
@@ -184,7 +186,7 @@ func AvProbeInputBuffer(pb *AvIOContext, f **InputFormat, fi string, l int, o, m
 }
 
 //Open an input stream and read the header.
-func AvformatOpenInput(ps **Context, fi string, fmt *InputFormat, d **avutil.Dictionary) int {
+func AvformatOpenInput(ps **FormatContext, fi string, fmt *InputFormat, d **avutil.Dictionary) int {
 	Cfi := C.CString(fi)
 	defer C.free(unsafe.Pointer(Cfi))
 

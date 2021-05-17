@@ -106,7 +106,7 @@ func (c *Codec) AvcodecAllocContext3() *Context {
 }
 
 func (c *Codec) AvCodecIsEncoder() int {
-	return int(C.av_codec_is_encoder((*C.struct_AVCodec)(c)))
+	return int(C.av_codec_av_codec_is_encoderis_encoder((*C.struct_AVCodec)(c)))
 }
 
 func (c *Codec) AvCodecIsDecoder() int {
