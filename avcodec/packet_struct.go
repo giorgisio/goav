@@ -47,7 +47,7 @@ func (p *Packet) Pts() int64 {
 	return int64(p.pts)
 }
 func (p *Packet) SetPts(pts int64) {
-	p.dts = C.int64_t(pts)
+	p.pts = C.int64_t(pts)
 }
 func (p *Packet) Data() *uint8 {
 	return (*uint8)(p.data)
