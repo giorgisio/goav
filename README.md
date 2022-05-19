@@ -1,3 +1,7 @@
+# Deprecation Notice
+
+This repository is no longer maintained.
+
 # goav
 Golang binding for FFmpeg
 
