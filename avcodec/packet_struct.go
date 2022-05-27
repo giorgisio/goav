@@ -13,6 +13,9 @@ func (p *Packet) Buf() *AvBufferRef {
 func (p *Packet) Duration() int {
 	return int(p.duration)
 }
+func (p *Packet) SetDuration(duration int) {
+	p.duration = C.longlong(duration)
+}
 func (p *Packet) Flags() int {
 	return int(p.flags)
 }
@@ -51,4 +54,14 @@ func (p *Packet) SetPts(pts int64) {
 }
 func (p *Packet) Data() *uint8 {
 	return (*uint8)(p.data)
+}
+func (p *Packet) SetPos(pos int64) {
+	p.pos = C.int64_t(pos)
+}
+
+func (p *Packet) SetData(data *byte){
+	p.data = (*C.uchar)(data)
+}
+func (p *Packet) SetSize(size int){
+	p.size = C.int(size)
 }

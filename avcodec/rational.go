@@ -43,3 +43,7 @@ func NewRational(num, den int) Rational {
 		den: C.int(den),
 	}
 }
+
+func AVInvQ(rational Rational)Rational{
+	return (Rational)(C.av_inv_q((C.struct_AVRational)(rational)))
+}

@@ -31,6 +31,7 @@ type (
 	Packet                        C.struct_AVPacket
 	BitStreamFilter               C.struct_AVBitStreamFilter
 	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
+	BSFContext					  C.struct_AVBSFContext
 	Rational                      C.struct_AVRational
 	Class                         C.struct_AVClass
 	AvCodecParameters             C.struct_AVCodecParameters
@@ -74,15 +75,50 @@ func (cp *AvCodecParameters) AvCodecGetHeight() int {
 }
 
 func (cp *AvCodecParameters) AvCodecGetChannels() int {
-	return *((*int)(unsafe.Pointer(&cp.channels)))
+	return (int)(*((*int32)(unsafe.Pointer(&cp.channels))))
 }
 
 func (cp *AvCodecParameters) AvCodecGetSampleRate() int {
-	return *((*int)(unsafe.Pointer(&cp.sample_rate)))
+	return (int)(*((*int32)(unsafe.Pointer(&cp.sample_rate))))
+}
+func (cp *AvCodecParameters) AvCodecGetBitRate() int64 {
+	return (int64)(*((*int64)(unsafe.Pointer(&cp.bit_rate))))
+}
+func (cp *AvCodecParameters) AvCodecParametersFree() {
+	C.avcodec_parameters_free((**C.struct_AVCodecParameters)(unsafe.Pointer(&cp)))
+}
+
+func (cp *AvCodecParameters) AvCodecParametersCopyTo(dst *AvCodecParameters) int {
+	return int(C.avcodec_parameters_copy((*C.struct_AVCodecParameters)(unsafe.Pointer(dst)), (*C.struct_AVCodecParameters)(unsafe.Pointer(cp))))
+}
+
+func (cp *AvCodecParameters) AvCodecParametersFromContext(ctxt *Context) int {
+	return int(C.avcodec_parameters_from_context((*C.struct_AVCodecParameters)(cp), (*C.struct_AVCodecContext)(ctxt)))
 }
 
 func (c *Codec) AvCodecGetMaxLowres() int {
 	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
+}
+
+func (c *Codec) AvCodecGetName() string {
+	return C.GoString(c.name)
+}
+
+func (c *Codec) GetPixFmts() []int {
+	var ret []int
+	pointer := c.pix_fmts
+	elementPointer := uintptr(unsafe.Pointer(pointer))
+	element := (int)(*((*int32)(unsafe.Pointer(elementPointer))))
+	for element != -1 {
+		elementPointer = elementPointer + 32
+		ret = append(ret, element)
+		element = (int)(*((*int32)(unsafe.Pointer(elementPointer))))
+	}
+	return ret
+}
+
+func (c *Codec) AvCodecGetId() int {
+	return (int)(*((*int32)(unsafe.Pointer(&c.id))))
 }
 
 // AvCodecNext If c is NULL, returns the first registered codec, if c is non-NULL,
@@ -276,8 +312,4 @@ func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 
 func AvcodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
-}
-
-func (f *Frame) Pts() int64 {
-	return int64(f.pts)
 }

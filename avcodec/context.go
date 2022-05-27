@@ -14,6 +14,15 @@ func (ctxt *Context) AvCodecGetPktTimebase() Rational {
 	return Rational(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(ctxt)))
 }
 
+func (ctxt *Context) GetPixFmt() int{
+	return int(ctxt.pix_fmt)
+}
+
+func (ctxt *Context) SetPixFmt(pixFmt int ) {
+	ctxt.pix_fmt = int32(pixFmt)
+}
+
+
 // AvCodecGetPktTimebase2 returns the timebase rational number as numerator and denominator
 func (ctxt *Context) AvCodecGetPktTimebase2() Rational {
 	return ctxt.AvCodecGetPktTimebase()
@@ -57,7 +66,7 @@ func (ctxt *Context) AvCodecSetChromaIntraMatrix(t *uint16) {
 
 //Free the codec context and everything associated with it and write NULL to the provided pointer.
 func (ctxt *Context) AvcodecFreeContext() {
-	C.avcodec_free_context((**C.struct_AVCodecContext)(unsafe.Pointer(ctxt)))
+	C.avcodec_free_context((**C.struct_AVCodecContext)(unsafe.Pointer(&ctxt)))
 }
 
 //Set the fields of the given Context to default values corresponding to the given codec (defaults may be codec-dependent).
@@ -66,9 +75,17 @@ func (ctxt *Context) AvcodecGetContextDefaults3(c *Codec) int {
 }
 
 //Copy the settings of the source Context into the destination Context.
+//Deprecated：The semantics of this function are ill-defined and it should not be used. If you need to transfer the stream parameters from one codec context to another, use an intermediate AVCodecParameters instance and the avcodec_parameters_from_context() / avcodec_parameters_to_context() functions.
 func (ctxt *Context) AvcodecCopyContext(ctxt2 *Context) int {
 	return int(C.avcodec_copy_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecContext)(ctxt2)))
 }
+
+//Fill the codec context based on the values from the supplied codec parameters.
+func (ctxt *Context) AvcodecParametersToContext(parameters *AvCodecParameters) int {
+	return int(C.avcodec_parameters_to_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecParameters)(parameters)))
+}
+
+
 
 //Initialize the Context to use the given Codec
 func (ctxt *Context) AvcodecOpen2(c *Codec, d **Dictionary) int {
@@ -76,9 +93,11 @@ func (ctxt *Context) AvcodecOpen2(c *Codec, d **Dictionary) int {
 }
 
 //Close a given Context and free all the data associated with it (but not the Context itself).
+//Deprecated:Do not use this function. Use avcodec_free_context() to destroy a codec context (either open or closed). Opening and closing a codec context multiple times is not supported anymore – use multiple codec contexts instead.
 func (ctxt *Context) AvcodecClose() int {
 	return int(C.avcodec_close((*C.struct_AVCodecContext)(ctxt)))
 }
+
 
 //The default callback for Context.get_buffer2().
 func (s *Context) AvcodecDefaultGetBuffer2(f *Frame, l int) int {
@@ -198,6 +217,46 @@ func (ctxt *Context) AvcodecSendPacket(packet *Packet) int {
 	return (int)(C.avcodec_send_packet((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(packet)))
 }
 
+func (ctxt *Context) AvcodecReceivePacket(packet *Packet) int {
+	return (int)(C.avcodec_receive_packet((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVPacket)(packet)))
+}
+
 func (ctxt *Context) AvcodecReceiveFrame(frame *Frame) int {
 	return (int)(C.avcodec_receive_frame((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(frame)))
+}
+
+func (ctxt *Context) AvcodecSendFrame(frame *Frame) int {
+	return (int)(C.avcodec_send_frame((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVFrame)(frame)))
+}
+
+func (ctxt *Context) GetBitRate() int64{
+	return (int64)(ctxt.bit_rate)
+}
+
+func (ctxt *Context) SetBitRate (bitrate int64){
+	ctxt.bit_rate = C.longlong(bitrate)
+}
+
+func (ctxt *Context) GetRcBufferSize() int{
+	return (int)(ctxt.rc_buffer_size)
+}
+
+func (ctxt *Context) SetRcBufferSize (rcBufferSize int){
+	ctxt.rc_buffer_size = C.int(rcBufferSize)
+}
+
+func (ctxt *Context) GetRcMaxRate() int64{
+	return (int64)(ctxt.rc_max_rate)
+}
+
+func (ctxt *Context) SetRcMaxRate (rcMaxRate int64){
+	ctxt.rc_max_rate = C.longlong(rcMaxRate)
+}
+
+func (ctxt *Context) GetRcMinRate() int64{
+	return (int64)(ctxt.rc_min_rate)
+}
+
+func (ctxt *Context) SetRcMinRate (rcMinRate int64){
+	ctxt.rc_min_rate = C.longlong(rcMinRate)
 }

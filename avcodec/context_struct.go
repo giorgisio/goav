@@ -2,6 +2,7 @@
 // Giorgis (habtom@giorgis.io)
 
 package avcodec
+import "C"
 
 func (ctxt *Context) ActiveThreadType() int {
 	return int(ctxt.active_thread_type)
@@ -173,6 +174,10 @@ func (ctxt *Context) HeaderBits() int {
 
 func (ctxt *Context) Height() int {
 	return int(ctxt.height)
+}
+
+func (ctxt *Context) SetHeight(height int){
+	ctxt.height = (C.int)(height)
 }
 
 func (ctxt *Context) ICount() int {
@@ -478,6 +483,17 @@ func (ctxt *Context) Trellis() int {
 func (ctxt *Context) Width() int {
 	return int(ctxt.width)
 }
+func (ctxt *Context) SetWidth(w int) {
+	ctxt.width = C.int(w)
+}
+
+func (ctxt *Context) SampleAspectRatio() Rational{
+	return Rational(ctxt.sample_aspect_ratio)
+}
+func (ctxt *Context) SetSampleAspectRatio(s Rational) {
+	ctxt.sample_aspect_ratio = C.struct_AVRational(s)
+}
+
 
 func (ctxt *Context) WorkaroundBugs() int {
 	return int(ctxt.workaround_bugs)
