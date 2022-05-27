@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.13-buster
+    steps:
+      - checkout
+      - run: sudo apt-get install -qq -y libavdevice-dev libavfilter-dev libswscale-dev libavcodec-dev libavformat-dev libswresample-dev libavutil-dev
+      - run: go get -v -t -d ./...
+      - run: go test -v ./...
