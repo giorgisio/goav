@@ -9,8 +9,8 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/giorgisio/goav/avcodec"
-	"github.com/giorgisio/goav/avutil"
+	"github.com/sigmaseven/goav/avcodec"
+	"github.com/sigmaseven/goav/avutil"
 )
 
 func (avs *Stream) CodecParameters() *avcodec.AvCodecParameters {
@@ -59,6 +59,11 @@ func (avs *Stream) SampleAspectRatio() avcodec.Rational {
 
 func (avs *Stream) TimeBase() avcodec.Rational {
 	return newRational(avs.time_base)
+}
+
+func (avs *Stream) SetTimeBase(value avcodec.Rational) {
+	avs.time_base.num = C.int(value.Num())
+	avs.time_base.den = C.int(value.Den())
 }
 
 // func (avs *Stream) RecommendedEncoderConfiguration() string {
