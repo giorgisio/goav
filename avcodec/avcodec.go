@@ -161,8 +161,14 @@ func AvsubtitleFree(s *AvSubtitle) {
 	C.avsubtitle_free((*C.struct_AVSubtitle)(s))
 }
 
+//Alloc a packet
 func AvPacketAlloc() *Packet {
 	return (*Packet)(C.av_packet_alloc())
+}
+
+//Free a packet
+func AvPacketFree(packet *Packet) {
+	C.av_packet_free((**C.struct_AVPacket)(unsafe.Pointer(&packet)))
 }
 
 //Pack a dictionary for use in side_data.
@@ -178,10 +184,6 @@ func AvPacketUnpackDictionary(d *uint8, s int, dt **Dictionary) int {
 //Find a registered decoder with a matching codec ID.
 func AvcodecFindDecoder(id CodecId) *Codec {
 	return (*Codec)(C.avcodec_find_decoder((C.enum_AVCodecID)(id)))
-}
-
-func AvCodecIterate(p *unsafe.Pointer) *Codec {
-	return (*Codec)(C.av_codec_iterate(p))
 }
 
 //Find a registered decoder with the specified name.

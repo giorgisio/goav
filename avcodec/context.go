@@ -70,6 +70,16 @@ func (ctxt *Context) AvcodecCopyContext(ctxt2 *Context) int {
 	return int(C.avcodec_copy_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecContext)(ctxt2)))
 }
 
+//Convert settings from AvCodecParameters into the destination Context.
+func (ctxt *Context) AvcodecFromParameters(parameters *AvCodecParameters) int {
+	return int(C.avcodec_parameters_to_context((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodecParameters)(parameters)))
+}
+
+//Convert settings from the destination Context into AvCodecParameters.
+func (ctxt *Context) AvcodecToParameters(parameters *AvCodecParameters) int {
+	return int(C.avcodec_parameters_from_context((*C.struct_AVCodecParameters)(parameters), (*C.struct_AVCodecContext)(ctxt)))
+}
+
 //Initialize the Context to use the given Codec
 func (ctxt *Context) AvcodecOpen2(c *Codec, d **Dictionary) int {
 	return int(C.avcodec_open2((*C.struct_AVCodecContext)(ctxt), (*C.struct_AVCodec)(c), (**C.struct_AVDictionary)(unsafe.Pointer(d))))

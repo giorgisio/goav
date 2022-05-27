@@ -19,10 +19,6 @@ func AvMalloc(s uintptr) unsafe.Pointer {
 	return unsafe.Pointer(C.av_malloc(C.size_t(s)))
 }
 
-func AvMallocArray(n, s uintptr) unsafe.Pointer {
-	return C.av_malloc_array(C.size_t(n), C.size_t(s))
-}
-
 //Allocate or reallocate a block of memory.
 func AvRealloc(p *int, s uintptr) unsafe.Pointer {
 	return C.av_realloc(unsafe.Pointer(&p), C.size_t(s))
@@ -59,10 +55,6 @@ func AvMallocz(s uintptr) unsafe.Pointer {
 //Allocate a block of nmemb * size bytes with alignment suitable for all memory accesses (including vectors if available on the CPU) and zero all the bytes of the block.
 func AvCalloc(n, s uintptr) unsafe.Pointer {
 	return C.av_calloc(C.size_t(n), C.size_t(s))
-}
-
-func AvMalloczArray(n, s uintptr) unsafe.Pointer {
-	return C.av_mallocz_array(C.size_t(n), C.size_t(s))
 }
 
 //Duplicate the string s.
